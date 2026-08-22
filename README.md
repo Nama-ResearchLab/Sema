@@ -21,21 +21,23 @@ Translation APIs need the cloud. **Sema** takes the boring, deterministic
 route that actually works on a phone with no signal:
 
 ```
-Swahili input â”€â”€anchorâ”€â”€> English skeleton â”€â”€(your model reasons here)â”€â”€>
-structured output â”€â”€renderâ”€â”€> Swahili templates â”€â”€> user
-                              (never back-translate prose)
+                anchor            your model          render
+Swahili input ----------> English ----------> structured -------> Swahili
+                 (Sema)      skeleton      reasons here       templates    output
+
+                          (never back-translate prose)
 ```
 
 Sema provides step 1: it resolves surface words to lemmas, parts of speech,
-English glosses, and derivational roots â€” fully offline, in microseconds,
+English glosses, and derivational roots -- fully offline, in microseconds,
 from a 1.8 MB data file.
 
 ## What's in the box
 
 | | |
 |---|---|
-| **19,717 lemmas** | nouns / verbs / adjectives / more â€” distilled from Wiktionary |
-| **Morphology-aware** | `umefikia` â†’ `fikia` (*arrive at*, root `-fika`) via language affix rules |
+| **19,717 lemmas** | nouns / verbs / adjectives / more -- distilled from Wiktionary |
+| **Morphology-aware** | `umefikia` -> `fikia` (*arrive at*, root `-fika`) via language affix rules |
 | **Zero dependencies at runtime** | no network, no API keys, no models |
 | **1.8 MB** | ships inside any app; regenerable from raw dumps |
 
@@ -74,9 +76,9 @@ Sema is deliberately **not** a translator. It is the anchor layer of an
 architecture for serving low-resource-language users with strong-in-English
 models:
 
-1. **Anchor** â€” Sema turns Swahili text into an English semantic skeleton
-2. **Reason** â€” your LLM works in its strongest language
-3. **Render** â€” emit answers from *bilingual templates/fields*, so medical
+1. **Anchor** -- Sema turns Swahili text into an English semantic skeleton
+2. **Reason** -- your LLM works in its strongest language
+3. **Render** -- emit answers from *bilingual templates/fields*, so medical
    facts, dosage numbers and warnings never pass through lossy back-translation
 
 ## Adding a language
@@ -91,7 +93,7 @@ wget https://kaikki.org/dictionary/Yoruba/kaikki.org-dictionary-Yoruba.jsonl
 # 2. distill
 cargo run --release --bin sema-distill -- kaikki.org-dictionary-Yoruba.jsonl yoruba.distilled.jsonl
 
-# 3. add an affix table (see src/affix/sw.toml as template) â€” done
+# 3. add an affix table (see src/affix/sw.toml as template) -- done
 ```
 
 Affix rules live in TOML files (`src/affix/`), not in code. Contributions
@@ -113,26 +115,26 @@ mixed Swahili acceptance set (proper names and punctuation excluded by design).
 
 The distilled lexicon derives from [Wiktionary](https://en.wiktionary.org),
 extracted via [kaikki.org](https://kaikki.org). Both the raw dumps and the
-distilled files are licensed **CC BY-SA 4.0** â€” see
+distilled files are licensed **CC BY-SA 4.0** -- see
 [DATA-LICENSE](DATA-LICENSE). If your product ships `swahili.distilled.jsonl`
 (or derivatives), you must credit Wiktionary contributors and keep the
-share-alike terms. Code is MIT â€” see [LICENSE](LICENSE).
+share-alike terms. Code is MIT -- see [LICENSE](LICENSE).
 
 We are grateful to the Wiktionary contributor community and to Tatu Ylonen's
 kaikki.org project for making low-resource language data accessible.
 
 ## Status & roadmap
 
-- [x] v0.1 â€” Swahili lexicon + naive two-slot verb morphology
+- [x] v0.1 -- Swahili lexicon + naive two-slot verb morphology
 - [ ] richer Swahili morphology (object markers, locative infixes, negation slots)
-- [ ] ENâ†’SW direction (harvested from kaikki English `translations` fields)
+- [ ] EN->SW direction (harvested from kaikki English `translations` fields)
 - [ ] second language proof (community pick: Hausa? Luganda?)
 - [ ] sentence-level role tagging (subject/object/tense) beyond word anchors
 
-Sema is developed as part of **Eden** (Nama Research Lab) â€” an edge-AI
+Sema is developed as part of **Eden** (Nama Research Lab) -- an edge-AI
 runtime stack bringing useful AI to low-end devices, offline.
 
 ## License
 
-Code: MIT â€” [LICENSE](LICENSE).
-Data: CC BY-SA 4.0 â€” [DATA-LICENSE](DATA-LICENSE).
+Code: MIT -- [LICENSE](LICENSE).
+Data: CC BY-SA 4.0 -- [DATA-LICENSE](DATA-LICENSE).
