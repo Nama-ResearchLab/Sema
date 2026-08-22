@@ -126,13 +126,31 @@ kaikki.org project for making low-resource language data accessible.
 ## Status & roadmap
 
 - [x] v0.1 -- Swahili lexicon + naive two-slot verb morphology
+- [x] sentence-level role tagging (POS-based S/V/O/M tagging)
+- [x] render layer (gloss reverse-index for bilingual output)
 - [ ] richer Swahili morphology (object markers, locative infixes, negation slots)
 - [ ] EN->SW direction (harvested from kaikki English `translations` fields)
 - [ ] second language proof (community pick: Hausa? Luganda?)
-- [ ] sentence-level role tagging (subject/object/tense) beyond word anchors
 
 Sema is developed as part of **Eden** (Nama Research Lab) -- an edge-AI
 runtime stack bringing useful AI to low-end devices, offline.
+
+## Research findings (Aug 2026)
+
+Tested the anchor→reason→render pipeline with qwen2.5:0.5b and 1.5b on
+a 100-sentence Swahili grammar set.
+
+**Key finding:** At model sizes >= 1.5B, the model handles Swahili
+directly without anchoring help. Sema's value is in:
+
+1. **RAG lemmatization** -- agglutinative Swahili breaks TF-IDF;
+   Sema's affix stripping fixes this (10/10 vs 7/10 retrieval).
+2. **Render layer** -- bilingual output via gloss reverse-index.
+3. **Low-resource models** -- at 0.5B, glosses help slightly but the
+   model still can't compose responses.
+
+Results and architecture documented in the companion project:
+[Project Jericho](https://github.com/noelchesco5/jericho/blob/main/docs/RESEARCH.md)
 
 ## License
 
