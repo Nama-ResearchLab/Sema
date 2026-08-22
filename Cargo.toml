@@ -1,0 +1,18 @@
+[package]
+name = "sema"
+version = "0.1.0"
+edition = "2024"
+description = "Sema - offline semantic anchoring for low-resource languages. Distilled Wiktionary lexicons + morphology-aware word resolution. No cloud, no model."
+license = "MIT"
+repository = "https://github.com/Nama-ResearchLab/Sema"
+keywords = ["swahili", "nlp", "lexicon", "morphology", "low-resource"]
+categories = ["text-processing", "internationalization"]
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.8"
+
+[profile.release]
+opt-level = 3
+lto = "thin"

@@ -1,0 +1,40 @@
+# Swahili verb agglutination rules (v0 — naive two-slot model).
+#
+# Real Swahili morphology is richer (object markers, relative infixes,
+# -po/-ko/-mo locatives...). This table handles the high-frequency
+# subject+tense pattern:  u-me-fikia, ha-wa-po, ni-ta-sema ...
+# Contributions welcome — keep entries lowercase.
+
+lang = "sw"
+
+subjects = [
+  "ha",   # negative marker (often precedes subject: ha-wa-po)
+  "wa",   # wa-class / they
+  "u",    # you sg / u-class
+  "a",    # he/she
+  "ni",   # I
+  "tu",   # we
+  "m",    # you pl / m-class
+  "li",   # li-class (past concord)
+  "ya",   # ya-class
+  "pa",   # pa-class (place)
+  "ki",   # ki-class / when-if marker
+  "ji",   # ji-class
+  "zi",   # zi-class
+  "i",    # i-class
+]
+
+tenses = [
+  "me",   # perfect
+  "li",   # past
+  "na",   # present progressive
+  "ta",   # future
+  "ka",   # consecutive
+  "hu",   # habitual
+  "ku",   # infinitive marker slot
+  "ja",   # "not yet" aspect
+  "po",   # when/locative
+  "",     # bare stem after subject
+]
+
+min_stem = 3
