@@ -58,6 +58,17 @@ dependencies = [
 name = "sema"
 version = "0.1.0"
 dependencies = [
+ "sema-tena",
+ "serde",
+ "serde_json",
+ "toml",
+]
+
+[[package]]
+name = "sema-tena"
+version = "0.1.0"
+source = "git+https://github.com/Nama-ResearchLab/Sema-Tena#b9425412878105015c72e2aa72e50c781539892b"
+dependencies = [
  "serde",
  "serde_json",
  "toml",

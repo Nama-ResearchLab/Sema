@@ -87,12 +87,21 @@ fn main() -> std::io::Result<()> {
         sema::VERSION,
         sent_stats.len()
     );
-    println!("OVERALL: {}/{} words anchored ({:.1}%)\n", res_w, tot_w, res_w as f64 / tot_w.max(1) as f64 * 100.0);
+    println!(
+        "OVERALL: {}/{} words anchored ({:.1}%)\n",
+        res_w,
+        tot_w,
+        res_w as f64 / tot_w.max(1) as f64 * 100.0
+    );
 
     println!("per grammatical focus:");
     for (k, (t, r)) in &per_focus {
         let (t, r) = (*t, *r);
-        println!("  {:<42} {r:>3}/{t:<3} {:.0}%", k, r as f64 / t.max(1) as f64 * 100.0);
+        println!(
+            "  {:<42} {r:>3}/{t:<3} {:.0}%",
+            k,
+            r as f64 / t.max(1) as f64 * 100.0
+        );
     }
 
     println!("\ntop unresolved words:");

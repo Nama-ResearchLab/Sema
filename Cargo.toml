@@ -13,6 +13,11 @@ serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 toml = "0.8"
 
+# Back-pass: pure data-driven Swahili verb synthesis (structured intent to
+# exact surface verb). The engine's morphology lives in its own TOML data
+# file; this crate uses it as the render half of the double-pass pattern.
+sema-tena = { git = "https://github.com/Nama-ResearchLab/Sema-Tena" }
+
 [profile.release]
 opt-level = 3
 lto = "thin"

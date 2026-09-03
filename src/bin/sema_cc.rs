@@ -11,6 +11,8 @@
 //!   sema_cc lex --data data/swahili.distilled.jsonl linearize --sentence "umefika sokoni"
 //!   sema_cc rolodex --subj u --tense me --root fika
 //!   sema_cc rolodex --neg --subj wa --tense ta --obj ku --root jibu
+//!   sema_cc synth --subj 1SG --tense PAST --root fanya --neg
+//!   sema_cc synth --subj 1SG --tense PRES --root soma --deriv causative
 //!   sema_cc race --lex <path> --sentence "habari umefika"
 //!   sema_cc bench --lex <path> --csv bench/Sema_Benchmark_1000.csv --limit 200
 //!
@@ -46,6 +48,7 @@ fn run(args: &[String]) -> Result<Value, String> {
         "morph" => morph(args),
         "linearize" => linearize(args),
         "rolodex" => rolodex(args),
+        "synth" => synth(args),
         "race" => race(args),
         "bench" => bench(args),
         _ => Err(format!("unknown subcommand: {sub}")),
@@ -205,6 +208,37 @@ fn rolodex(args: &[String]) -> Result<Value, String> {
         "surface": syn.surface,
         "slots": syn.slots,
         "smoothed": syn.smoothed,
+    }))
+}
+
+fn synth(args: &[String]) -> Result<Value, String> {
+    let e = sema::backpass::engine();
+    let root = flag(args, "--root").ok_or("missing --root")?;
+    let mut intent = sema::backpass::intent_from_parts(
+        &e,
+        flag(args, "--subj").as_deref(),
+        flag(args, "--tense").as_deref(),
+        has(args, "--neg"),
+        flag(args, "--obj").as_deref(),
+        &root,
+    );
+    intent.derivations = flag(args, "--deriv")
+        .map(|s| {
+            s.split(',')
+                .map(|t| t.trim().to_string())
+                .filter(|t| !t.is_empty())
+                .collect()
+        })
+        .unwrap_or_default();
+    if let Some(mood) = flag(args, "--mood") {
+        intent.mood = mood;
+    }
+    let out = e.synthesize(&intent);
+    Ok(json!({
+        "surface": out.surface,
+        "slots": out.slots,
+        "subject_class": out.subject_class,
+        "object_class": out.object_class,
     }))
 }
 

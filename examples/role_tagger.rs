@@ -4,8 +4,8 @@
 //! and English gloss. This produces structured data the model can reason
 //! over — not just a word list, but a grammatical parse.
 
-use sema::lexicon::segment_words;
 use sema::Lexicon;
+use sema::lexicon::segment_words;
 use std::sync::Arc;
 
 /// A single word tagged with its grammatical role.

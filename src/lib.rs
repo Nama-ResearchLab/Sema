@@ -27,6 +27,7 @@
 //! ```
 
 pub mod affix;
+pub mod backpass;
 pub mod lexicon;
 pub mod linearizer;
 pub mod racer;
