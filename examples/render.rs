@@ -4,9 +4,8 @@
 //! for key content words and produces a bilingual response. The model never
 //! back-translates prose — Sema handles the rendering.
 
-use sema::{Lexicon, Skeleton};
+use sema::Lexicon;
 use std::collections::HashMap;
-use std::sync::Arc;
 
 /// Builds a reverse index: English gloss -> Swahili lemma(s).
 pub struct RenderIndex {
@@ -16,8 +15,8 @@ pub struct RenderIndex {
 
 impl RenderIndex {
     /// Build from a loaded lexicon.
-    pub fn from_lexicon(lex: &Lexicon) -> Self {
-        let mut eng_to_sw: HashMap<String, Vec<(String, String)>> = HashMap::new();
+    pub fn from_lexicon(_lex: &Lexicon) -> Self {
+        let eng_to_sw: HashMap<String, Vec<(String, String)>> = HashMap::new();
         // Lexicon doesn't expose entries() directly — we need to iterate
         // via a known approach. For now, use the public API.
         // We'll build this from skeleton_for calls during render instead.
@@ -46,11 +45,25 @@ impl RenderIndex {
 }
 
 /// Produces a bilingual output from model's English response.
-pub fn render_bilingual(
-    model_output: &str,
-    anchor_summary: &str,
-) -> String {
+pub fn render_bilingual(model_output: &str, anchor_summary: &str) -> String {
     // For now, render as: English response + anchor summary
     // Full render would map content words back to Swahili via RenderIndex
     format!("{}\n\n[Swahili context: {}]", model_output, anchor_summary)
+}
+
+fn main() {
+    let lex = Lexicon::load("data/swahili.distilled.jsonl").expect("lexicon");
+    let pairs = vec![
+        ("umefikia".to_string(), "to arrive at".to_string()),
+        ("wapi".to_string(), "where".to_string()),
+    ];
+    let index = RenderIndex::from_word_pairs(&pairs, &lex);
+    match index.find_swahili("to arrive at") {
+        Some(forms) => println!("to arrive at -> {:?}", forms),
+        None => println!("to arrive at -> (no entry)"),
+    }
+    println!(
+        "{}",
+        render_bilingual("What are you doing here?", "umefikia=arrive[V]")
+    );
 }

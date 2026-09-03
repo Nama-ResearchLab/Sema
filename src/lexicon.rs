@@ -22,7 +22,7 @@ pub struct LexEntry {
     pub f: Vec<String>,
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone)]
 pub struct Lexicon {
     entries: HashMap<String, LexEntry>,
     form_index: HashMap<String, Vec<String>>,
@@ -46,7 +46,11 @@ pub fn root_from_glosses(glosses: &[String]) -> Option<String> {
         }
         if g.starts_with('-') {
             if let Some(end) = g.find(':') {
-                if end > 1 && g[..end].chars().all(|c| c.is_ascii_alphabetic() || c == '-') {
+                if end > 1
+                    && g[..end]
+                        .chars()
+                        .all(|c| c.is_ascii_alphabetic() || c == '-')
+                {
                     return Some(g[..end].to_string());
                 }
             }
@@ -125,10 +129,7 @@ impl Lexicon {
         Self::load_with_affix(path, affix)
     }
 
-    pub fn load_with_affix(
-        path: impl AsRef<Path>,
-        affix: AffixTable,
-    ) -> std::io::Result<Self> {
+    pub fn load_with_affix(path: impl AsRef<Path>, affix: AffixTable) -> std::io::Result<Self> {
         let f = std::fs::File::open(path)?;
         let r = std::io::BufReader::new(f);
         let mut lex = Self {
@@ -315,6 +316,9 @@ mod tests {
 
     #[test]
     fn segmenter() {
-        assert_eq!(segment_words("habari, habari?"), vec!["habari", ",", "habari", "?"]);
+        assert_eq!(
+            segment_words("habari, habari?"),
+            vec!["habari", ",", "habari", "?"]
+        );
     }
 }

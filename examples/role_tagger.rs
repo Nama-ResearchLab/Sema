@@ -5,7 +5,7 @@
 //! over — not just a word list, but a grammatical parse.
 
 use sema::lexicon::segment_words;
-use sema::{Lexicon, Skeleton};
+use sema::Lexicon;
 use std::sync::Arc;
 
 /// A single word tagged with its grammatical role.
@@ -34,16 +34,28 @@ impl RoleTag {
     pub fn to_summary(&self) -> String {
         let mut parts = Vec::new();
         for &i in &self.subjects {
-            parts.push(format!("subject: {} ({})", self.words[i].surface, self.words[i].gloss));
+            parts.push(format!(
+                "subject: {} ({})",
+                self.words[i].surface, self.words[i].gloss
+            ));
         }
         for &i in &self.verbs {
-            parts.push(format!("verb: {} ({})", self.words[i].surface, self.words[i].gloss));
+            parts.push(format!(
+                "verb: {} ({})",
+                self.words[i].surface, self.words[i].gloss
+            ));
         }
         for &i in &self.objects {
-            parts.push(format!("object: {} ({})", self.words[i].surface, self.words[i].gloss));
+            parts.push(format!(
+                "object: {} ({})",
+                self.words[i].surface, self.words[i].gloss
+            ));
         }
         for &i in &self.modifiers {
-            parts.push(format!("{}: {} ({})", self.words[i].pos, self.words[i].surface, self.words[i].gloss));
+            parts.push(format!(
+                "{}: {} ({})",
+                self.words[i].pos, self.words[i].surface, self.words[i].gloss
+            ));
         }
         if !self.unresolved.is_empty() {
             parts.push(format!("unknown: {}", self.unresolved.join(", ")));
@@ -63,7 +75,9 @@ impl RoleTagger {
     }
 
     pub fn from_lexicon(lex: &Lexicon) -> Self {
-        Self { lex: Arc::new(lex.clone()) }
+        Self {
+            lex: Arc::new(lex.clone()),
+        }
     }
 
     /// Tag a sentence: segment, resolve each word, classify roles by POS.
@@ -110,7 +124,14 @@ impl RoleTagger {
             }
         }
 
-        RoleTag { words, unresolved, subjects, verbs, objects, modifiers }
+        RoleTag {
+            words,
+            unresolved,
+            subjects,
+            verbs,
+            objects,
+            modifiers,
+        }
     }
 }
 
@@ -125,15 +146,37 @@ fn tidy_gloss(gloss: &str) -> String {
     let mut clean = t.to_string();
     while let Some(start) = clean.find("class_((") {
         if let Some(end) = clean[start..].find("))") {
-            clean = format!("{}{}", &clean[..start], &clean[start+end+2..]);
-        } else { break; }
+            clean = format!("{}{}", &clean[..start], &clean[start + end + 2..]);
+        } else {
+            break;
+        }
     }
     let clean = clean.trim().to_string();
-    let garbage = ["inflected form of", "infinitive of", "alternative form of",
-        "first-person", "second-person", "present affirmative of",
-        "positive degree present of", "plural of", "inflection of"];
+    let garbage = [
+        "inflected form of",
+        "infinitive of",
+        "alternative form of",
+        "first-person",
+        "second-person",
+        "present affirmative of",
+        "positive degree present of",
+        "plural of",
+        "inflection of",
+    ];
     for g in &garbage {
-        if clean.to_lowercase().contains(g) { return String::new(); }
+        if clean.to_lowercase().contains(g) {
+            return String::new();
+        }
     }
-    if clean.starts_with('-') || clean.len() <= 1 { String::new() } else { clean }
+    if clean.starts_with('-') || clean.len() <= 1 {
+        String::new()
+    } else {
+        clean
+    }
+}
+
+fn main() {
+    let lex = Lexicon::load("data/swahili.distilled.jsonl").expect("lexicon");
+    let tagger = RoleTagger::from_lexicon(&lex);
+    println!("{}", tagger.tag("umefikia wapi?").to_summary());
 }

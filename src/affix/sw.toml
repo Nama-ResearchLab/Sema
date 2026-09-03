@@ -1,40 +1,228 @@
-# Swahili verb agglutination rules (v0 — naive two-slot model).
+# Swahili verb agglutination rules (v1 -- full 7-slot model).
 #
-# Real Swahili morphology is richer (object markers, relative infixes,
-# -po/-ko/-mo locatives...). This table handles the high-frequency
-# subject+tense pattern:  u-me-fikia, ha-wa-po, ni-ta-sema ...
-# Contributions welcome — keep entries lowercase.
+# Slot template: [NEG][SUBJ][TENSE][OBJ][ROOT][DERIV][MOOD]
+#
+# v0 handled only [SUBJ][TENSE]stem. v1 adds object markers,
+# combined negation prefixes, and locative suffixes for the
+# forward-pass resolver and the backpass Rolodex assembler.
+#
+# Keep entries lowercase. Contributions welcome.
 
 lang = "sw"
 
+# --- Slot 1: Negation prefixes (standalone, before subject) ---
+negation = ["ha"]
+
+# --- Slot 2: Subject / agreement markers ---
 subjects = [
-  "ha",   # negative marker (often precedes subject: ha-wa-po)
-  "wa",   # wa-class / they
-  "u",    # you sg / u-class
-  "a",    # he/she
-  "ni",   # I
-  "tu",   # we
-  "m",    # you pl / m-class
-  "li",   # li-class (past concord)
-  "ya",   # ya-class
-  "pa",   # pa-class (place)
-  "ki",   # ki-class / when-if marker
-  "ji",   # ji-class
-  "zi",   # zi-class
-  "i",    # i-class
+  "ni",    # 1SG  (I)
+  "u",     # 2SG  (you sg)
+  "a",     # 3SG  (he/she/it - m class)
+  "tu",    # 1PL  (we)
+  "m",     # 2PL  (you pl)
+  "wa",    # 3PL  (they - wa class)
+  "li",    # past concord (li class)
+  "ya",    # ya class
+  "pa",    # pa class (place)
+  "ki",    # ki class / when-if
+  "ji",    # ji class
+  "zi",    # zi class
+  "i",     # i class
 ]
 
+# --- Slot 3: Tense / aspect / mood markers ---
 tenses = [
-  "me",   # perfect
-  "li",   # past
-  "na",   # present progressive
-  "ta",   # future
-  "ka",   # consecutive
-  "hu",   # habitual
-  "ku",   # infinitive marker slot
-  "ja",   # "not yet" aspect
-  "po",   # when/locative
-  "",     # bare stem after subject
+  "",      # bare stem
+  "na",    # present progressive
+  "li",    # past
+  "ta",    # future
+  "me",    # perfective
+  "ka",    # consecutive / subjunctive
+  "hu",    # habitual
+  "ja",    # not yet
+  "ku",    # infinitive marker
+  "po",    # when / locative temporal
+  "ko",    # locative (general)
+  "mo",    # locative (interior)
 ]
 
-min_stem = 3
+# Minimum stem after stripping
+min_stem = 2
+
+# Derivational extension ordering (applied in fixed order).
+deriv_order = ["ilia", "isha", "wa", "ana", "ika", "ua"]
+
+# Combined negation+subject forms (when ha- fuses with subject).
+[subjects_neg]
+si  = "ni"
+hu  = "u"
+ha  = "a"
+hatu = "tu"
+ham  = "m"
+hawa = "wa"
+
+# Tense negation overrides (when neg + tense fuse).
+[tense_neg]
+li_neg   = "ku"
+pres_neg = ""
+fut_neg  = "ta"
+perf_neg = "ja"
+
+# Object infix markers (inserted after tense, before root).
+[objects]
+m    = "me/you sg (m class)"
+ni   = "me (1SG object)"
+ku   = "you sg (2SG object)"
+wa   = "them (3PL wa)"
+mi   = "me (emphatic 1SG)"
+ki   = "it (ki class)"
+vi   = "them (vi class)"
+yi   = "them (ya class)"
+zi   = "them (zi class)"
+li   = "it (li class)"
+yu   = "him/her (3SG)"
+
+# Derivational extensions (applied in order).
+[derivations]
+isha  = "causative (-isha/-esha)"
+isha_short = "causative short (-ish-)"
+ilia  = "applicative (-ilia/-elea)"
+ilia_short = "applicative short (-il-/-el-)"
+wa    = "passive (-wa)"
+ana   = "reciprocal (-ana)"
+ika   = "stative (-ika/-eka)"
+ua    = "reversive (-ua)"
+
+# Final vowel / mood.
+[mood]
+a = "indicative"
+e = "subjunctive"
+i = "negative vowel shift"
+o = "hortative"
+u = "locative final"
+
+# Phonological smoothing flags.
+[phonology]
+vowel_elision = true
+consonant_mutation = true
+monosyllabic_ku = true
+
+# =====================================================================
+# Backpass synthesis rules (fully table-driven).
+#
+# The generic SynthesisEngine (src/synthesis.rs / rolodex.rs interprets
+# these) has NO per-language code: add or retarget a language by editing
+# these tables and the prefix tables above, without recompiling.
+#
+# Slot order for a finite verb is always:
+#   [NEG] [SUBJ] [TENSE] [OBJ] [ROOT] [DERIV] [MOOD]
+# =====================================================================
+[synthesis]
+
+# --- Subject concords (tag -> prefix), synthesis-specific -------------
+[synthesis.subjects]
+1SG   = "ni"
+2SG   = "u"
+3SG   = "a"
+1PL   = "tu"
+2PL   = "m"
+3PL   = "wa"
+LI    = "li"
+YA    = "ya"
+PA    = "pa"
+KI    = "ki"
+JI    = "ji"
+ZI    = "zi"
+I     = "i"
+
+# --- Negative subject concords (surface -> canonical tag) -------------
+[synthesis.subjects_neg]
+si   = "1SG"
+hu   = "2SG"
+ha   = "3SG"
+hatu = "1PL"
+ham  = "2PL"
+hawa = "3PL"
+
+# --- Tense markers (tag -> marker) ------------------------------------
+[synthesis.tenses]
+PRES   = "na"
+PAST   = "li"
+FUT    = "ta"
+PERF   = "me"
+CONSEC = "ka"
+HAB    = "hu"
+NOTYET = "ja"
+INF    = "ku"
+WHEN   = "po"
+LOC    = "ko"
+INT    = "mo"
+BARE   = ""
+
+# --- Negative tense overrides (tag -> marker) -------------------------
+[synthesis.tense_neg]
+PAST = "ku"
+PRES = ""
+FUT  = "ta"
+PERF = "ja"
+
+# --- Final vowel rules ----------------------------------------------
+# `step` = how the trailing vowel is decided. Options:
+#   mood        : use `use_vowel` whenever intent.mood == `mood`
+#   present_neg : present-negative on a regular -a stem shifts to `use_vowel`
+# The FIRST matching step in declared order wins.
+[[synthesis.final_vowel]]
+step = "mood"
+mood = "e"
+use_vowel = "e"
+
+[[synthesis.final_vowel]]
+step = "mood"
+mood = "o"
+use_vowel = "o"
+
+[[synthesis.final_vowel]]
+step = "mood"
+mood = "i"
+use_vowel = "i"
+
+[[synthesis.final_vowel]]
+step = "present_neg"
+tense = ["PRES", "NA", "BARE", ""]
+use_vowel = "i"
+
+# Default indicative final vowel (no explicit step; used when nothing matches).
+[synthesis.defaults]
+final_vowel = "a"
+
+# --- Negative subjunctive -------------------------------------------
+# When negation is true AND (mood == e OR tense == SUBJ), build
+#   SUBJ + si + ROOT + mood_vowel
+# i.e. `infix` is inserted right after the subject concord.
+[synthesis.negative_subjunctive]
+infix = "si"
+mood = "e"
+tense = "SUBJ"
+
+# --- Intrusive support morpheme for short/monosyllabic stems ---------
+# These stems take `morpheme` (ku) after the TAM marker in affirmative
+# finite forms whose TAM is in `ku_after_tenses`.
+[synthesis.short_stems]
+stems = ["la", "ja", "nywa", "wa", "pa"]
+morpheme = "ku"
+ku_after_tenses = ["na", "me", "li", "ta", "sha", "nge", "ngali", "ngeli",
+                   "PRES", "PAST", "FUT", "PERF"]
+skip_negative = true
+
+# --- Vowel glide (allomorph at morpheme boundaries) -------------------
+# Map object infix -> (root initial vowels -> surface form).
+[synthesis.vowel_glide]
+# object infix "m" + root starting with a vowel -> "mw"
+# e.g. m + ona -> mwona  (sijamwona)
+m_vowel = "mw"
+
+# --- Borrowed / irregular stems --------------------------------------
+# Stems whose citation (root) ends in these vowels are fixed and never
+# undergo the productive final-vowel shift (e.g. jibu, subiri, samehe).
+[synthesis.borrowed]
+fixed_final_vowels = ["e", "i", "u"]
