@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learn Sema: course hub</title>
+<style>
+body{font-family:Georgia,serif;max-width:46em;margin:2em auto;padding:0 1em;line-height:1.6;color:#222}
+h1,h2{font-family:Verdana,sans-serif}
+.lesson{border:1px solid #ccc;border-radius:8px;padding:1em;margin:1em 0}
+.slot{display:inline-block;background:#eef;border:1px solid #99c;border-radius:4px;padding:0 .4em;margin:.1em;font-family:monospace}
+button{font-size:1em;padding:.4em 1em;margin:.3em .2em 0 0;cursor:pointer}
+#assembled{font-size:1.4em;font-weight:bold;min-height:1.6em}
+.ok{color:green}.bad{color:#a00}
+img.logo{height:48px}
+.t{position:relative;border-bottom:1px dotted #060;cursor:help}
+.t::after{content:attr(data-d);display:none;position:absolute;left:0;bottom:130%;width:16em;white-space:normal;background:#222;color:#fff;padding:.5em .7em;border-radius:6px;font-size:.85em;line-height:1.4;z-index:5}
+.t:hover::after{display:block}
+@media print{.noprint{display:none}}
+</style>
+</head>
+<body>
+<img class="logo" src="assets/nama-logo.png" alt="Nama Research Lab">
+<h1>Learn Sema</h1>
+<p>A mini-course from first principles: the problem, the
+<span class="t" data-d="Swahili words to English meaning skeletons.">forward anchor</span>,
+the <span class="t" data-d="Structured fields to exact Swahili verbs.">back-pass render</span>,
+the proof, and how to use it. Start with lesson 1
+and go in order. Companion markdown guides live beside this file.
+New words? See the <a href="glossary.html">glossary</a> (hover any term).</p>
+
+<div class="lesson">
+<h2>Guided build: assemble <i>sikufanya</i> ("I did not do")</h2>
+<p>Press the slots in template order. Each step appends real morphology.</p>
+<div id="steps"></div>
+<p id="assembled"></p>
+<button class="noprint" onclick="resetBuild()">Reset</button>
+</div>
+
+<div class="lesson">
+<h2>Check yourself (3 questions)</h2>
+<div id="quiz"></div>
+<p id="score"></p>
+</div>
+
+<div class="lesson">
+<h2>Next steps</h2>
+<ul>
+<li><a href="verbs.html">Verb explorer</a>: pick slots, see real engine output (147 forms).</li>
+<li><a href="glossary.html">Glossary</a>: hover definitions for every course term.</li>
+<li><a href="01-first-principles.md">Lesson 1</a> through <a href="05-use-it.md">Lesson 5</a>, plus <a href="refs.md">references</a>.</li>
+</ul>
+</div>
+
+<script>
+(function(){
+  var steps=document.getElementById("steps");
+  var out=document.getElementById("assembled");
+  var order=[
+    {slot:"NEG+SUBJ", add:"si", note:"fused negative 1SG concord"},
+    {slot:"TENSE", add:"ku", note:"PAST allomorph under negation (li becomes ku)"},
+    {slot:"ROOT", add:"fanya", note:"verb root, to do"},
+    {slot:"MOOD", add:"a", note:"indicative final vowel"}
+  ];
+  var i=0, built="";
+  steps.innerHTML="";
+  order.forEach(function(st){
+    var b=document.createElement("button");
+    b.textContent=st.slot;
+    b.onclick=function(){
+      if(b.disabled)return;
+      b.disabled=true;built+=st.add;
+      var row=document.createElement("div");
+      row.innerHTML="<span class='slot'>"+st.slot+"</span> "+st.add+" <i>"+st.note+"</i> &rarr; <b>"+built+"</b>";
+      steps.appendChild(row);
+      out.textContent="sikufanya".slice(0,built.length)+"...";
+      if(built==="sikufanya")out.textContent="sikufanya (I did not do)";
+    };
+    steps.appendChild(b);
+  });
+})();
+function resetBuild(){location.reload();}
+var quiz=[
+  {q:"What does the anchor step produce?",opts:["English prose","Lemma, part of speech, gloss, root","Swahili verbs"],a:1},
+  {q:"Where does Swahili morphology live in the back-pass engine?",opts:["In Rust code","In a TOML data file","In the language model"],a:1},
+  {q:"What happens under negation to past-tense li?",opts:["Stays li","Becomes ku","Disappears"],a:1}
+];
+(function(){
+  var box=document.getElementById("quiz");var score=0,answered=0;
+  quiz.forEach(function(item){
+    var d=document.createElement("div");d.innerHTML="<p><b>"+item.q+"</b></p>";
+    item.opts.forEach(function(opt,i){
+      var b=document.createElement("button");b.textContent=opt;
+      b.onclick=function(){
+        if(b.disabled)return;
+        Array.prototype.forEach.call(d.getElementsByTagName("button"),function(x){x.disabled=true;});
+        answered++;
+        var ok=(i===item.a);
+        if(ok){score++;b.className="ok";}else{b.className="bad";}
+        document.getElementById("score").textContent="Score: "+score+"/"+quiz.length;
+      };
+      d.appendChild(b);
+    });
+    box.appendChild(d);
+  });
+})();
+</script>
+</body>
+</html>
