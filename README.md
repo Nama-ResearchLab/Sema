@@ -38,6 +38,9 @@ from a 1.8 MB data file.
 |---|---|
 | **19,717 lemmas** | nouns / verbs / adjectives / more -- distilled from Wiktionary |
 | **Morphology-aware** | `umefikia` -> `fikia` (*arrive at*, root `-fika`) via language affix rules |
+| **Verb decomposition** | `hawatakujibu` -> negation, subject, tense, object, root (`morph` command) |
+| **Role tagging + render** | sentence S/V/O/M roles and gloss reverse-index (`role_tagger`, `render` examples) |
+| **JSON CLI** | anchor, morph, linearize, race, rolodex, bench over stdout (`sema_cc`) |
 | **Zero dependencies at runtime** | no network, no API keys, no models |
 | **1.8 MB** | ships inside any app; regenerable from raw dumps |
 
@@ -84,6 +87,19 @@ models:
 2. **Reason** -- your LLM works in its strongest language
 3. **Render** -- emit answers from *bilingual templates/fields*, so medical
    facts, dosage numbers and warnings never pass through lossy back-translation
+
+## Companion repositories
+
+Sema is the forward half (Swahili to meaning). Two companions complete it:
+
+- [Sema-Tena](https://github.com/Nama-ResearchLab/Sema-Tena) -- the
+  back-pass: structured intent to grammatical Swahili verb, all
+  morphology in one TOML file, zero hardcoded rules. Measured 500/500
+  on its gold benchmark and 100 percent over a 46M-case sweep of real
+  dictionary verbs at about a microsecond per synthesis.
+- [Project Jericho](https://github.com/noelchesco5/jericho) -- desktop
+  app wiring both directions with user-chosen local models (see its
+  docs/RESEARCH.md for the measured findings below).
 
 ## Adding a language
 
@@ -132,6 +148,9 @@ kaikki.org project for making low-resource language data accessible.
 - [x] v0.1 -- Swahili lexicon + naive two-slot verb morphology
 - [x] sentence-level role tagging (POS-based S/V/O/M tagging)
 - [x] render layer (gloss reverse-index for bilingual output)
+- [x] forward pipeline landed: verb decomposition (`linearizer`), cascade
+      resolution (`racer`), synthesis intents (`rolodex`), JSON CLI
+      (`sema_cc`), 37 tests green
 - [ ] richer Swahili morphology (object markers, locative infixes, negation slots)
 - [ ] EN->SW direction (harvested from kaikki English `translations` fields)
 - [ ] second language proof (community pick: Hausa? Luganda?)
