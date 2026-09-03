@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learn Sema: glossary</title>
+<style>
+body{font-family:Georgia,serif;max-width:46em;margin:2em auto;padding:0 1em;line-height:1.8;color:#222}
+h1{font-family:Verdana,sans-serif}
+.t{position:relative;border-bottom:1px dotted #060;cursor:help;white-space:nowrap}
+.t::after{content:attr(data-d);display:none;position:absolute;left:0;bottom:130%;width:16em;white-space:normal;background:#222;color:#fff;padding:.5em .7em;border-radius:6px;font-size:.9em;line-height:1.4;z-index:5}
+.t:hover::after,.t.pin::after{display:block}
+li{margin:.3em 0}
+img.logo{height:48px}
+@media print{.t::after{display:none}}
+</style>
+</head>
+<body>
+<img class="logo" src="assets/nama-logo.png" alt="Nama Research Lab">
+<h1>Glossary (hover any term)</h1>
+<p>Tap a term on touch screens to pin its definition. Full explanations
+in <a href="01-first-principles.md">Lesson 1</a>.</p>
+<ul id="terms"></ul>
+<p><a href="index.html">Back to course hub</a></p>
+<script>
+var G=[
+["Morphology","how words are built from smaller meaningful parts."],
+["Morpheme","one meaningful part, e.g. si (not, I) inside sikufanya."],
+["Root","the verb core carrying meaning, e.g. fanya (do). Also called stem."],
+["Lemma","the dictionary headword, e.g. fikia for umefikia."],
+["Affix","a part glued to the front (prefix) or back (suffix) of a root."],
+["Concord","agreement marker, e.g. ni (I), wa (they), ki (class 7)."],
+["Agglutination","building words by gluing parts in fixed order."],
+["TAM","tense, aspect, mood: li past, na present, me perfect, ta future."],
+["Polarity","positive or negative. Swahili fuses it: ni becomes si."],
+["Noun class","Swahili noun groups (7, 5, 6, 16, 10, 9...); verbs agree with them."],
+["Gloss","the English meaning note on a dictionary entry."],
+["Skeleton","a resolved word: surface plus lemma, part of speech, gloss, root."],
+["Intent","a structured request to build a verb: subject, tense, polarity, object, root, mood."],
+["Surface form","the final spelled word, e.g. sikufanya."],
+["Offline","runs on your machine, no network calls."],
+["Deterministic","same input always gives same output."],
+["Subjunctive","mood with final -e, used for wishes and purposes."],
+["Passive","derivation -w-/-iwa: the action happens to the subject (pigwa)."],
+["Applicative","derivation -i-: doing for or to someone (andikia)."],
+["Causative","derivation -ish-/-esh-: making something happen (somesha)."],
+["Reciprocal","derivation -an-: doing to each other (onana)."],
+["Stative","derivation -ik-: being in a state (vunjika, broken)."]
+];
+var ul=document.getElementById("terms");
+G.forEach(function(g){
+  var li=document.createElement("li");
+  var s=document.createElement("span");
+  s.className="t";s.tabIndex=0;s.textContent=g[0];s.setAttribute("data-d",g[1]);
+  s.onclick=function(){var p=s.className.indexOf("pin")>=0;s.className="t"+(p?"":" pin");};
+  li.appendChild(s);ul.appendChild(li);
+});
+</script>
+</body>
+</html>

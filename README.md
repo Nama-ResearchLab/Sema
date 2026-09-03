@@ -43,6 +43,10 @@ from a 1.8 MB data file.
 
 ## Quickstart
 
+New here? Start with the mini-course: **[learn/](learn/)** -- first
+principles to advanced in six short lessons, with interactive pages
+(course hub, verb explorer), guides, references, and examples.
+
 ```bash
 git clone https://github.com/Nama-ResearchLab/Sema
 cd Sema
