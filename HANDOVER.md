@@ -56,9 +56,17 @@ Working:
   two-slot verb morphology (subject prefix + optional tense marker)
 - Wiki-markup cleaning in the distiller ([[..]], {{..}})
 - Form-of-gloss demotion (lemma-quality preference on duplicate words)
-- Tests: `cargo test` -> 5 pass. Acceptance harness -> **88% word coverage**
-  (21/24) on six mixed Swahili sentences. The 3 misses: proper name
-  ("saida"), "?" punctuation, and copula "ni" -- by design, not bugs.
+- Tests: `cargo test` -> 40 unit tests + 1 doctest pass. Acceptance harness -> **83% word coverage**
+  (20/24) on six mixed Swahili sentences. The 4 misses: "?" punctuation
+  (x2), locative "hawapo", and proper name "saida" -- all return None, no
+  guesses (honest-unresolved rule). "saida" and "hawapo" are absent from
+  the shipped 19,717-lemma distilled lexicon (Wiktionary coverage gap; not
+  fixable by hand-editing data -- re-distilling is the honest path, and
+  roadmap item 1 carries the "hawapo" regression fixture). "ni" RESOLVES
+  as particle 'focus marker'; the older claim that it missed was stale on
+  shipped data. BASELINE-CHANGE NOTE (coverage rule): this replaces the
+  former "88% (21/24)" claim, which assumed "hawapo" resolved via the
+  naive strip table; on shipped data it returns None.
 
 Known limitations (the honest list):
 1. Morphology model is shallow: no object markers (-m-, -wa- infixes), no

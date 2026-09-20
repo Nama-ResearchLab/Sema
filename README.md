@@ -181,8 +181,11 @@ cargo test          # unit gates
 cargo run --release --example acceptance   # coverage harness
 ```
 
-Current acceptance coverage: **88% of content words resolved** across a
-mixed Swahili acceptance set (proper names and punctuation excluded by design).
+Current acceptance coverage: **20/24 tokens (83%)** across a mixed Swahili
+acceptance set; **20/21 (95%)** with proper names and punctuation excluded by
+design (the two "?" tokens and the proper name "saida" are not in the shipped
+19,717-lemma distilled lexicon and correctly return None, per the
+honest-unresolved rule).
 
 ## Attribution (required)
 
