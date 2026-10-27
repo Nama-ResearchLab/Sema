@@ -67,7 +67,7 @@ dependencies = [
 [[package]]
 name = "sema-tena"
 version = "0.1.0"
-source = "git+https://github.com/Nama-ResearchLab/Sema-Tena#b9425412878105015c72e2aa72e50c781539892b"
+source = "git+https://github.com/Nama-ResearchLab/Sema-Tena#e34bfd3058870cd5bb4e0eb312e899a2c348aaea"
 dependencies = [
  "serde",
  "serde_json",
