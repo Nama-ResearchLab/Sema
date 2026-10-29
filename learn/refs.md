@@ -32,12 +32,8 @@
   production limits. Good for: why sentence-level neural models are
   not the answer here.
 
-## Companion repositories
+## Ecosystem Projects
 
-- Sema-Tena: the data-driven back-pass synthesis engine, with full
-  benchmark tables, torture results, and the neural comparison
-  harness.
-- Jericho: desktop host wiring both directions with user-chosen
-  local models.
+- Jericho: desktop host wiring both directions with user-chosen local models.
 
 Back to the [course index](README.md).

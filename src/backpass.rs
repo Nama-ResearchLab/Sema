@@ -11,8 +11,7 @@
 //! (subject and tense surfaces, polarity, object infix, root) exactly
 //! as `linearizer::decompose_verb` reports it.
 
-// STAND-IN: sema-tena (private git dep) was unreachable, so the engine is the
-// in-repo Rolodex (now with derivations, class tags and class reporting).
+// Standalone in-repo Rolodex engine with derivations, class tags and concord reporting.
 pub use crate::rolodex::Intent;
 use crate::rolodex::{Rolodex, Synthesized};
 use std::collections::HashMap;

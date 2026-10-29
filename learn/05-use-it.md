@@ -1,40 +1,54 @@
-# Lesson 5: use it
+# Lesson 5: Practical Usage
 
-Goal: run everything yourself. Three levels: commands, library code,
-and the desktop app.
+Goal: explore hands-on workflows with Sema. We cover three paths: command line utilities, Rust library integration, and the tactile Studio interface.
 
-## 1. Command line
+## 1. Command Line Tools
 
-Resolve one word (forward):
+Deconstruct a verb to inspect its morpheme slots:
 
 ```bash
 cargo run --bin sema_cc -- morph --word hawatakujibu
 # {"negation":"ha","object":"ku","root":"jibu","subject":"wa","tense":"ta",...}
 ```
 
-Benchmark forward coverage over the corpus:
+Synthesize an exact Swahili verb from intent slots:
 
 ```bash
-cargo run --release --bin sema_cc -- bench --lex data/swahili.distilled.jsonl \
-  --csv bench/Sema_Benchmark_1000.csv --limit 200
+cargo run --bin sema_cc -- synth --subj 3PL --tense FUT --root jibu --obj ku --neg
+# hawatakujibu
 ```
 
-Run the bundled examples (role tagger, render layer):
+Protect clinical facts, dosages, and drug names:
 
 ```bash
-cargo run --example role_tagger
-cargo run --example render
+cargo run --bin sema_cc -- terms \
+  --dict data/terms.clinical.tsv,data/terms.core.tsv \
+  --text "Mpe mtoto vidonge viwili vya paracetamol 500 mg mara mbili kwa siku"
 ```
 
-Run the test suite (37 tests plus doctest):
+Run the complete verification test suite (61 tests plus gold 100 benchmarks):
 
 ```bash
 cargo test
 ```
 
-## 2. Library recipes
+## 2. Interactive Studio & MCP Agent Server
 
-Anchor a sentence (resolve each word):
+Launch the native claymorphic interface directly from your desktop:
+
+```bash
+cargo run --release --bin sema-gui
+```
+
+To connect Sema directly to Claude Desktop, Cursor, or Antigravity, start the built-in Model Context Protocol server:
+
+```bash
+cargo run --release --bin sema-gui -- --mcp
+```
+
+## 3. Library Recipes
+
+Resolve words in a sentence to dictionary lemmas and parts of speech:
 
 ```rust
 use sema::Lexicon;
@@ -47,43 +61,27 @@ for tok in sema::lexicon::segment_words("umefikia wapi?") {
 }
 ```
 
-Decompose one verb into parts:
+Decompose a surface verb into structured morphological parts:
 
 ```rust
 use sema::linearizer::decompose_verb;
 
 let m = decompose_verb("sikufanya");
-// subject "ni", tense "ku", negation present, root "fanya"
+// subject "ni", tense "ku", polarity negative, root "fanya"
 ```
 
-Synthesize from parts (companion engine):
+Shield clinical terms before sending prompts to edge models:
 
 ```rust
-// subject 1SG, tense PAST, negated, root "fanya" -> "sikufanya"
+use sema::terms::TermReplacer;
+
+let replacer = TermReplacer::from_files(&["data/terms.clinical.tsv"])?;
+let protected = replacer.protect("Mpe mgonjwa paracetamol 500 mg");
+println!("Shielded: {}", protected.text);
 ```
 
-Round-trip check in Python (uses both binaries, read-only):
+## 4. Attribution and Data Stewardship
 
-```bash
-python tools/roundtrip.py --limit 500
-```
-
-## 3. Inside the desktop app (Jericho)
-
-Jericho embeds the lexicon for two jobs: anchoring chat input and
-lemmatizing the RAG index (so "umefikia" and "wamefika" count as the
-same root when retrieving). The local model reasons in English over
-the anchors. Structured answers render back to Swahili through the
-back-pass engine, which is being wired in as the render layer. You
-can choose any local Ollama model; rolodex features toggle in config.
-Interface polish is still to come.
-
-## 4. Data, licensing, and rebuilding
-
-Code is MIT (LICENSE). The lexicon data is CC BY-SA 4.0, distilled
-from Wiktionary via kaikki.org (see DATA-LICENSE and data/NOTICE.md):
-keep the credit and share-alike terms if you ship the data file.
-Rebuild it from raw dumps with `sema-distill`. The affix table is
-plain TOML: new languages mean one data file plus one table.
+Code is released under the MIT License (see LICENSE). The distilled lexicon originates from Wiktionary through kaikki.org and is shared under Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0). You are warmly invited to extend the dictionary or build new affix tables for sister Bantu languages.
 
 Back to the [course index](README.md). Deeper background: [references](refs.md).

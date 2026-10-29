@@ -239,12 +239,6 @@ Sema/
 
 ---
 
-## Companion Repositories
-
-- **[sema-kesho](https://github.com/Nama-ResearchLab/sema-kesho)**: Internal production integration and experimental laboratory. Hosts neural-vs-symbolic eval harnesses, dictionary ingest pipelines, and edge model adapters.
-
----
-
 ## Attribution & Licenses
 
 - **Code**: MIT License (see [LICENSE](LICENSE)).
