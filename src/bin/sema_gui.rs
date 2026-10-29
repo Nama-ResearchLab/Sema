@@ -265,47 +265,27 @@ fn handle_http_client(mut stream: TcpStream, state: &StudioState) {
             let limit: usize = q_map.get("limit").and_then(|s| s.parse().ok()).unwrap_or(20);
 
             let mut results = Vec::new();
-            // Fallback mock search for fast demo if lexicon is loaded
-            let sample_lemmas = [
-                ("habari", "noun", "news, information", None),
-                ("fika", "verb", "to arrive, reach", Some("fika")),
-                ("fikia", "verb", "to arrive at, reach (applicative)", Some("fika")),
-                ("sema", "verb", "to say, speak, talk", Some("sema")),
-                ("jibu", "verb", "to answer, reply", Some("jibu")),
-                ("soma", "verb", "to read, study", Some("soma")),
-                ("somesha", "verb", "to teach, educate (causative)", Some("soma")),
-                ("penda", "verb", "to like, love", Some("penda")),
-                ("mtoto", "noun", "child", None),
-                ("mgonjwa", "noun", "sick person, patient", None),
-                ("dawa", "noun", "medicine, medication", None),
-                ("homa", "noun", "fever, temperature", None),
-                ("kichwa", "noun", "head (class 7)", None),
-                ("kiti", "noun", "chair, seat (class 7)", None),
-                ("kidonge", "noun", "tablet, pill (class 7)", None),
-                ("chakula", "noun", "food (class 7)", None),
-                ("chumvi", "noun", "salt", None),
-                ("sukari", "noun", "sugar", None),
-                ("sasa", "adv", "now, at present", None),
-                ("kesho", "adv", "tomorrow", None),
-            ];
-
-            for (w, p, g, r) in sample_lemmas {
-                if !q.is_empty() && !w.contains(&q) && !g.contains(&q) {
-                    continue;
-                }
-                if let Some(ref pf) = pos_filter {
-                    if !pf.is_empty() && p != pf {
+            if !state.lexicon.is_empty() {
+                for e in state.lexicon.iter_entries() {
+                    let w_low = e.w.to_lowercase();
+                    if !q.is_empty() && !w_low.contains(&q) && !e.g.iter().any(|g| g.to_lowercase().contains(&q)) {
                         continue;
                     }
-                }
-                results.push(json!({
-                    "word": w,
-                    "pos": p,
-                    "gloss": g,
-                    "root": r
-                }));
-                if results.len() >= limit {
-                    break;
+                    if let Some(ref pf) = pos_filter {
+                        if !pf.is_empty() && &e.p != pf {
+                            continue;
+                        }
+                    }
+                    let clean_gloss = e.g.iter().find(|g| !g.contains("inflected form")).cloned().unwrap_or_else(|| e.g.first().cloned().unwrap_or_default());
+                    results.push(json!({
+                        "word": e.w,
+                        "pos": e.p,
+                        "gloss": clean_gloss,
+                        "root": e.r
+                    }));
+                    if results.len() >= limit {
+                        break;
+                    }
                 }
             }
             send_json(&mut stream, 200, &json!(results));

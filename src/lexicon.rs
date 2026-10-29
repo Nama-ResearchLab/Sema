@@ -192,6 +192,11 @@ impl Lexicon {
         self.count == 0
     }
 
+    /// Iterator over all lexicon entries.
+    pub fn iter_entries(&self) -> impl Iterator<Item = &LexEntry> {
+        self.entries.values()
+    }
+
     /// Resolve a surface word: exact lemma, then forms-index, then affix
     /// stripping. Returns (entry, resolved_via_lemma).
     pub fn lookup(&self, surface: &str) -> Option<(&LexEntry, Option<&str>)> {
