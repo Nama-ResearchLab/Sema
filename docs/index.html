@@ -1150,11 +1150,365 @@
       box-shadow: var(--clay-sm);
     }
     
-    @media (max-width: 900px) {
-      .hero h1 { font-size: 38px; }
-      .features-grid, .benchmarks-grid, .studio-row, .course-layout, .matrix-grid { grid-template-columns: 1fr; }
-      header { flex-direction: column; gap: 16px; }
+
+    /* Mobile & Responsive Optimization */
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
     }
+
+    @media (max-width: 900px) {
+      .container {
+        padding: 0 18px;
+      }
+
+      header {
+        padding: 14px 0 10px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+
+      .logo-container {
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      nav {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 6px;
+        padding: 4px 2px 8px;
+        width: 100%;
+        scrollbar-width: none;
+      }
+      nav::-webkit-scrollbar { display: none; }
+
+      .nav-link, .btn-github {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 7px 13px;
+        font-size: 13px;
+      }
+
+      .hero {
+        padding: 44px 0 32px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+        line-height: 1.15;
+      }
+
+      .hero p {
+        font-size: 15px;
+        margin-bottom: 24px;
+      }
+
+      .hero-badge {
+        font-size: 11px;
+        padding: 5px 12px;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.4;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+      }
+
+      .hero-actions button {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .terminal-body {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 16px;
+      }
+
+      .terminal-code {
+        font-size: 12px;
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      .btn-copy {
+        align-self: flex-end;
+      }
+
+      /* Grid collapses */
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .feature-card {
+        padding: 24px 20px;
+        border-radius: 18px;
+      }
+
+      /* Pipeline Mobile Optimization */
+      .pipeline-section {
+        padding: 22px 16px;
+        border-radius: 18px;
+        margin: 32px 0;
+      }
+
+      .pipeline-steps {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 8px;
+        margin: 20px 0 16px;
+        padding-bottom: 8px;
+        scrollbar-width: none;
+      }
+      .pipeline-steps::-webkit-scrollbar { display: none; }
+
+      .pipeline-step-card {
+        flex: 0 0 130px;
+        padding: 12px 10px;
+      }
+
+      .pipeline-detail-card {
+        grid-template-columns: 1fr;
+        padding: 16px;
+        gap: 16px;
+      }
+
+      /* Studio Mobile Optimization */
+      .studio-box {
+        padding: 20px 16px;
+        border-radius: 18px;
+        margin-top: 18px;
+      }
+
+      .studio-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .subtabs {
+        gap: 8px;
+        padding-bottom: 12px;
+        margin-bottom: 20px;
+        scrollbar-width: none;
+      }
+      .subtabs::-webkit-scrollbar { display: none; }
+
+      .subtab-btn {
+        font-size: 13px;
+        padding: 6px 12px;
+      }
+
+      .output-panel {
+        padding: 18px 16px;
+      }
+
+      .output-display-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .output-display {
+        font-size: 22px;
+        word-break: break-word;
+      }
+
+      .btn-audio {
+        align-self: flex-start;
+      }
+
+      .graph-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 14px 10px;
+      }
+
+      #graph-nodes {
+        min-width: 320px;
+        flex-wrap: nowrap !important;
+      }
+
+      /* Builder Grid */
+      .builder-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      /* Matrix Grid */
+      .matrix-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .matrix-card {
+        padding: 12px 10px;
+      }
+
+      /* Lexicon Results */
+      #lex-results {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+      }
+
+      /* Course Layout Horizontal Module Switcher */
+      .course-layout {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .course-sidebar {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        gap: 8px;
+        padding: 4px 2px 8px !important;
+        scrollbar-width: none;
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+      .course-sidebar::-webkit-scrollbar { display: none; }
+
+      .course-sidebar-title {
+        display: none !important;
+      }
+
+      .lesson-item {
+        flex: 0 0 auto !important;
+        white-space: nowrap !important;
+        padding: 8px 14px !important;
+        margin-bottom: 0 !important;
+      }
+
+      .course-main {
+        padding: 24px 18px;
+        border-radius: 18px;
+      }
+
+      .course-progress-bar-wrap {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 12px 16px;
+      }
+
+      .interactive-exercise {
+        padding: 18px 14px;
+        margin: 20px 0;
+      }
+
+      /* Benchmarks Mobile Grid */
+      .benchmarks-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin: 20px 0 32px;
+      }
+
+      .bench-card {
+        padding: 18px 12px;
+        border-radius: 16px;
+      }
+
+      .bench-val {
+        font-size: 28px;
+      }
+
+      .benchmark-runner-box {
+        padding: 20px 16px;
+        border-radius: 18px;
+      }
+
+      .benchmark-stats-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .benchmark-stat-card {
+        padding: 12px 8px;
+      }
+
+      .benchmark-stat-val {
+        font-size: 18px;
+      }
+
+      /* Analyzer Pills */
+      .analyzer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .analyzer-pill {
+        padding: 10px 8px;
+      }
+
+      .analyzer-pill-val {
+        font-size: 12px;
+      }
+
+      /* Footer */
+      footer {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+        padding: 32px 0 24px;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 14px;
+      }
+
+      .hero h1 {
+        font-size: 27px;
+      }
+
+      .hero p {
+        font-size: 14px;
+      }
+
+      .section-header h2 {
+        font-size: 24px;
+      }
+
+      .section-header p {
+        font-size: 14px;
+      }
+
+      .output-display {
+        font-size: 19px;
+      }
+
+      /* Form controls on mobile prevent iOS auto zoom */
+      input[type="text"], select, textarea {
+        font-size: 16px !important;
+      }
+
+      .certificate-container {
+        padding: 20px 14px;
+      }
+
+      #cert-user-name {
+        font-size: 20px !important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1517,8 +1871,8 @@ sema::realize(&Intent::new(Subject::Plural3, Tense::Future, "jibu").with_object(
 
           <div class="control-group" style="margin-top:16px;">
             <label class="control-label">Enter Swahili Surface Verb to Deconstruct</label>
-            <div style="display:flex; gap:12px;">
-              <input type="text" id="analyzer-input" value="walituona" style="flex:1;" oninput="runAnalyzer()">
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <input type="text" id="analyzer-input" value="walituona" style="flex:1 1 100%; min-width:0;" oninput="runAnalyzer()">
               <button class="btn-primary" style="padding:10px 20px; font-size:13px;" onclick="runAnalyzer()">Deconstruct Verb</button>
               <button class="btn-audio" onclick="playAnalyzerPronunciation()">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
@@ -1843,7 +2197,7 @@ sema::realize(&Intent::new(Subject::Plural3, Tense::Future, "jibu").with_object(
             <span class="version-tag">Interactive Proof</span>
             <h3 style="font-size:22px; font-weight:800; color:#090D16; margin-top:6px;">Live In-Browser Realization Benchmark</h3>
           </div>
-          <div style="display:flex; align-items:center; gap:10px;">
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; width:100%; margin-top:8px;">
             <select id="bench-iter-select" style="padding:8px 12px; font-size:13px; border-radius:10px; border:1px solid var(--border);">
               <option value="5000">5,000 Realizations</option>
               <option value="10000" selected>10,000 Realizations</option>
@@ -2646,8 +3000,8 @@ cargo test --test gold100</pre>
         `,
         exerciseTitle: "Interactive Exercise: Verb Deconstruction",
         exerciseHtml: `
-          <div style="display:flex; gap:12px; margin-bottom:12px;">
-            <input type="text" id="decon-input" value="sikufanya" style="flex:1;">
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
+            <input type="text" id="decon-input" value="sikufanya" style="flex:1 1 100%; min-width:0;">
             <button class="btn-primary" style="padding:10px 18px;" onclick="testDeconstruct()">Deconstruct</button>
           </div>
           <div id="decon-result" style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--text-muted);">
@@ -2665,7 +3019,7 @@ cargo test --test gold100</pre>
         exerciseTitle: "Interactive Exercise: Extension Switcher",
         exerciseHtml: `
           <p style="font-size:14px; margin-bottom:10px;">Select a derivation for base root <strong>soma</strong> (read):</p>
-          <div style="display:flex; gap:10px; margin-bottom:14px;">
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px;">
             <button class="btn-secondary" onclick="showExt('Base', 'soma')">Base</button>
             <button class="btn-secondary" onclick="showExt('Applicative', 'somea')">Applicative (-ea)</button>
             <button class="btn-secondary" onclick="showExt('Causative', 'somesha')">Causative (-esha)</button>
@@ -2722,8 +3076,8 @@ cargo test --test gold100</pre>
             <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">
               Enter your name to generate your verified certificate of completion for the Sema Mini-Course:
             </p>
-            <div style="display:flex; gap:10px; max-width:480px; margin-bottom:16px;">
-              <input type="text" id="cert-name-input" placeholder="Your Full Name (e.g., Dr. A. Chesco)" style="flex:1;">
+            <div style="display:flex; gap:8px; flex-wrap:wrap; max-width:480px; margin-bottom:16px;">
+              <input type="text" id="cert-name-input" style="flex:1 1 100%;" placeholder="Your Full Name (e.g., Dr. A. Chesco)" style="flex:1;">
               <button class="btn-primary" style="padding:10px 18px; font-size:13px;" onclick="generateCertificate()">Generate Certificate</button>
             </div>
 
@@ -2739,7 +3093,7 @@ cargo test --test gold100</pre>
               <div style="font-size:14px; color:var(--text-muted); max-width:520px; margin:12px auto; line-height:1.6;">
                 has successfully completed all 5 modules of the Sema Interactive Course, mastering Bantu Agglutinative Morphology, Sub-Microsecond Deterministic Realization, and Clinical Fact Shielding.
               </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:16px; margin-top:20px; font-size:12px; color:var(--text-light);">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; border-top:1px solid var(--border); padding-top:16px; margin-top:20px; font-size:12px; color:var(--text-light);">
                 <div>Date Issued: <strong id="cert-date" style="color:var(--text-main);">October 29, 2026</strong></div>
                 <div>Verification ID: <strong id="cert-id" style="color:var(--text-main);">CERT-SEMA-A109</strong></div>
                 <button class="btn-secondary" style="padding:6px 14px; font-size:12px;" onclick="window.print()">Print or Save</button>
