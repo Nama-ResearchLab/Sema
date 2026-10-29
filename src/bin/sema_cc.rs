@@ -51,6 +51,7 @@ fn run(args: &[String]) -> Result<Value, String> {
         "synth" => synth(args),
         "race" => race(args),
         "bench" => bench(args),
+        "terms" => terms_cmd(args),
         _ => Err(format!("unknown subcommand: {sub}")),
     }
 }
@@ -160,6 +161,23 @@ fn morph(args: &[String]) -> Result<Value, String> {
 fn linearize(args: &[String]) -> Result<Value, String> {
     let lex = load_lex(args)?;
     let sentence = flag(args, "--sentence").ok_or("missing --sentence")?;
+    if !has(args, "--lexicon-only") {
+        // Default: cascade path. Keeps negation, marks unresolved as [?word].
+        let racer = Racer::new(&lex);
+        let lin = racer.anchor_sentence(&sentence);
+        let unresolved = Racer::unresolved(&lin);
+        let tokens: Vec<Value> = lin
+            .tokens
+            .iter()
+            .map(|t| json!({"word": t.word, "role": format!("{:?}", t.role)}))
+            .collect();
+        return Ok(json!({
+            "source": sentence,
+            "telegram": lin.to_telegram(),
+            "tokens": tokens,
+            "unresolved": unresolved,
+        }));
+    }
     let mut skeletons = Vec::new();
     let mut unresolved = Vec::new();
     for tok in segment_words(&sentence) {
@@ -240,6 +258,57 @@ fn synth(args: &[String]) -> Result<Value, String> {
         "subject_class": out.subject_class,
         "object_class": out.object_class,
     }))
+}
+
+/// terms: protect English text with IDs, optionally restore a model output,
+/// or render a verb+term template.
+///   sema_cc terms --dict data/terms.clinical.tsv --text "Give two tablets"
+///   sema_cc terms --dict d.tsv --text "..." --model-output "[#T1] ..." [--bilingual]
+///   sema_cc terms --dict d.tsv --template "{t:chair} {v:@chair|PERF|-|-|vunja|stative}"
+///   add --lexicon-fallback to auto-seed extra nouns from the distilled lexicon
+fn terms_cmd(args: &[String]) -> Result<Value, String> {
+    use sema::terms::{Mode, TermDict, render_template};
+    // --dict a.tsv,b.tsv  curated layers, earlier files win
+    let mut dict = match flag(args, "--dict") {
+        Some(list) => {
+            let mut texts = Vec::new();
+            for p in list.split(',').filter(|p| !p.is_empty()) {
+                texts.push(std::fs::read_to_string(p).map_err(|e| format!("dict {p}: {e}"))?);
+            }
+            let refs: Vec<&str> = texts.iter().map(|s| s.as_str()).collect();
+            TermDict::layered_curated(&refs)
+        }
+        None => TermDict::new(),
+    };
+    // --general file.tsv  auto-built, unreviewed entries (never override curated)
+    let mut general = false;
+    if let Some(g) = flag(args, "--general") {
+        let txt = std::fs::read_to_string(&g).map_err(|e| format!("general {g}: {e}"))?;
+        dict.merge(&TermDict::from_tsv_auto(&txt));
+        general = true;
+    }
+    let fallback = has(args, "--lexicon-fallback") || general;
+    if fallback {
+        let auto = TermDict::from_distilled_nouns(data_path(args)?).map_err(|e| format!("lexicon: {e}"))?;
+        dict.merge(&auto);
+    }
+    if let Some(tpl) = flag(args, "--template") {
+        let e = sema::backpass::engine();
+        let s = render_template(&tpl, &dict, &e)?;
+        return Ok(json!({"template": tpl, "swahili": s}));
+    }
+    let text = flag(args, "--text").ok_or("missing --text or --template")?;
+    let p = dict.protect_with(&text, fallback);
+    let slots: Vec<Value> = p.slots.iter().map(|s| json!({"id": s.id, "en": s.en, "sw": s.sw, "class": s.class, "kept": s.kept, "auto_unreviewed": s.auto})).collect();
+    let mut v = json!({"dict_entries": dict.len(), "protected": p.text, "slots": slots});
+    if let Some(m) = flag(args, "--model-output") {
+        let mode = if has(args, "--bilingual") { Mode::Bilingual } else { Mode::Swahili };
+        let r = dict.restore(&m, &p, mode);
+        v["restored"] = json!(r.text);
+        v["missing_ids"] = json!(r.missing);
+        v["unknown_ids"] = json!(r.unknown);
+    }
+    Ok(v)
 }
 
 fn race(args: &[String]) -> Result<Value, String> {

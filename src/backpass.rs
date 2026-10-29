@@ -11,7 +11,28 @@
 //! (subject and tense surfaces, polarity, object infix, root) exactly
 //! as `linearizer::decompose_verb` reports it.
 
-pub use sema_tena::synth::{Engine, Intent, Morphology, SynthesisResult};
+// STAND-IN: sema-tena (private git dep) was unreachable, so the engine is the
+// in-repo Rolodex (now with derivations, class tags and class reporting).
+pub use crate::rolodex::Intent;
+use crate::rolodex::{Rolodex, Synthesized};
+use std::collections::HashMap;
+
+pub struct Morphology { pub subjects_neg: HashMap<String, String> }
+pub struct SynthesisResult {
+    pub surface: String,
+    pub slots: Vec<(String, String)>,
+    pub subject_class: Option<String>,
+    pub object_class: Option<String>,
+}
+pub struct Engine { r: Rolodex, m: Morphology }
+impl Engine {
+    pub fn morphology(&self) -> &Morphology { &self.m }
+    pub fn synthesize(&self, i: &Intent) -> SynthesisResult {
+        let s: Synthesized = self.r.synthesize(i);
+        SynthesisResult { surface: s.surface, slots: s.slots, subject_class: s.subject_class, object_class: s.object_class }
+    }
+}
+
 
 /// Negated-TAM allomorph surfaces the forward pass emits, mapped to
 /// canonical tense tags.
@@ -25,7 +46,11 @@ fn negated_tam(surface: &str) -> Option<&'static str> {
 
 /// The shared back-pass engine (embedded Swahili morphology).
 pub fn engine() -> Engine {
-    Engine::swahili()
+    let mut sn = HashMap::new();
+    for (k, v) in [("si","1SG"),("hu","2SG"),("ha","3SG"),("hatu","1PL"),("ham","2PL"),("hawa","3PL")] {
+        sn.insert(k.to_string(), v.to_string());
+    }
+    Engine { r: Rolodex::swahili(), m: Morphology { subjects_neg: sn } }
 }
 
 /// Build an intent from forward-analysis parts. Fused negative subject

@@ -1,0 +1,88 @@
+# Sema term dictionary (drop-in). TAB separated:
+# english<TAB>swahili<TAB>swahili plural (optional)<TAB>noun class (optional, C1..C18)
+# Phrases are allowed as English keys; the longest match wins.
+# Author-written starter set, NOT audited by a native speaker. Replace/extend freely.
+# --- people ---
+child	mtoto	watoto	C1
+baby	mtoto mchanga	watoto wachanga	C1
+patient	mgonjwa	wagonjwa	C1
+doctor	daktari	madaktari	C1
+nurse	muuguzi	wauguzi	C1
+mother	mama	mama	C1
+father	baba	baba	C1
+pregnant woman	mama mjamzito	akina mama wajawazito	C1
+# --- places ---
+hospital	hospitali	hospitali	C9
+clinic	kliniki	kliniki	C9
+ward	wodi	wodi	C9
+pharmacy	duka la dawa
+# --- body ---
+head	kichwa	vichwa	C7
+chest	kifua	vifua	C7
+stomach	tumbo	matumbo	C5
+eye	jicho	macho	C5
+ear	sikio	masikio	C5
+nose	pua	pua	C9
+mouth	mdomo	midomo	C3
+leg	mguu	miguu	C3
+hand	mkono	mikono	C3
+skin	ngozi	ngozi	C9
+heart	moyo	mioyo	C3
+lung	pafu	mapafu	C5
+bone	mfupa	mifupa	C3
+blood pressure	shinikizo la damu	shinikizo la damu	C5
+blood	damu	damu	C9
+urine	mkojo	mkojo	C3
+# --- symptoms / conditions ---
+fever	homa	homa	C9
+cough	kikohozi	vikohozi	C7
+headache	maumivu ya kichwa	maumivu ya kichwa	C6
+chest pain	maumivu ya kifua	maumivu ya kifua	C6
+pain	maumivu	maumivu	C6
+diarrhea	kuharisha	kuharisha	C15
+diarrhoea	kuharisha	kuharisha	C15
+vomiting	kutapika	kutapika	C15
+dizziness	kizunguzungu	vizunguzungu	C7
+wound	jeraha	majeraha	C5
+malaria	malaria	malaria	C9
+tuberculosis	kifua kikuu	kifua kikuu	C7
+diabetes	kisukari	kisukari	C7
+measles	surua	surua	C9
+allergy	mzio	mizio	C3
+# --- treatment ---
+medicine	dawa	dawa	C9
+tablet	kidonge	vidonge	C7
+injection	sindano	sindano	C9
+vaccine	chanjo	chanjo	C9
+oral rehydration solution	maji ya chumvi na sukari
+sample	sampuli	sampuli	C9
+water	maji	maji	C6
+food	chakula	vyakula	C7
+# --- dosing phrases ---
+three times a day	mara tatu kwa siku
+twice a day	mara mbili kwa siku
+once a day	mara moja kwa siku
+every morning	kila asubuhi
+after meals	baada ya kula
+before meals	kabla ya kula
+one tablet	kidonge kimoja
+two tablets	vidonge viwili
+return to the clinic	rudi kliniki
+# --- time ---
+today	leo
+tomorrow	kesho
+yesterday	jana
+morning	asubuhi
+night	usiku
+day	siku	siku	C9
+week	wiki	wiki	C9
+month	mwezi	miezi	C3
+# --- additions for the 100-pair bench ---
+one week	wiki moja
+three days	siku tatu
+five days	siku tano
+seven days	siku saba
+urine sample	sampuli ya mkojo
+aspirin	aspirini
+paracetamol	parasetamoli
+children	watoto	watoto	C2

@@ -1,8 +1,8 @@
 [package]
 name = "sema"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
-description = "Sema - offline semantic anchoring for low-resource languages. Distilled Wiktionary lexicons + morphology-aware word resolution. No cloud, no model."
+description = "Sema - offline semantic anchoring for low-resource languages. Distilled Wiktionary lexicons + morphology-aware word resolution and slot synthesis. No cloud, no model."
 license = "MIT"
 repository = "https://github.com/Nama-ResearchLab/Sema"
 keywords = ["swahili", "nlp", "lexicon", "morphology", "low-resource"]
@@ -13,11 +13,7 @@ serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 toml = "0.8"
 
-# Back-pass: pure data-driven Swahili verb synthesis (structured intent to
-# exact surface verb). The engine's morphology lives in its own TOML data
-# file; this crate uses it as the render half of the double-pass pattern.
-sema-tena = { git = "https://github.com/Nama-ResearchLab/Sema-Tena" }
-
 [profile.release]
 opt-level = 3
 lto = "thin"
+

@@ -169,6 +169,18 @@ fn first_sense(g: &str) -> String {
 /// Returns (negation, subject, tense, object, root_stem, raw_remainder).
 /// Uses the 7-slot template: [NEG][SUBJ][TENSE][OBJ][ROOT]
 pub fn decompose_verb(word: &str) -> MorphDecomp {
+    let mut m = decompose_verb_raw(word);
+    // Intrusive -ku- on a monosyllabic stem belongs to neither the object
+    // nor the root: anakula = a-na-(ku)-la, root "la".
+    if let Some(rest) = m.root.strip_prefix("ku") {
+        if is_mono_stem(rest) && m.subject.is_some() {
+            m.root = rest.to_string();
+        }
+    }
+    m
+}
+
+fn decompose_verb_raw(word: &str) -> MorphDecomp {
     let lower = word.to_lowercase();
     let w = lower.as_str();
 
@@ -233,8 +245,9 @@ pub fn decompose_verb(word: &str) -> MorphDecomp {
                     };
                 }
             }
-            // bare stem after neg+subj
-            if after.len() >= 3 {
+            // bare stem after neg+subj (3+ chars, or a mono-stem negative
+            // present: sili/hali = la, sipi = pa, sifi = fa, sinywi = nywa)
+            if after.len() >= 3 || matches!(after, "li" | "pi" | "fi" | "ji") {
                 return MorphDecomp {
                     negation: Some("ha".to_string()),
                     subject: Some((*subj).to_string()),
@@ -308,6 +321,81 @@ pub fn decompose_verb(word: &str) -> MorphDecomp {
     }
 }
 
+/// Monosyllabic verb stems that take the intrusive -ku-.
+pub fn is_mono_stem(s: &str) -> bool {
+    matches!(s, "la" | "ja" | "nywa" | "wa" | "pa" | "fa" | "cha")
+}
+
+/// Candidate dictionary roots for a decomposed verb. Present-negative verbs
+/// end in -i (sipendi), so the -a form (penda) is tried first for roots
+/// ending in -i; borrowed stems (kubali) are kept as a fallback.
+pub fn root_candidates(m: &MorphDecomp) -> Vec<String> {
+    let mut v = Vec::new();
+    let r = &m.root;
+    let neg_pres = m.negation.is_some() && m.tense.is_none();
+    if neg_pres && r.ends_with('i') && r.len() >= 2 {
+        v.push(format!("{}a", &r[..r.len() - 1]));
+    }
+    v.push(r.clone());
+    // object -m- before a vowel-initial root surfaces as -mw- (alimwona):
+    // offer the root without the glide as a second candidate.
+    let mut cs = r.chars();
+    if m.object.as_deref() == Some("m") && cs.next() == Some('w') && cs.next().map_or(false, |c| "aeiou".contains(c)) {
+        v.push(r[1..].to_string());
+    }
+    v
+}
+
+/// Positive subjunctive / hortative: nimpe, nimeze, atoke, tule, apewe.
+/// Returns (subject, object, root candidates with the -a form first).
+pub fn decompose_subjunctive(word: &str) -> Option<(String, Option<String>, Vec<String>)> {
+    let w = word.to_lowercase();
+    if !w.ends_with('e') {
+        return None;
+    }
+    for subj in ["tu", "wa", "ni", "u", "m", "a"] {
+        let Some(rest) = w.strip_prefix(subj) else { continue };
+        let mut tries: Vec<(Option<&str>, &str)> = vec![(None, rest)];
+        for obj in ["wa", "ki", "vi", "zi", "li", "ni", "ku", "tu", "m"] {
+            if let Some(r2) = rest.strip_prefix(obj) {
+                tries.push((Some(obj), r2));
+            }
+        }
+        // longest object first is not needed: lexicon check picks the real one
+        for (obj, stem) in tries.into_iter().rev() {
+            if stem.len() >= 2 {
+                let a_form = format!("{}a", &stem[..stem.len() - 1]);
+                let mut cands = vec![a_form];
+                if obj == Some("m") && stem.starts_with('w') {
+                    // mw glide: mwone -> ona
+                    cands.push(format!("{}a", &stem[1..stem.len() - 1]));
+                }
+                // passive subjunctive: apewe -> pewa/pa handled by lexicon forms
+                return Some((subj.to_string(), obj.map(String::from), cands));
+            }
+        }
+    }
+    None
+}
+
+/// Split a negative subjunctive / negative imperative (usinywe, msile,
+/// asitumie, tusisome). Returns (subject surface, root restored to -a form
+/// plus the raw stem as fallback candidates).
+pub fn decompose_neg_subjunctive(word: &str) -> Option<(String, Vec<String>)> {
+    let w = word.to_lowercase();
+    for subj in ["tu", "wa", "ni", "u", "m", "a"] {
+        if let Some(rest) = w.strip_prefix(subj) {
+            if let Some(stem) = rest.strip_prefix("si") {
+                if stem.len() >= 2 && stem.ends_with('e') {
+                    let a_form = format!("{}a", &stem[..stem.len() - 1]);
+                    return Some((subj.to_string(), vec![a_form, stem.to_string()]));
+                }
+            }
+        }
+    }
+    None
+}
+
 fn strip_object(stem: &str) -> Option<(String, String)> {
     // Object infixes ordered by length (longest first)
     const OBJS: [&str; 11] = [
@@ -316,6 +404,11 @@ fn strip_object(stem: &str) -> Option<(String, String)> {
     for obj in &OBJS {
         if stem.starts_with(obj) && stem.len() > obj.len() {
             let root = &stem[obj.len()..];
+            // -ku- before a monosyllabic stem is the intrusive support
+            // morpheme (anakula, ninakuja), not the 2SG object.
+            if *obj == "ku" && is_mono_stem(root) {
+                continue;
+            }
             if root.len() >= 2 {
                 return Some((obj.to_string(), root.to_string()));
             }

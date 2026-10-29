@@ -1,0 +1,201 @@
+id,direction,source_text,target_gold,category,negated,intent_json,expected_verb
+SW-001,SW_TO_EN,Mtoto ana homa tangu jana,The child has had fever since yesterday,clinical_history,False,,
+SW-002,SW_TO_EN,Ana kikohozi kikavu,He has a dry cough,clinical_history,False,,
+SW-003,SW_TO_EN,Ninaumwa na kichwa,I have a headache,clinical_history,False,,
+SW-004,SW_TO_EN,Tumbo linaniuma sana,My stomach hurts a lot,clinical_history,False,,
+SW-005,SW_TO_EN,Mgonjwa anatapika kila siku,The patient vomits every day,clinical_history,False,,
+SW-006,SW_TO_EN,Ana kuharisha damu,He has bloody diarrhea,clinical_history,False,,
+SW-007,SW_TO_EN,Mama ni mjamzito wa miezi saba,Mother is seven months pregnant,clinical_history,False,,
+SW-008,SW_TO_EN,Mtoto anakataa kunyonya,The baby refuses to breastfeed,clinical_history,False,,
+SW-009,SW_TO_EN,Nimekuwa na maumivu ya kifua,I have had chest pain,clinical_history,False,,
+SW-010,SW_TO_EN,Mguu wake umevimba,His leg is swollen,clinical_history,False,,
+SW-011,SW_TO_EN,Anapumua kwa shida,He breathes with difficulty,clinical_history,False,,
+SW-012,SW_TO_EN,Ana kisukari na shinikizo la damu,He has diabetes and high blood pressure,clinical_history,False,,
+SW-013,SW_TO_EN,Alianguka jana usiku,He fell last night,clinical_history,False,,
+SW-014,SW_TO_EN,Macho yake yamekuwa mekundu,His eyes have become red,clinical_history,False,,
+SW-015,SW_TO_EN,Ngozi inawasha sana,The skin itches a lot,clinical_history,False,,
+SW-016,SW_TO_EN,Amekuwa akikohoa wiki tatu,He has been coughing for three weeks,clinical_history,False,,
+SW-017,SW_TO_EN,Mtoto amepoteza uzito,The child has lost weight,clinical_history,False,,
+SW-018,SW_TO_EN,Nina kizunguzungu asubuhi,I feel dizzy in the morning,clinical_history,False,,
+SW-019,SW_TO_EN,Alizaliwa hospitalini,She was born in hospital,clinical_history,False,,
+SW-020,SW_TO_EN,Anatumia dawa za TB,He is taking TB medicine,clinical_history,False,,
+SW-021,SW_TO_EN,Amepata chanjo ya surua,He received the measles vaccine,clinical_history,False,,
+SW-022,SW_TO_EN,Damu inatoka puani,Blood comes from the nose,clinical_history,False,,
+SW-023,SW_TO_EN,Mgonjwa amelazwa wodini,The patient is admitted in the ward,clinical_history,False,,
+SW-024,SW_TO_EN,Ana maumivu ya sikio,He has an earache,clinical_history,False,,
+SW-025,SW_TO_EN,Mkojo una damu,The urine has blood,clinical_history,False,,
+SW-026,SW_TO_EN,Sili chakula,I do not eat food,negation,True,,
+SW-027,SW_TO_EN,Hanywi maji,He does not drink water,negation,True,,
+SW-028,SW_TO_EN,Hapumui vizuri,He does not breathe well,negation,True,,
+SW-029,SW_TO_EN,Sikulala usiku,I did not sleep at night,negation,True,,
+SW-030,SW_TO_EN,Hakuenda shule,He did not go to school,negation,True,,
+SW-031,SW_TO_EN,Hatujapata majibu,We have not yet received results,negation,True,,
+SW-032,SW_TO_EN,Sitakuja kesho,I will not come tomorrow,negation,True,,
+SW-033,SW_TO_EN,Hawatafika leo,They will not arrive today,negation,True,,
+SW-034,SW_TO_EN,Hana homa,He has no fever,negation,True,,
+SW-035,SW_TO_EN,Sina maumivu,I have no pain,negation,True,,
+SW-036,SW_TO_EN,Hatuna dawa,We have no medicine,negation,True,,
+SW-037,SW_TO_EN,Hakuna damu,There is no blood,negation,True,,
+SW-038,SW_TO_EN,Mtoto hanyonyi,The baby does not suckle,negation,True,,
+SW-039,SW_TO_EN,Hajaamka,He has not woken up,negation,True,,
+SW-040,SW_TO_EN,Usinywe pombe,Do not drink alcohol,negation,True,,
+SW-041,SW_TO_EN,Msile chakula baridi,Do not eat cold food,negation,True,,
+SW-042,SW_TO_EN,Asitumie dawa hii,He should not use this medicine,negation,True,,
+SW-043,SW_TO_EN,Siwezi kutembea,I cannot walk,negation,True,,
+SW-044,SW_TO_EN,Hawezi kusimama,He cannot stand,negation,True,,
+SW-045,SW_TO_EN,Hajisikii vizuri,He does not feel well,negation,True,,
+SW-046,SW_TO_EN,Hakunijibu,He did not answer me,negation,True,,
+SW-047,SW_TO_EN,Sipendi dawa hii,I do not like this medicine,negation,True,,
+SW-048,SW_TO_EN,Hawajala tangu jana,They have not eaten since yesterday,negation,True,,
+SW-049,SW_TO_EN,Mgonjwa hakupata nafuu,The patient did not get better,negation,True,,
+SW-050,SW_TO_EN,Siwezi kupumua,I cannot breathe,negation,True,,
+SW-051,SW_TO_EN,Meza kidonge kimoja kila asubuhi,Swallow one tablet every morning,command_dosage,False,,
+SW-052,SW_TO_EN,Kunywa maji mengi,Drink plenty of water,command_dosage,False,,
+SW-053,SW_TO_EN,Rudi hospitali baada ya wiki moja,Return to hospital after one week,command_dosage,False,,
+SW-054,SW_TO_EN,Mpe mtoto maji ya chumvi na sukari,Give the child oral rehydration solution,command_dosage,False,,
+SW-055,SW_TO_EN,Pumzika kitandani,Rest in bed,command_dosage,False,,
+SW-056,SW_TO_EN,Tumia dawa mara tatu kwa siku,Use the medicine three times a day,command_dosage,False,,
+SW-057,SW_TO_EN,Osha mikono kwa sabuni,Wash hands with soap,command_dosage,False,,
+SW-058,SW_TO_EN,Mlete mgonjwa kliniki,Bring the patient to the clinic,command_dosage,False,,
+SW-059,SW_TO_EN,Fika mapema asubuhi,Arrive early in the morning,command_dosage,False,,
+SW-060,SW_TO_EN,Mnyonyeshe mtoto mara kwa mara,Breastfeed the baby often,command_dosage,False,,
+SW-061,SW_TO_EN,Pima shinikizo la damu,Measure blood pressure,command_dosage,False,,
+SW-062,SW_TO_EN,Funika mdomo unapokohoa,Cover your mouth when you cough,command_dosage,False,,
+SW-063,SW_TO_EN,Chukua sampuli ya mkojo,Take a urine sample,command_dosage,False,,
+SW-064,SW_TO_EN,Subiri nje tafadhali,Wait outside please,command_dosage,False,,
+SW-065,SW_TO_EN,Fungua kinywa,Open your mouth,command_dosage,False,,
+SW-066,SW_TO_EN,Habari za asubuhi,Good morning,everyday,False,,
+SW-067,SW_TO_EN,Jina lako nani,What is your name,everyday,False,,
+SW-068,SW_TO_EN,Ninaishi Dar es Salaam,I live in Dar es Salaam,everyday,False,,
+SW-069,SW_TO_EN,Tutaonana kesho,We will see each other tomorrow,everyday,False,,
+SW-070,SW_TO_EN,Asante sana daktari,Thank you doctor,everyday,False,,
+SW-071,SW_TO_EN,Mama yangu amekuja,My mother has come,everyday,False,,
+SW-072,SW_TO_EN,Nimechoka sana,I am very tired,everyday,False,,
+SW-073,SW_TO_EN,Watoto wanacheza nje,The children are playing outside,everyday,False,,
+SW-074,SW_TO_EN,Tunakwenda sokoni,We are going to the market,everyday,False,,
+SW-075,SW_TO_EN,Baba alifika jana,Father arrived yesterday,everyday,False,,
+SW-076,SW_TO_EN,Ninataka kuongea na daktari,I want to speak with the doctor,everyday,False,,
+SW-077,SW_TO_EN,Gari limeharibika,The car has broken down,everyday,False,,
+SW-078,SW_TO_EN,Mvua inanyesha,It is raining,everyday,False,,
+SW-079,SW_TO_EN,Walimu wanafundisha shuleni,Teachers are teaching at school,everyday,False,,
+SW-080,SW_TO_EN,Tulikula wali na maharage,We ate rice and beans,everyday,False,,
+SW-081,SW_TO_EN,Una umri gani,How old are you,question,False,,
+SW-082,SW_TO_EN,Unaumwa wapi,Where do you hurt,question,False,,
+SW-083,SW_TO_EN,Tatizo lilianza lini,When did the problem start,question,False,,
+SW-084,SW_TO_EN,Umekula nini leo,What did you eat today,question,False,,
+SW-085,SW_TO_EN,Je una mimba,Are you pregnant,question,False,,
+SW-086,SW_TO_EN,Mtoto ana miaka mingapi,How old is the child,question,False,,
+SW-087,SW_TO_EN,Unatumia dawa gani,Which medicine are you taking,question,False,,
+SW-088,SW_TO_EN,Nani amekuleta hapa,Who brought you here,question,False,,
+SW-089,SW_TO_EN,Kwa nini hukuja mapema,Why did you not come early,question,True,,
+SW-090,SW_TO_EN,Je ulipata chanjo,Did you get vaccinated,question,False,,
+SW-091,SW_TO_EN,Vidonge hivi ni vikali,These tablets are strong,noun_class,False,,
+SW-092,SW_TO_EN,Kitabu kimepotea,The book is lost,noun_class,False,,
+SW-093,SW_TO_EN,Miguu yake imevimba,His legs are swollen,noun_class,False,,
+SW-094,SW_TO_EN,Mikono yangu inauma,My hands hurt,noun_class,False,,
+SW-095,SW_TO_EN,Matunda yameiva,The fruits are ripe,noun_class,False,,
+SW-096,SW_TO_EN,Watu wengi walifika,Many people arrived,noun_class,False,,
+SW-097,SW_TO_EN,Kiti kimevunjika,The chair is broken,noun_class,False,,
+SW-098,SW_TO_EN,Mtoto mdogo analia,The small child is crying,noun_class,False,,
+SW-099,SW_TO_EN,Dawa zimeisha,The medicines have run out,noun_class,False,,
+SW-100,SW_TO_EN,Nyumba yetu ni kubwa,Our house is big,noun_class,False,,
+B100-001,EN_TO_SW,,,positive_basic,False,"{""subject"": ""1SG"", ""tense"": ""PRES"", ""negation"": false, ""root"": ""soma"", ""mood"": ""a""}",ninasoma
+B100-002,EN_TO_SW,,,positive_basic,False,"{""subject"": ""2SG"", ""tense"": ""PRES"", ""negation"": false, ""root"": ""soma"", ""mood"": ""a""}",unasoma
+B100-003,EN_TO_SW,,,positive_basic,False,"{""subject"": ""3SG"", ""tense"": ""PRES"", ""negation"": false, ""root"": ""soma"", ""mood"": ""a""}",anasoma
+B100-004,EN_TO_SW,,,positive_basic,False,"{""subject"": ""1PL"", ""tense"": ""PRES"", ""negation"": false, ""root"": ""soma"", ""mood"": ""a""}",tunasoma
+B100-005,EN_TO_SW,,,positive_basic,False,"{""subject"": ""2PL"", ""tense"": ""PRES"", ""negation"": false, ""root"": ""soma"", ""mood"": ""a""}",mnasoma
+B100-006,EN_TO_SW,,,positive_basic,False,"{""subject"": ""3PL"", ""tense"": ""PRES"", ""negation"": false, ""root"": ""soma"", ""mood"": ""a""}",wanasoma
+B100-007,EN_TO_SW,,,positive_basic,False,"{""subject"": ""1SG"", ""tense"": ""PAST"", ""negation"": false, ""root"": ""fanya"", ""mood"": ""a""}",nilifanya
+B100-008,EN_TO_SW,,,positive_basic,False,"{""subject"": ""3SG"", ""tense"": ""PAST"", ""negation"": false, ""root"": ""toka"", ""mood"": ""a""}",alitoka
+B100-009,EN_TO_SW,,,positive_basic,False,"{""subject"": ""3PL"", ""tense"": ""FUT"", ""negation"": false, ""root"": ""jibu"", ""mood"": ""a""}",watajibu
+B100-010,EN_TO_SW,,,positive_basic,False,"{""subject"": ""1PL"", ""tense"": ""PERF"", ""negation"": false, ""root"": ""fika"", ""mood"": ""a""}",tumefika
+B100-011,EN_TO_SW,,,positive_basic,False,"{""subject"": ""2SG"", ""tense"": ""PERF"", ""negation"": false, ""root"": ""fika"", ""mood"": ""a""}",umefika
+B100-012,EN_TO_SW,,,positive_basic,False,"{""subject"": ""1SG"", ""tense"": ""PRES"", ""negation"": false, ""root"": ""pata"", ""mood"": ""a""}",ninapata
+B100-013,EN_TO_SW,,,positive_basic,False,"{""subject"": ""3SG"", ""tense"": ""PRES"", ""negation"": false, ""root"": ""penda"", ""mood"": ""a""}",anapenda
+B100-014,EN_TO_SW,,,positive_basic,False,"{""subject"": ""2PL"", ""tense"": ""FUT"", ""negation"": false, ""root"": ""andika"", ""mood"": ""a""}",mtaandika
+B100-015,EN_TO_SW,,,monosyllabic_stem,False,"{""subject"": ""3SG"", ""tense"": ""PRES"", ""negation"": false, ""root"": ""la"", ""mood"": ""a""}",anakula
+B100-016,EN_TO_SW,,,monosyllabic_stem,False,"{""subject"": ""3SG"", ""tense"": ""PAST"", ""negation"": false, ""root"": ""la"", ""mood"": ""a""}",alikula
+B100-017,EN_TO_SW,,,monosyllabic_stem,False,"{""subject"": ""1SG"", ""tense"": ""FUT"", ""negation"": false, ""root"": ""la"", ""mood"": ""a""}",nitakula
+B100-018,EN_TO_SW,,,monosyllabic_stem,False,"{""subject"": ""2SG"", ""tense"": ""PERF"", ""negation"": false, ""root"": ""la"", ""mood"": ""a""}",umekula
+B100-019,EN_TO_SW,,,monosyllabic_stem,False,"{""subject"": ""3SG"", ""tense"": ""PRES"", ""negation"": false, ""root"": ""nywa"", ""mood"": ""a""}",anakunywa
+B100-020,EN_TO_SW,,,monosyllabic_stem,False,"{""subject"": ""1SG"", ""tense"": ""PRES"", ""negation"": false, ""root"": ""ja"", ""mood"": ""a""}",ninakuja
+B100-021,EN_TO_SW,,,monosyllabic_stem,False,"{""subject"": ""3PL"", ""tense"": ""FUT"", ""negation"": false, ""root"": ""ja"", ""mood"": ""a""}",watakuja
+B100-022,EN_TO_SW,,,monosyllabic_stem,False,"{""subject"": ""1PL"", ""tense"": ""PAST"", ""negation"": false, ""root"": ""nywa"", ""mood"": ""a""}",tulikunywa
+B100-023,EN_TO_SW,,,monosyllabic_stem,False,"{""subject"": ""3SG"", ""tense"": ""PRES"", ""negation"": false, ""root"": ""pa"", ""mood"": ""a""}",anakupa
+B100-024,EN_TO_SW,,,monosyllabic_stem,False,"{""subject"": ""1SG"", ""tense"": ""PAST"", ""negation"": false, ""root"": ""fa"", ""mood"": ""a""}",nilikufa
+B100-025,EN_TO_SW,,,monosyllabic_stem_neg,True,"{""subject"": ""1SG"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""la"", ""mood"": ""a""}",sili
+B100-026,EN_TO_SW,,,monosyllabic_stem_neg,True,"{""subject"": ""3SG"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""la"", ""mood"": ""a""}",hali
+B100-027,EN_TO_SW,,,monosyllabic_stem_neg,True,"{""subject"": ""3PL"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""la"", ""mood"": ""a""}",hawali
+B100-028,EN_TO_SW,,,monosyllabic_stem_neg,True,"{""subject"": ""1SG"", ""tense"": ""PAST"", ""negation"": true, ""root"": ""la"", ""mood"": ""a""}",sikula
+B100-029,EN_TO_SW,,,monosyllabic_stem_neg,True,"{""subject"": ""3SG"", ""tense"": ""PAST"", ""negation"": true, ""root"": ""la"", ""mood"": ""a""}",hakula
+B100-030,EN_TO_SW,,,monosyllabic_stem_neg,True,"{""subject"": ""3SG"", ""tense"": ""PAST"", ""negation"": true, ""root"": ""ja"", ""mood"": ""a""}",hakuja
+B100-031,EN_TO_SW,,,monosyllabic_stem_neg,True,"{""subject"": ""3SG"", ""tense"": ""PAST"", ""negation"": true, ""root"": ""nywa"", ""mood"": ""a""}",hakunywa
+B100-032,EN_TO_SW,,,monosyllabic_stem_neg,True,"{""subject"": ""1PL"", ""tense"": ""FUT"", ""negation"": true, ""root"": ""la"", ""mood"": ""a""}",hatutakula
+B100-033,EN_TO_SW,,,object_infix,False,"{""subject"": ""1SG"", ""tense"": ""PRES"", ""negation"": false, ""object"": ""m"", ""root"": ""soma"", ""mood"": ""a""}",ninamsoma
+B100-034,EN_TO_SW,,,object_infix,True,"{""subject"": ""3PL"", ""tense"": ""FUT"", ""negation"": true, ""object"": ""ku"", ""root"": ""jibu"", ""mood"": ""a""}",hawatakujibu
+B100-035,EN_TO_SW,,,object_infix,False,"{""subject"": ""1SG"", ""tense"": ""FUT"", ""negation"": false, ""object"": ""ku"", ""root"": ""penda"", ""mood"": ""a""}",nitakupenda
+B100-036,EN_TO_SW,,,object_infix,False,"{""subject"": ""3SG"", ""tense"": ""PAST"", ""negation"": false, ""object"": ""ni"", ""root"": ""piga"", ""mood"": ""a""}",alinipiga
+B100-037,EN_TO_SW,,,object_infix,False,"{""subject"": ""1PL"", ""tense"": ""PAST"", ""negation"": false, ""object"": ""wa"", ""root"": ""ona"", ""mood"": ""a""}",tuliwaona
+B100-038,EN_TO_SW,,,object_infix,False,"{""subject"": ""2SG"", ""tense"": ""PRES"", ""negation"": false, ""object"": ""ni"", ""root"": ""penda"", ""mood"": ""a""}",unanipenda
+B100-039,EN_TO_SW,,,object_infix,False,"{""subject"": ""3SG"", ""tense"": ""PERF"", ""negation"": false, ""object"": ""ki"", ""root"": ""fanya"", ""mood"": ""a""}",amekifanya
+B100-040,EN_TO_SW,,,object_infix,False,"{""subject"": ""3PL"", ""tense"": ""PAST"", ""negation"": false, ""object"": ""zi"", ""root"": ""pata"", ""mood"": ""a""}",walizipata
+B100-041,EN_TO_SW,,,object_infix,True,"{""subject"": ""2PL"", ""tense"": ""PAST"", ""negation"": true, ""object"": ""ni"", ""root"": ""jibu"", ""mood"": ""a""}",hamkunijibu
+B100-042,EN_TO_SW,,,object_infix,True,"{""subject"": ""3SG"", ""tense"": ""PAST"", ""negation"": true, ""object"": ""ki"", ""root"": ""ona"", ""mood"": ""a""}",hakukiona
+B100-043,EN_TO_SW,,,object_infix,True,"{""subject"": ""1PL"", ""tense"": ""FUT"", ""negation"": true, ""object"": ""wa"", ""root"": ""fundisha"", ""mood"": ""a""}",hatutawafundisha
+B100-044,EN_TO_SW,,,object_infix,True,"{""subject"": ""3PL"", ""tense"": ""PERF"", ""negation"": true, ""object"": ""zi"", ""root"": ""pata"", ""mood"": ""a""}",hawajazipata
+B100-045,EN_TO_SW,,,object_infix,False,"{""subject"": ""1SG"", ""tense"": ""PAST"", ""negation"": false, ""object"": ""tu"", ""root"": ""ona"", ""mood"": ""a""}",nilituona
+B100-046,EN_TO_SW,,,vowel_initial_root,False,"{""subject"": ""3SG"", ""tense"": ""PRES"", ""negation"": false, ""root"": ""ondoka"", ""mood"": ""a""}",anaondoka
+B100-047,EN_TO_SW,,,vowel_initial_root,False,"{""subject"": ""1SG"", ""tense"": ""PRES"", ""negation"": false, ""root"": ""ona"", ""mood"": ""a""}",ninaona
+B100-048,EN_TO_SW,,,vowel_initial_root,False,"{""subject"": ""3PL"", ""tense"": ""PAST"", ""negation"": false, ""root"": ""ondoka"", ""mood"": ""a""}",waliondoka
+B100-049,EN_TO_SW,,,vowel_initial_root,False,"{""subject"": ""1PL"", ""tense"": ""PRES"", ""negation"": false, ""root"": ""ondoka"", ""mood"": ""a""}",tunaondoka
+B100-050,EN_TO_SW,,,vowel_initial_root,False,"{""subject"": ""2PL"", ""tense"": ""PAST"", ""negation"": false, ""root"": ""ona"", ""mood"": ""a""}",mliona
+B100-051,EN_TO_SW,,,vowel_initial_root,False,"{""subject"": ""3SG"", ""tense"": ""PAST"", ""negation"": false, ""root"": ""ona"", ""mood"": ""a""}",aliona
+B100-052,EN_TO_SW,,,vowel_initial_root,False,"{""subject"": ""3PL"", ""tense"": ""PAST"", ""negation"": false, ""root"": ""ingia"", ""mood"": ""a""}",waliingia
+B100-053,EN_TO_SW,,,vowel_initial_root,False,"{""subject"": ""1SG"", ""tense"": ""PAST"", ""negation"": false, ""root"": ""ingia"", ""mood"": ""a""}",niliingia
+B100-054,EN_TO_SW,,,noun_class_subject,False,"{""subject"": ""KI"", ""tense"": ""PAST"", ""negation"": false, ""root"": ""vunja"", ""mood"": ""a""}",kilivunja
+B100-055,EN_TO_SW,,,noun_class_subject,False,"{""subject"": ""LI"", ""tense"": ""PRES"", ""negation"": false, ""root"": ""anguka"", ""mood"": ""a""}",linaanguka
+B100-056,EN_TO_SW,,,noun_class_subject,False,"{""subject"": ""YA"", ""tense"": ""PERF"", ""negation"": false, ""root"": ""anguka"", ""mood"": ""a""}",yameanguka
+B100-057,EN_TO_SW,,,noun_class_subject,False,"{""subject"": ""ZI"", ""tense"": ""PRES"", ""negation"": false, ""root"": ""pita"", ""mood"": ""a""}",zinapita
+B100-058,EN_TO_SW,,,noun_class_subject,False,"{""subject"": ""KI"", ""tense"": ""PERF"", ""negation"": false, ""root"": ""vunjika"", ""mood"": ""a""}",kimevunjika
+B100-059,EN_TO_SW,,,noun_class_subject,False,"{""subject"": ""I"", ""tense"": ""PAST"", ""negation"": false, ""root"": ""fika"", ""mood"": ""a""}",ilifika
+B100-060,EN_TO_SW,,,negative_present,True,"{""subject"": ""1SG"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""penda"", ""mood"": ""a""}",sipendi
+B100-061,EN_TO_SW,,,negative_present,True,"{""subject"": ""2SG"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""penda"", ""mood"": ""a""}",hupendi
+B100-062,EN_TO_SW,,,negative_present,True,"{""subject"": ""3SG"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""penda"", ""mood"": ""a""}",hapendi
+B100-063,EN_TO_SW,,,negative_present,True,"{""subject"": ""1PL"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""penda"", ""mood"": ""a""}",hatupendi
+B100-064,EN_TO_SW,,,negative_present,True,"{""subject"": ""2PL"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""penda"", ""mood"": ""a""}",hampendi
+B100-065,EN_TO_SW,,,negative_present,True,"{""subject"": ""3PL"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""penda"", ""mood"": ""a""}",hawapendi
+B100-066,EN_TO_SW,,,negative_present,True,"{""subject"": ""3SG"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""soma"", ""mood"": ""a""}",hasomi
+B100-067,EN_TO_SW,,,negative_present,True,"{""subject"": ""1PL"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""weza"", ""mood"": ""a""}",hatuwezi
+B100-068,EN_TO_SW,,,negative_present,True,"{""subject"": ""3PL"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""jibu"", ""mood"": ""a""}",hawajibu
+B100-069,EN_TO_SW,,,negative_present,True,"{""subject"": ""3SG"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""jibu"", ""mood"": ""a""}",hajibu
+B100-070,EN_TO_SW,,,negative_present,True,"{""subject"": ""1SG"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""jali"", ""mood"": ""a""}",sijali
+B100-071,EN_TO_SW,,,negative_present,True,"{""subject"": ""1SG"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""jua"", ""mood"": ""a""}",sijui
+B100-072,EN_TO_SW,,,negative_present,True,"{""subject"": ""3SG"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""fika"", ""mood"": ""a""}",hafiki
+B100-073,EN_TO_SW,,,negative_present,True,"{""subject"": ""3SG"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""kubali"", ""mood"": ""a""}",hakubali
+B100-074,EN_TO_SW,,,negative_present,True,"{""subject"": ""1SG"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""sahau"", ""mood"": ""a""}",sisahau
+B100-075,EN_TO_SW,,,negative_present,True,"{""subject"": ""1SG"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""sikia"", ""mood"": ""a""}",sisikii
+B100-076,EN_TO_SW,,,negative_past,True,"{""subject"": ""1SG"", ""tense"": ""PAST"", ""negation"": true, ""root"": ""fanya"", ""mood"": ""a""}",sikufanya
+B100-077,EN_TO_SW,,,negative_past,True,"{""subject"": ""2SG"", ""tense"": ""PAST"", ""negation"": true, ""root"": ""fanya"", ""mood"": ""a""}",hukufanya
+B100-078,EN_TO_SW,,,negative_past,True,"{""subject"": ""3SG"", ""tense"": ""PAST"", ""negation"": true, ""root"": ""fanya"", ""mood"": ""a""}",hakufanya
+B100-079,EN_TO_SW,,,negative_past,True,"{""subject"": ""1PL"", ""tense"": ""PAST"", ""negation"": true, ""root"": ""fanya"", ""mood"": ""a""}",hatukufanya
+B100-080,EN_TO_SW,,,negative_past,True,"{""subject"": ""2PL"", ""tense"": ""PAST"", ""negation"": true, ""root"": ""fanya"", ""mood"": ""a""}",hamkufanya
+B100-081,EN_TO_SW,,,negative_past,True,"{""subject"": ""3PL"", ""tense"": ""PAST"", ""negation"": true, ""root"": ""fanya"", ""mood"": ""a""}",hawakufanya
+B100-082,EN_TO_SW,,,negative_future,True,"{""subject"": ""1SG"", ""tense"": ""FUT"", ""negation"": true, ""root"": ""penda"", ""mood"": ""a""}",sitapenda
+B100-083,EN_TO_SW,,,negative_future,True,"{""subject"": ""3SG"", ""tense"": ""FUT"", ""negation"": true, ""root"": ""penda"", ""mood"": ""a""}",hatapenda
+B100-084,EN_TO_SW,,,negative_future,True,"{""subject"": ""3PL"", ""tense"": ""FUT"", ""negation"": true, ""root"": ""jibu"", ""mood"": ""a""}",hawatajibu
+B100-085,EN_TO_SW,,,negative_future,True,"{""subject"": ""2SG"", ""tense"": ""FUT"", ""negation"": true, ""root"": ""soma"", ""mood"": ""a""}",hutasoma
+B100-086,EN_TO_SW,,,negative_perfect_notyet,True,"{""subject"": ""1SG"", ""tense"": ""PERF"", ""negation"": true, ""root"": ""pata"", ""mood"": ""a""}",sijapata
+B100-087,EN_TO_SW,,,negative_perfect_notyet,True,"{""subject"": ""3SG"", ""tense"": ""PERF"", ""negation"": true, ""root"": ""pata"", ""mood"": ""a""}",hajapata
+B100-088,EN_TO_SW,,,negative_perfect_notyet,True,"{""subject"": ""3SG"", ""tense"": ""PERF"", ""negation"": true, ""root"": ""fika"", ""mood"": ""a""}",hajafika
+B100-089,EN_TO_SW,,,negative_perfect_notyet,True,"{""subject"": ""2PL"", ""tense"": ""PERF"", ""negation"": true, ""root"": ""soma"", ""mood"": ""a""}",hamjasoma
+B100-090,EN_TO_SW,,,subjunctive,False,"{""subject"": ""1SG"", ""tense"": ""BARE"", ""negation"": false, ""root"": ""soma"", ""mood"": ""e""}",nisome
+B100-091,EN_TO_SW,,,subjunctive,False,"{""subject"": ""1PL"", ""tense"": ""BARE"", ""negation"": false, ""root"": ""soma"", ""mood"": ""e""}",tusome
+B100-092,EN_TO_SW,,,subjunctive,False,"{""subject"": ""3PL"", ""tense"": ""BARE"", ""negation"": false, ""root"": ""soma"", ""mood"": ""e""}",wasome
+B100-093,EN_TO_SW,,,subjunctive,False,"{""subject"": ""2SG"", ""tense"": ""BARE"", ""negation"": false, ""root"": ""fika"", ""mood"": ""e""}",ufike
+B100-094,EN_TO_SW,,,subjunctive,True,"{""subject"": ""2SG"", ""tense"": ""BARE"", ""negation"": true, ""root"": ""soma"", ""mood"": ""e""}",usisome
+B100-095,EN_TO_SW,,,subjunctive,True,"{""subject"": ""2SG"", ""tense"": ""BARE"", ""negation"": true, ""root"": ""jali"", ""mood"": ""e""}",usijali
+B100-096,EN_TO_SW,,,subjunctive,True,"{""subject"": ""1PL"", ""tense"": ""BARE"", ""negation"": true, ""root"": ""soma"", ""mood"": ""e""}",tusisome
+B100-097,EN_TO_SW,,,consecutive_ka,False,"{""subject"": ""3PL"", ""tense"": ""CONSEC"", ""negation"": false, ""root"": ""soma"", ""mood"": ""a""}",wakasoma
+B100-098,EN_TO_SW,,,consecutive_ka,False,"{""subject"": ""1SG"", ""tense"": ""CONSEC"", ""negation"": false, ""root"": ""fika"", ""mood"": ""a""}",nikafika
+B100-099,EN_TO_SW,,,consecutive_ka,False,"{""subject"": ""3SG"", ""tense"": ""CONSEC"", ""negation"": false, ""root"": ""toka"", ""mood"": ""a""}",akatoka
+B100-100,EN_TO_SW,,,negative_present,True,"{""subject"": ""2SG"", ""tense"": ""PRES"", ""negation"": true, ""root"": ""la"", ""mood"": ""a""}",huli

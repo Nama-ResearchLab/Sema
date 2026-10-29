@@ -1,0 +1,149 @@
+# Core everyday vocabulary, curated (author-written, NOT audited by a native speaker).
+# english<TAB>swahili<TAB>plural<TAB>class
+# --- family / people ---
+man	mwanamume	wanaume	C1
+woman	mwanamke	wanawake	C1
+boy	mvulana	wavulana	C1
+girl	msichana	wasichana	C1
+friend	rafiki	marafiki	C1
+brother	kaka	kaka	C1
+sister	dada	dada	C1
+grandmother	bibi	mabibi	C1
+grandfather	babu	babu	C1
+husband	mume	waume	C1
+wife	mke	wake	C1
+teacher	mwalimu	walimu	C1
+student	mwanafunzi	wanafunzi	C1
+farmer	mkulima	wakulima	C1
+neighbour	jirani	majirani	C1
+neighbor	jirani	majirani	C1
+people	watu		C2
+person	mtu	watu	C1
+family	familia	familia	C9
+village	kijiji	vijiji	C7
+# --- places ---
+house	nyumba	nyumba	C9
+home	nyumbani
+school	shule	shule	C9
+market	soko	masoko	C5
+shop	duka	maduka	C5
+road	barabara	barabara	C9
+street	mtaa	mitaa	C3
+city	mji	miji	C3
+town	mji	miji	C3
+country	nchi	nchi	C9
+church	kanisa	makanisa	C5
+mosque	msikiti	misikiti	C3
+farm	shamba	mashamba	C5
+river	mto	mito	C3
+lake	ziwa	maziwa	C5
+sea	bahari	bahari	C9
+mountain	mlima	milima	C3
+forest	msitu	misitu	C3
+beach	ufuo	fuo	C11
+airport	uwanja wa ndege
+bus station	kituo cha basi
+# --- things ---
+book	kitabu	vitabu	C7
+chair	kiti	viti	C7
+table	meza	meza	C9
+bed	kitanda	vitanda	C7
+door	mlango	milango	C3
+window	dirisha	madirisha	C5
+room	chumba	vyumba	C7
+kitchen	jiko	majiko	C5
+car	gari	magari	C5
+bus	basi	mabasi	C5
+bicycle	baiskeli	baiskeli	C9
+motorcycle	pikipiki	pikipiki	C9
+boat	mashua	mashua	C9
+plane	ndege	ndege	C9
+train	treni	treni	C9
+phone	simu	simu	C9
+mobile phone	simu ya mkononi
+computer	kompyuta	kompyuta	C9
+money	pesa	pesa	C9
+price	bei	bei	C9
+bag	mfuko	mifuko	C3
+cup	kikombe	vikombe	C7
+plate	sahani	sahani	C9
+knife	kisu	visu	C7
+pen	kalamu	kalamu	C9
+letter	barua	barua	C9
+key	ufunguo	funguo	C11
+clothes	nguo	nguo	C10
+shoe	kiatu	viatu	C7
+hat	kofia	kofia	C9
+fire	moto	moto	C3
+light	taa	taa	C9
+# --- food ---
+rice	wali
+bread	mkate	mikate	C3
+beans	maharage
+maize	mahindi
+meat	nyama	nyama	C9
+fish	samaki	samaki	C9
+egg	yai	mayai	C5
+milk	maziwa
+tea	chai
+coffee	kahawa
+sugar	sukari
+salt	chumvi
+oil	mafuta
+fruit	tunda	matunda	C5
+banana	ndizi	ndizi	C9
+mango	embe	maembe	C5
+orange	chungwa	machungwa	C5
+potato	kiazi	viazi	C7
+tomato	nyanya	nyanya	C9
+onion	kitunguu	vitunguu	C7
+vegetables	mboga
+# --- animals ---
+cow	ng'ombe	ng'ombe	C9
+goat	mbuzi	mbuzi	C9
+sheep	kondoo	kondoo	C9
+chicken	kuku	kuku	C9
+dog	mbwa	mbwa	C9
+cat	paka	paka	C9
+bird	ndege	ndege	C9
+snake	nyoka	nyoka	C9
+lion	simba	simba	C9
+elephant	tembo	tembo	C9
+mosquito	mbu	mbu	C9
+# --- nature / weather ---
+sun	jua	majua	C5
+moon	mwezi	miezi	C3
+star	nyota	nyota	C9
+rain	mvua	mvua	C9
+wind	upepo	pepo	C11
+tree	mti	miti	C3
+flower	ua	maua	C5
+grass	nyasi	nyasi	C9
+earth	dunia	dunia	C9
+ground	ardhi	ardhi	C9
+# --- abstract / misc ---
+work	kazi	kazi	C9
+name	jina	majina	C5
+word	neno	maneno	C5
+question	swali	maswali	C5
+answer	jibu	majibu	C5
+problem	tatizo	matatizo	C5
+help	msaada	misaada	C3
+life	maisha
+death	kifo	vifo	C7
+news	habari	habari	C9
+story	hadithi	hadithi	C9
+language	lugha	lugha	C9
+time	wakati	nyakati	C3
+year	mwaka	miaka	C3
+hour	saa	saa	C9
+minute	dakika	dakika	C9
+evening	jioni
+afternoon	alasiri
+monday	jumatatu
+tuesday	jumanne
+wednesday	jumatano
+thursday	alhamisi
+friday	ijumaa
+saturday	jumamosi
+sunday	jumapili

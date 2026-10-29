@@ -14,15 +14,26 @@ use serde::Deserialize;
 /// A structured intent payload for Swahili synthesis.
 #[derive(Debug, Clone, Deserialize)]
 pub struct Intent {
+    #[serde(default)]
     pub subject: Option<String>,
+    #[serde(default)]
     pub tense: Option<String>,
+    #[serde(default)]
     pub negation: bool,
+    #[serde(default)]
     pub object: Option<String>,
     pub root: String,
+    #[serde(default)]
     pub derivations: Vec<String>,
+    #[serde(default = "default_mood")]
     pub mood: String,
     /// Optional standalone words (e.g. "hapana" for "no").
+    #[serde(default)]
     pub particles: Vec<String>,
+}
+
+fn default_mood() -> String {
+    "a".to_string()
 }
 
 impl Intent {
@@ -62,6 +73,10 @@ pub struct Synthesized {
     pub slots: Vec<(String, String)>,
     /// Whether phonological smoothing was applied.
     pub smoothed: bool,
+    /// Noun class the subject concord agrees with (None for persons).
+    pub subject_class: Option<String>,
+    /// Noun class of the object infix (None for persons).
+    pub object_class: Option<String>,
 }
 
 /// The Rolodex assembler: compiles Intent -> surface Swahili.
@@ -73,6 +88,7 @@ pub struct Rolodex {
     /// Tense marker lookup: tag -> marker
     tenses: std::collections::HashMap<String, String>,
     /// Object infix lookup: infix key -> description
+    #[allow(dead_code)]
     objects: std::collections::HashMap<String, String>,
     /// Negative tense overrides: neg_key -> marker
     tense_neg: std::collections::HashMap<String, String>,
@@ -98,6 +114,16 @@ impl Rolodex {
         subjects.insert("JI".into(), "ji".into());
         subjects.insert("ZI".into(), "zi".into());
         subjects.insert("I".into(), "i".into());
+        // Explicit class tags. Use these (not bare "I", which is the English
+        // pronoun and resolves to 1SG).
+        for (tag, cl) in [
+            ("C1", "a"), ("C2", "wa"), ("C3", "u"), ("C4", "i"), ("C5", "li"),
+            ("C6", "ya"), ("C7", "ki"), ("C8", "vi"), ("C9", "i"), ("C10", "zi"),
+            ("C11", "u"), ("C14", "u"), ("C15", "ku"), ("C16", "pa"), ("C17", "ku"),
+            ("C18", "mu"), ("VI", "vi"),
+        ] {
+            subjects.insert(tag.into(), cl.into());
+        }
 
         let mut subjects_neg = std::collections::HashMap::new();
         subjects_neg.insert("1SG".into(), "si".into());
@@ -176,6 +202,33 @@ impl Rolodex {
         let mut slots = Vec::new();
         let mut out = String::new();
 
+        // Irregular bare imperatives (no subject, tense, object or derivation):
+        // enda -> nenda, ja -> njoo, la -> kula.
+        if intent.subject.is_none()
+            && intent.tense.is_none()
+            && !intent.negation
+            && intent.object.is_none()
+            && intent.derivations.is_empty()
+            && intent.mood == "a"
+        {
+            let irregular = match intent.root.as_str() {
+                "enda" => Some("nenda"),
+                "ja" => Some("njoo"),
+                "la" => Some("kula"),
+                _ => None,
+            };
+            if let Some(form) = irregular {
+                slots.push(("imperative_irregular".into(), form.into()));
+                return Synthesized {
+                    surface: form.to_string(),
+                    slots,
+                    smoothed: false,
+                    subject_class: None,
+                    object_class: None,
+                };
+            }
+        }
+
         // Slot 0: Standalone particles (hapana, ndiyo, etc.)
         for p in &intent.particles {
             out.push_str(p);
@@ -213,7 +266,10 @@ impl Rolodex {
                 } else {
                     out.push_str(&self.neg_prefix);
                     if let Some(s) = self.subjects.get(&key) {
-                        out.push_str(s);
+                        // ha + a contracts to ha (class 1: hakula, not haakula)
+                        if s != "a" {
+                            out.push_str(s);
+                        }
                         slots.push(("neg".into(), self.neg_prefix.clone()));
                         slots.push(("subj".into(), s.clone()));
                     }
@@ -263,16 +319,7 @@ impl Rolodex {
 
         // Slot 3: Object infix
         if let Some(ref obj) = intent.object {
-            // The objects HashMap maps infix -> description.
-            // We use the key (infix) directly as the surface form.
-            let key_match = obj.to_uppercase();
-            let surface_obj: &str = if self.objects.contains_key(obj.as_str()) {
-                obj.as_str()
-            } else if self.objects.contains_key(&key_match) {
-                &key_match
-            } else {
-                obj.as_str()
-            };
+            let surface_obj = self.object_infix(obj);
             // Vowel-glide: object infix -m- before a vowel-initial root
             // surfaces as -mw- (e.g. m + ona -> mwona, as in "sijamwona").
             let root_starts_vowel = matches!(
@@ -282,31 +329,34 @@ impl Rolodex {
             let rendered = if surface_obj == "m" && root_starts_vowel {
                 "mw".to_string()
             } else {
-                surface_obj.to_string()
+                surface_obj
             };
             out.push_str(&rendered);
             slots.push(("obj".into(), rendered));
         }
 
-        // Slot 4: Root
-        // Monosyllabic verb stems (la, ja, nywa, wa, pa) take an intrusive
-        // -ku- right after the TAM marker in affirmative forms whose TAM is
-        // in the stress-requiring group (-na-, -me-, -li-, -ta-, ...).
-        // This keeps penultimate stress off the weak TAM prefix.
-        let root_is_monosyllabic = self.is_monosyllabic(&intent.root);
-        if root_is_monosyllabic && !intent.negation && self.mono_needs_ku(intent.tense.as_deref()) {
+        // Slot 4/5: Root + derivational extensions. Derivations are applied
+        // to the stem first (harmony, -w- passive, -ish- causative ...) so the
+        // monosyllabic check sees the real stem (somesha is not monosyllabic).
+        let mut stem = intent.root.clone();
+        for d in &intent.derivations {
+            match derive(&stem, d) {
+                Some(next) => {
+                    slots.push(("deriv".into(), d.clone()));
+                    stem = next;
+                }
+                None => slots.push(("deriv_unknown".into(), d.clone())),
+            }
+        }
+        let root_is_monosyllabic = self.is_monosyllabic(&stem);
+        let ku_ok = intent.object.is_none() && (!intent.negation || self.neg_keeps_ku(intent.tense.as_deref()));
+        if root_is_monosyllabic && ku_ok && self.mono_needs_ku(intent.tense.as_deref()) {
             out.push_str("ku");
             slots.push(("mono_ku".into(), "ku".into()));
         }
-        let root_final_vowel = intent.root.chars().last();
-        out.push_str(&intent.root);
-        slots.push(("root".into(), intent.root.clone()));
-
-        // Slot 5: Derivational extensions (appended after root, before mood vowel)
-        for d in &intent.derivations {
-            out.push_str(d);
-            slots.push(("deriv".into(), d.clone()));
-        }
+        let root_final_vowel = stem.chars().last();
+        out.push_str(&stem);
+        slots.push(("root".into(), stem.clone()));
 
         // Slot 6: Final vowel / mood
         // The surface ending is governed by the mood PLUS (for the present
@@ -356,10 +406,14 @@ impl Rolodex {
 
         let smoothed = false; // TODO: phonological smoothing pass
 
+        let subject_class = intent.subject.as_deref().and_then(|x| self.class_label(x));
+        let object_class = intent.object.as_deref().and_then(|x| self.class_label(x));
         Synthesized {
             surface: out,
             slots,
             smoothed,
+            subject_class,
+            object_class,
         }
     }
 
@@ -420,7 +474,54 @@ impl Rolodex {
 
     /// Is the root a monosyllabic verb stem that takes intrusive -ku-?
     fn is_monosyllabic(&self, root: &str) -> bool {
-        matches!(root, "la" | "ja" | "nywa" | "wa" | "pa")
+        matches!(root, "la" | "ja" | "nywa" | "wa" | "pa" | "fa" | "cha")
+    }
+
+    /// Negative tenses that still carry the intrusive -ku- on mono stems.
+    /// Future negative keeps it (hatutakula); past/present negative do not
+    /// (sikula, sili).
+    fn neg_keeps_ku(&self, tense: Option<&str>) -> bool {
+        matches!(
+            tense.map(|t| t.to_uppercase()).as_deref(),
+            Some("FUT") | Some("TA")
+        )
+    }
+
+    /// Resolve an object tag or a raw infix to its surface infix.
+    fn object_infix(&self, obj: &str) -> String {
+        match obj.to_uppercase().as_str() {
+            "1SG" | "NI" => "ni".into(),
+            "2SG" | "KU" => "ku".into(),
+            "3SG" | "3SG_M" | "M" | "MU" => "m".into(),
+            "3SG_F" | "YU" => "m".into(),
+            "1PL" | "1PL_OBJ" | "TU" => "tu".into(),
+            "2PL" | "2PL_OBJ" | "3PL" | "3PL_WA" | "WA" | "C2" => "wa".into(),
+            "3SG_KI" | "KI" | "C7" => "ki".into(),
+            "3PL_VI" | "VI" | "C8" => "vi".into(),
+            "3PL_YA" | "YA" | "C6" => "ya".into(),
+            "3SG_N" | "C9" | "C4" => "i".into(),
+            "3PL_ZI" | "ZI" | "C10" => "zi".into(),
+            "3SG_LI" | "LI" | "C5" => "li".into(),
+            "3SG_U" | "C3" | "C11" => "u".into(),
+            _ => obj.to_string(),
+        }
+    }
+
+    /// Human-readable noun class for a subject/object tag (None = person).
+    fn class_label(&self, tag: &str) -> Option<String> {
+        match tag.to_uppercase().as_str() {
+            "KI" | "C7" | "3SG_KI" => Some("7 (ki/vi)".into()),
+            "VI" | "C8" | "3PL_VI" => Some("8 (vi)".into()),
+            "LI" | "JI" | "C5" | "3SG_LI" => Some("5 (li/ji)".into()),
+            "YA" | "C6" | "3PL_YA" => Some("6 (ya)".into()),
+            "ZI" | "C10" | "3PL_ZI" => Some("10 (zi)".into()),
+            "C9" | "C4" | "3SG_N" => Some("9/4 (i)".into()),
+            "C3" | "C11" | "C14" | "3SG_U" => Some("3/11/14 (u)".into()),
+            "PA" | "C16" => Some("16 (pa)".into()),
+            "C15" | "C17" => Some("15/17 (ku)".into()),
+            "C18" => Some("18 (mu)".into()),
+            _ => None,
+        }
     }
 
     /// Monosyllabic -ku- appears in affirmative finite forms whose TAM
@@ -435,6 +536,54 @@ impl Rolodex {
             _ => false,
         }
     }
+}
+
+fn last_vowel_is_mid(base: &str) -> bool {
+    base.chars().rev().find(|c| "aeiou".contains(*c)).map_or(false, |c| c == 'e' || c == 'o')
+}
+
+/// Apply one derivational extension to a verb stem (stem includes final -a).
+///
+/// Rules: vowel harmony (-i- after a/i/u, -e- after e/o), passive -w-,
+/// causative -ish-/-esh-, applicative -i-/-e-, stative -ik-/-ek-,
+/// reciprocal -an-. A short table covers the irregular monosyllabic stems.
+/// Returns None for an unknown derivation name.
+pub fn derive(stem: &str, kind: &str) -> Option<String> {
+    let kind = kind.to_lowercase();
+    if !stem.ends_with('a') {
+        // borrowed stems (jibu, subiri) take no productive derivation here
+        return match kind.as_str() {
+            "passive" | "applicative" | "causative" | "stative" | "reciprocal" => Some(stem.to_string()),
+            _ => None,
+        };
+    }
+    let base = &stem[..stem.len() - 1];
+    let mid = last_vowel_is_mid(base);
+    let (i, e) = ("i", "e");
+    let h = if mid { e } else { i };
+    let base_vowel_final = base.chars().last().map_or(false, |c| "aeiou".contains(c));
+    let r = match kind.as_str() {
+        "passive" => match stem {
+            "la" => "liwa".to_string(),
+            "pa" => "pewa".to_string(),
+            "nywa" => "nywewa".to_string(),
+            _ if base.ends_with('u') => format!("{base}liwa"),
+            _ if base.ends_with('o') || base.ends_with('e') => format!("{base}lewa"),
+            _ => format!("{base}wa"),
+        },
+        "applicative" => match stem {
+            "la" => "lia".to_string(),
+            "pa" => "pea".to_string(),
+            _ if base_vowel_final => format!("{base}l{h}a"),
+            _ => format!("{base}{h}a"),
+        },
+        "causative" => if base_vowel_final { format!("{base}z{}", "a") } else { format!("{base}{h}sha") },
+        "stative" if base_vowel_final => format!("{base}ka"),
+        "stative" => format!("{base}{h}ka"),
+        "reciprocal" => format!("{base}ana"),
+        _ => return None,
+    };
+    Some(r)
 }
 
 /// Quick convenience: build a common verb form.
@@ -551,6 +700,69 @@ mod tests {
         // tu-si-som-e -> tusisome
         let result = r.build_verb(true, Some("tu"), Some("BARE"), None, "soma", "e");
         assert_eq!(result, "tusisome");
+    }
+
+    #[test]
+    fn negated_class_subjects() {
+        let r = Rolodex::swahili();
+        assert_eq!(r.build_verb(true, Some("C1"), Some("PAST"), None, "la", "a"), "hakula");
+        assert_eq!(r.build_verb(true, Some("C7"), Some("PERF"), None, "vunja", "a"), "hakijavunja");
+        assert_eq!(r.build_verb(true, Some("C9"), Some("PAST"), None, "fika", "a"), "haikufika");
+        assert_eq!(r.build_verb(true, Some("C5"), Some("PRES"), None, "anguka", "a"), "halianguki");
+    }
+
+    #[test]
+    fn mono_stems_and_class_i_tag() {
+        let r = Rolodex::swahili();
+        assert_eq!(r.build_verb(false, Some("ni"), Some("PAST"), None, "fa", "a"), "nilikufa");
+        assert_eq!(r.build_verb(true, Some("tu"), Some("FUT"), None, "la", "a"), "hatutakula");
+        assert_eq!(r.build_verb(true, Some("ni"), Some("PAST"), None, "la", "a"), "sikula");
+        // bare "I" is the English pronoun; class 9 is C9
+        assert_eq!(r.build_verb(false, Some("I"), Some("PAST"), None, "fika", "a"), "nilifika");
+        assert_eq!(r.build_verb(false, Some("C9"), Some("PAST"), None, "fika", "a"), "ilifika");
+    }
+
+    #[test]
+    fn derivations_with_harmony() {
+        assert_eq!(derive("soma", "causative").as_deref(), Some("somesha"));
+        assert_eq!(derive("fika", "applicative").as_deref(), Some("fikia"));
+        assert_eq!(derive("penda", "passive").as_deref(), Some("pendwa"));
+        assert_eq!(derive("ona", "passive").as_deref(), Some("onwa"));
+        assert_eq!(derive("vunja", "stative").as_deref(), Some("vunjika"));
+        assert_eq!(derive("piga", "reciprocal").as_deref(), Some("pigana"));
+        assert_eq!(derive("soma", "bogus"), None);
+    }
+
+    #[test]
+    fn irregular_imperatives() {
+        let r = Rolodex::swahili();
+        assert_eq!(r.build_verb(false, None, None, None, "enda", "a"), "nenda");
+        assert_eq!(r.build_verb(false, None, None, None, "ja", "a"), "njoo");
+        assert_eq!(r.build_verb(false, None, None, None, "la", "a"), "kula");
+        assert_eq!(r.build_verb(false, None, None, None, "soma", "a"), "soma");
+    }
+
+    #[test]
+    fn mono_stem_with_object_has_no_intrusive_ku() {
+        let r = Rolodex::swahili();
+        assert_eq!(r.build_verb(false, Some("3SG"), Some("PAST"), Some("ni"), "pa", "a"), "alinipa");
+        assert_eq!(r.build_verb(false, Some("3SG"), Some("PAST"), Some("m"), "pa", "a"), "alimpa");
+        assert_eq!(r.build_verb(false, Some("3SG"), Some("PRES"), None, "la", "a"), "anakula");
+    }
+
+    #[test]
+    fn vowel_final_stem_derivations() {
+        assert_eq!(derive("fungua", "passive").as_deref(), Some("funguliwa"));
+        assert_eq!(derive("fungua", "stative").as_deref(), Some("funguka"));
+        assert_eq!(derive("sikia", "passive").as_deref(), Some("sikiwa"));
+        assert_eq!(derive("sikia", "stative").as_deref(), Some("sikika"));
+    }
+
+    #[test]
+    fn object_tags_map_to_infixes() {
+        let r = Rolodex::swahili();
+        assert_eq!(r.build_verb(true, Some("3PL"), Some("FUT"), Some("2SG"), "jibu", "a"), "hawatakujibu");
+        assert_eq!(r.build_verb(false, Some("2SG"), Some("PAST"), Some("3SG_KI"), "weka", "a"), "ulikiweka");
     }
 
     #[test]

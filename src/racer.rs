@@ -47,6 +47,12 @@ impl<'a> Racer<'a> {
             return result;
         }
 
+        // Negation gate: a negated verb must never be swallowed by a bare
+        // noun hit (sili -> "seal"). Checked before the heuristic racer.
+        if let Some(result) = self.racer_neg_gate(word) {
+            return result;
+        }
+
         // Racer 1: fast heuristic -- gloss extraction without deep morph
         if let Some(result) = self.racer_heuristic(word) {
             if result.score >= 0.80 {
@@ -67,6 +73,137 @@ impl<'a> Racer<'a> {
             .collect()
     }
 
+    /// Anchor a whole sentence through the cascade. Every word is kept:
+    /// unresolved roots come out as `[?root]` tokens, never silently dropped.
+    pub fn anchor_sentence(&self, sentence: &str) -> linearizer::Linearized {
+        let mut tokens = Vec::new();
+        for w in crate::lexicon::segment_words(sentence)
+            .into_iter()
+            .filter(|t| t.chars().any(|c| c.is_alphabetic()))
+        {
+            let r = self.race(&w);
+            if r.tokens.is_empty() {
+                tokens.push(Token::new(format!("[?{w}]"), linearizer::Role::Unknown));
+            } else {
+                tokens.extend(r.tokens);
+            }
+        }
+        linearizer::Linearized {
+            tokens,
+            source: sentence.to_string(),
+        }
+    }
+
+    /// Words the cascade could not resolve (tokens marked `[?...]`).
+    pub fn unresolved(lin: &linearizer::Linearized) -> Vec<String> {
+        lin.tokens
+            .iter()
+            .filter(|t| t.word.starts_with("[?"))
+            .map(|t| t.word.trim_matches(|c| c == '[' || c == ']' || c == '?').to_string())
+            .collect()
+    }
+
+    /// First lexicon verb among the candidate roots.
+    fn verb_root(&self, cands: &[String]) -> Option<(String, String)> {
+        for c in cands {
+            if let Some(sk) = self.lex.verb_for(c) {
+                return Some((c.clone(), linearizer::clean_gloss(&sk.gloss)));
+            }
+            if let Some(sk) = self.lex.skeleton_for(c) {
+                if sk.pos == "verb" {
+                    return Some((c.clone(), linearizer::clean_gloss(&sk.gloss)));
+                }
+            }
+        }
+        None
+    }
+
+    /// Negation gate: negated verb forms (hatuwezi, sili, usinywe) win over
+    /// a coincidental noun hit, and the noun reading is kept as `[alt: ...]`.
+    fn racer_neg_gate(&self, word: &str) -> Option<RaceResult> {
+        let lower = word.to_lowercase();
+        let start = std::time::Instant::now();
+        // negative subjunctive / negative imperative: usinywe, msile, asitumie
+        if let Some((subj, cands)) = linearizer::decompose_neg_subjunctive(&lower) {
+            if let Some((_, gloss)) = self.verb_root(&cands) {
+                let eng = match subj.as_str() {
+                    "ni" => "I", "u" => "you", "a" => "he", "tu" => "we", "m" => "you all", "wa" => "they",
+                    _ => "it",
+                };
+                let tokens = vec![
+                    Token::new(eng, linearizer::Role::Subject),
+                    Token::new("should", linearizer::Role::Tense),
+                    Token::new("not", linearizer::Role::Negation),
+                    Token::new(gloss, linearizer::Role::Root),
+                ];
+                return Some(RaceResult { tokens, score: 0.9, racer_id: 2, latency_us: start.elapsed().as_secs_f64() * 1e6 });
+            }
+        }
+        // positive subjunctive / hortative: nimpe, nimeze, atoke, apewe
+        if lower.ends_with('e') && !self.lex.skeleton_for(&lower).map_or(false, |k| k.lemma == lower) {
+            for subj in ["tu", "wa", "ni", "u", "m", "a"] {
+                let Some(rest) = lower.strip_prefix(subj) else { continue };
+                let mut splits: Vec<(Option<&str>, String)> = vec![(None, rest.to_string())];
+                for obj in ["wa", "ki", "vi", "zi", "li", "ni", "ku", "tu", "m"] {
+                    if let Some(r2) = rest.strip_prefix(obj) {
+                        splits.push((Some(obj), r2.to_string()));
+                    }
+                }
+                for (obj, stem) in splits {
+                    if stem.len() < 2 {
+                        continue;
+                    }
+                    let base = &stem[..stem.len() - 1];
+                    let mut cands = vec![format!("{base}a")];
+                    // passive: ...we -> ...wa stays; also strip -w- for lookup
+                    if let Some(b) = base.strip_suffix('w') {
+                        cands.push(format!("{b}a"));
+                    }
+                    if obj == Some("m") && stem.starts_with('w') {
+                        cands.push(format!("{}a", &stem[1..stem.len() - 1]));
+                    }
+                    if let Some((_, gloss)) = self.verb_root(&cands) {
+                        let who = match subj {
+                            "ni" => "I", "u" => "you", "a" => "he", "tu" => "we", "m" => "you all", "wa" => "they",
+                            _ => "it",
+                        };
+                        let mut tokens = vec![
+                            Token::new(who, linearizer::Role::Subject),
+                            Token::new("should", linearizer::Role::Tense),
+                            Token::new(gloss, linearizer::Role::Root),
+                        ];
+                        if let Some(o) = obj {
+                            let eng = match o {
+                                "m" | "ni" => if o == "ni" { "me" } else { "him/her" },
+                                "ku" => "you", "wa" | "vi" | "zi" => "them", "tu" => "us", _ => "it",
+                            };
+                            tokens.push(Token::new(eng, linearizer::Role::Object));
+                        }
+                        return Some(RaceResult { tokens, score: 0.85, racer_id: 2, latency_us: start.elapsed().as_secs_f64() * 1e6 });
+                    }
+                }
+            }
+        }
+        let morph = linearizer::decompose_verb(&lower);
+        if morph.negation.is_none() {
+            // non-negated verbs with a glide object (walimwona): let full-morph
+            // handle it only when the plain lookup would fail
+            return None;
+        }
+        let cands = linearizer::root_candidates(&morph);
+        self.verb_root(&cands)?;
+        let mut res = self.racer_full_morph(word);
+        if let Some(sk) = self.lex.skeleton_for(&lower) {
+            if sk.lemma == lower {
+                res.tokens.push(Token::new(
+                    format!("[alt: {}]", linearizer::clean_gloss(&sk.gloss)),
+                    linearizer::Role::Modifier,
+                ));
+            }
+        }
+        Some(res)
+    }
+
     /// Strategy 0: O(1) hash table lookup for common phrases.
     fn racer_hash(&self, word: &str) -> Option<RaceResult> {
         let start = std::time::Instant::now();
@@ -81,19 +218,6 @@ impl<'a> Racer<'a> {
                 racer_id: 0,
                 latency_us: latency,
             });
-        }
-
-        // Substring match for multi-word phrases
-        for (phrase, tokens) in &self.phrase_table {
-            if lower.contains(phrase.as_str()) {
-                let latency = start.elapsed().as_secs_f64() * 1_000_000.0;
-                return Some(RaceResult {
-                    tokens: tokens.clone(),
-                    score: 0.95,
-                    racer_id: 0,
-                    latency_us: latency,
-                });
-            }
         }
 
         None
@@ -176,16 +300,20 @@ impl<'a> Racer<'a> {
             }
         }
 
-        // Root: try lexicon lookup on the stem
-        let root_gloss = if let Some(sk) = self.lex.skeleton_for(&morph.root) {
+        // Root: prefer a lexicon verb among the candidate roots (present
+        // negatives end in -i, so try the -a form first), then any entry,
+        // else mark it unresolved instead of passing the raw string through.
+        let cands = linearizer::root_candidates(&morph);
+        let mut root_resolved = true;
+        let root_gloss = if let Some((_, g)) = self.verb_root(&cands) {
+            g
+        } else if let Some(sk) = cands.iter().find_map(|c| self.lex.skeleton_for(c)) {
+            linearizer::clean_gloss(&sk.gloss)
+        } else if let Some(sk) = self.lex.skeleton_for(&lower) {
             linearizer::clean_gloss(&sk.gloss)
         } else {
-            // Fallback: try the whole word as a lexicon entry
-            if let Some(sk) = self.lex.skeleton_for(&lower) {
-                linearizer::clean_gloss(&sk.gloss)
-            } else {
-                morph.root.clone()
-            }
+            root_resolved = false;
+            format!("[?{}]", morph.root)
         };
 
         if !root_gloss.is_empty() {
@@ -212,7 +340,7 @@ impl<'a> Racer<'a> {
         let slots_filled = [
             morph.subject.is_some(),
             morph.tense.is_some() || morph.negation.is_some(),
-            !root_gloss.is_empty() && root_gloss != morph.root,
+            root_resolved,
         ];
         let score = slots_filled.iter().filter(|&&b| b).count() as f64 / 3.0;
 
@@ -297,6 +425,34 @@ fn init_phrase_table(table: &mut std::collections::HashMap<String, Vec<Token>>) 
         ],
     );
 
+    // Fused negative "have" forms (-na): sina, huna, hana, hatuna, hamna, hawana
+    for (w, who) in [("sina", "I"), ("huna", "you"), ("hana", "he"), ("hatuna", "we"), ("hamna", "you all"), ("hawana", "they")] {
+        table.insert(
+            w.into(),
+            vec![
+                Token::new(who, linearizer::Role::Subject),
+                Token::new("not", linearizer::Role::Negation),
+                Token::new("have", linearizer::Role::Root),
+            ],
+        );
+    }
+    table.insert(
+        "hakuna".into(),
+        vec![
+            Token::new("there is", linearizer::Role::Root),
+            Token::new("not", linearizer::Role::Negation),
+            Token::new("any", linearizer::Role::Modifier),
+        ],
+    );
+    table.insert(
+        "hamna".into(),
+        vec![
+            Token::new("you all", linearizer::Role::Subject),
+            Token::new("not", linearizer::Role::Negation),
+            Token::new("have", linearizer::Role::Root),
+        ],
+    );
+
     // Common fixed expressions
     table.insert(
         "nzuri".into(),
@@ -317,7 +473,7 @@ mod tests {
     use super::*;
 
     fn test_lex() -> crate::Lexicon {
-        let tmp = std::env::temp_dir().join("sema_racer_test.jsonl");
+        let tmp = std::env::temp_dir().join(format!("sema_racer_test_{}_{:?}.jsonl", std::process::id(), std::thread::current().id()));
         let entries = [
             r#"{"w":"fika","p":"verb","g":["to arrive"]}"#,
             r#"{"w":"sema","p":"verb","g":["to speak, to say"]}"#,

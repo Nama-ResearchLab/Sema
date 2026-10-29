@@ -33,6 +33,7 @@ pub mod linearizer;
 pub mod racer;
 pub mod render;
 pub mod rolodex;
+pub mod terms;
 
 pub use lexicon::{LexEntry, Lexicon, Skeleton};
 pub use linearizer::{Linearized, MorphDecomp, Token};

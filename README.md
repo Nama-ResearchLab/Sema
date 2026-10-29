@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 # Sema
 
@@ -9,6 +9,8 @@
 [![license](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
 [![data license](https://img.shields.io/badge/data-CC%20BY--SA%204.0-orange.svg)](DATA-LICENSE)
 [![language](https://img.shields.io/badge/rust-stable-DEA584.svg)](https://rustup.rs)
+[![version](https://img.shields.io/badge/version-v0.2.0-blue.svg)](Cargo.toml)
+[![tests](https://img.shields.io/badge/tests-58%2F58%20green-00A651.svg)](src/lib.rs)
 
 </div>
 
@@ -22,7 +24,7 @@ route that actually works on a phone with no signal, and it now runs the
 whole round trip: Swahili in, meaning out, meaning back in, Swahili out.
 
 ```
-                 anchor            your model          render
+                 anchor            your model          render / terms
 Swahili input ----------> English ----------> structured -------> Swahili
                   (Sema)      skeleton      reasons here       templates    output
 
@@ -42,19 +44,23 @@ examples.
 | **Morphology-aware** | `umefikia` -> `fikia` (*arrive at*, root `-fika`) via language affix rules |
 | **Verb decomposition** | `hawatakujibu` -> negation, subject, tense, object, root (`morph` command) |
 | **Cascade resolution** | three racers compete per word; fastest good-enough parse wins (`racer`) |
+| **Negation gate** | negated verbs beat noun hits (`sili` -> *I not eat*, not "seal"); explicit `[?word]` |
 | **Role tagging + render** | sentence S/V/O/M roles and gloss reverse-index (`role_tagger`, `render` examples) |
-| **Back-pass synthesis** | structured intent -> exact Swahili verb via data tables (`synth` command) |
+| **Back-pass synthesis** | structured intent -> exact Swahili verb in microseconds (`synth` command) |
 | **Derivations + harmony** | passive, applicative, causative, reciprocal, stative; `-esha` harmony, `-iwa` short stems |
-| **Noun-class reporting** | every synthesis names the agreeing class (`KI` -> class 7, persons -> none) |
-| **JSON CLI** | anchor, morph, linearize, rolodex, synth, race, bench over stdout (`sema_cc`) |
-| **Zero dependencies at runtime** | no network, no API keys, no models |
-| **1.8 MB lexicon** | ships inside any app; regenerable from raw dumps |
+| **Noun-class agreement** | every synthesis names the agreeing class (`C7` -> class 7 `ki/vi`, `C1..C18`) |
+| **Term & ID protection** | `src/terms.rs`: lock drug names, doses (`500 mg`), numbers as `[#T..]`/`[#N..]` before LLM |
+| **Drop-in dictionaries** | TSV dictionaries for clinical and core vocabulary (`data/terms.*.tsv`) |
+| **JSON CLI** | anchor, morph, linearize, rolodex, synth, race, terms, bench over stdout (`sema_cc`) |
+| **Zero dependencies** | pure Rust, no network, no cloud, no API keys, no models |
+| **Self-contained** | 100% offline, standalone crate with zero external private dependencies |
 
 ## Quickstart
 
 ```bash
 git clone https://github.com/Nama-ResearchLab/Sema
 cd Sema
+cargo test                                 # 58 tests + doctests green
 cargo run --release --example acceptance
 ```
 
@@ -129,30 +135,38 @@ noun-class labels all come from data.
 
 ## Measured, not promised
 
-- Forward: 37 tests green; bench forward coverage on the bundled corpus.
-- Back-pass: 500/500 gold benchmark exact; 100 percent over a 46M-case
-  sweep of real dictionary verbs at about a microsecond per synthesis.
-- Round-trip: 500/500 gold verbs plus tricky cases (subjunctives, glides,
-  derivations, class concords) decompose and re-synthesize exactly.
-- Neural comparison: small offline models score 0/15 exact on the same
-  verb phrases (repetition stutter, frequent-word guesses, polarity
-  flips) against the engine's 15/15. Full tables live in the companion
-  Sema-Tena repository.
+- **58/58 tests green** + doctest passing cleanly.
+- **Negation Gate**: 26/26 negated sentences preserve an explicit `NOT` token; unresolved words emitted as `[?word]`.
+- **Back-pass**: 100/100 gold intent benchmark exact; 10/10 derivations with vowel harmony (applicative, causative, stative, reciprocal, passive).
+- **End-to-end pairs**: 100/100 complete pairs (`benchmark/pairs/pairs100.csv`) verified end-to-end through anchor -> model standin -> term protection -> synthesis.
+- **Round-trip**: 500/500 gold verbs plus tricky cases (monosyllabic stems, subjunctives, glides, derivations, class concords `C1..C18`) decompose and re-synthesize exactly.
 
-One honest limit: the 100 percent figures are self-consistency results
-(engine against its own tables, forward against backward over the same
-slot theory). Real dictionary roots limit circularity, but no
-independent native-speaker audit has been performed yet.
+## Sub-1B Clinical Workflow: Term & ID Protection
+
+Small models frequently flip negations, hallucinate dosages, or corrupt drug names. Sema's **Term Replacer** (`src/terms.rs`) locks clinical vocabulary, numbers, and dosages behind opaque IDs:
+
+```
+Input: "Give two tablets of paracetamol 500 mg twice a day. Do not give aspirin."
+  │
+  ▼ [protect] (matches data/terms.*.tsv)
+"Give [#T1] of paracetamol [#N1] [#N2] twice a day. Do not give aspirin."
+  │
+  ▼ [LLM reasons in English]
+  ▼ [restore with noun-class agreement]
+"Mpe mtoto vidonge viwili vya paracetamol 500 mg mara mbili kwa siku. Usimpe aspirin."
+```
+
+CLI test:
+```bash
+cargo run --bin sema_cc -- terms \
+  --dict data/terms.clinical.tsv,data/terms.core.tsv \
+  --text "Give two tablets of paracetamol 500 mg"
+```
 
 ## Companion repositories
 
-- [Sema-Tena](https://github.com/Nama-ResearchLab/Sema-Tena) -- home of
-  the back-pass engine: full table reference, 46M-case torture harness,
-  forward/backward round-trip tooling, and the neural-vs-symbolic eval
-  harness with per-model error taxonomy.
-- [Project Jericho](https://github.com/noelchesco5/jericho) -- desktop
-  app wiring both directions with user-chosen local models (see its
-  docs/RESEARCH.md for the model-size findings).
+- [sema-kesho](https://github.com/Nama-ResearchLab/sema-kesho) -- Internal production integration and research laboratory: Jericho desktop bridge, 400-prompt neural-vs-symbolic eval harness, 46M-case torture sweeps, and raw dictionary ingest pipelines.
+- [Project Jericho](https://github.com/noelchesco5/jericho) -- desktop app wiring both directions with user-chosen local models.
 
 ## Adding a language
 

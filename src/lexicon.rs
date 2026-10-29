@@ -25,6 +25,9 @@ pub struct LexEntry {
 #[derive(Debug, Default, Clone)]
 pub struct Lexicon {
     entries: HashMap<String, LexEntry>,
+    /// Best verb sense per lemma, kept apart so a noun/adverb entry with the
+    /// same spelling (meza, toka) cannot hide the verb.
+    verbs: HashMap<String, LexEntry>,
     form_index: HashMap<String, Vec<String>>,
     affix: AffixTable,
     count: usize,
@@ -145,6 +148,16 @@ impl Lexicon {
                 Ok(e) => e,
                 Err(_) => continue,
             };
+            if e.p == "verb" {
+                let vq = e.g.iter().filter(|g| is_form_of_gloss(g) || g.starts_with("infinitive of")).count();
+                let better = match lex.verbs.get(&e.w) {
+                    None => true,
+                    Some(old) => vq < old.g.iter().filter(|g| is_form_of_gloss(g) || g.starts_with("infinitive of")).count(),
+                };
+                if better {
+                    lex.verbs.insert(e.w.clone(), e.clone());
+                }
+            }
             let quality = e.g.iter().filter(|g| is_form_of_gloss(g)).count();
             let insert = match lex.entries.get(&e.w) {
                 None => true,
@@ -200,6 +213,25 @@ impl Lexicon {
             }
         }
         best.map(|(e, _)| (e, None))
+    }
+
+    /// The verb reading of an exact lemma, if any (ignores same-spelling
+    /// nouns/adverbs, which `skeleton_for` may prefer).
+    pub fn verb_for(&self, lemma: &str) -> Option<Skeleton> {
+        let e = self.verbs.get(&lemma.to_lowercase())?;
+        let clean: Vec<&String> = e.g.iter().filter(|g| !is_form_of_gloss(g)).collect();
+        let gloss = match clean.first() {
+            Some(g) => (*g).clone(),
+            None => e.g.first().cloned().unwrap_or_default(),
+        };
+        Some(Skeleton {
+            surface: lemma.to_string(),
+            lemma: e.w.clone(),
+            pos: e.p.clone(),
+            gloss,
+            root: e.r.clone(),
+            resolved_via_form: None,
+        })
     }
 
     /// English skeleton fragment for one surface word.
@@ -275,7 +307,7 @@ mod tests {
     use super::*;
 
     fn mini() -> Lexicon {
-        let tmp = std::env::temp_dir().join("sema_mini_test.jsonl");
+        let tmp = std::env::temp_dir().join(format!("sema_mini_test_{}_{:?}.jsonl", std::process::id(), std::thread::current().id()));
         let entries = [
             r#"{"w":"fikia","p":"verb","g":["Applicative form of -fika: to arrive at"],"r":"-fika"}"#,
             r#"{"w":"wapi","p":"adv","g":["where"]}"#,

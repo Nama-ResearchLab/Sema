@@ -25,3 +25,9 @@ Full legal code: https://creativecommons.org/licenses/by-sa/4.0/legalcode
 NOTE: The MIT license covering this repository's SOURCE CODE does NOT
 apply to the distilled lexicon files. They carry CC BY-SA 4.0 by virtue
 of their Wiktionary origin.
+
+Additional derived data (added in this change set):
+data/terms.general.tsv is auto-built from the distilled Wiktionary lexicon by
+tools/build_terms_general.py and is licensed CC BY-SA 4.0 like the lexicon.
+data/terms.core.tsv and data/terms.clinical.tsv are author-written starter
+vocabularies (unaudited) and are offered under the same CC BY-SA 4.0 terms.
