@@ -60,8 +60,20 @@ examples.
 ```bash
 git clone https://github.com/Nama-ResearchLab/Sema
 cd Sema
-cargo test                                 # 58 tests + doctests green
-cargo run --release --example acceptance
+cargo test                                 # 58 unit tests + 2 gold suites green
+cargo run --release --bin sema-gui          # Launch claymorphic Studio GUI & MCP server
+```
+
+### Sema Studio (Claymorphic GUI & Agent MCP Server)
+
+Sema ships with a single-executable Rust GUI featuring an Apple HIG claymorphic design, interactive DAG morpheme relation graphs on a dotted canvas, Bring-Your-Own-Model (BYOM) pipelines, and native Model Context Protocol (MCP) server support:
+
+```bash
+# Launch interactive Studio (binds http://127.0.0.1:4242 and auto-opens browser)
+cargo run --release --bin sema-gui
+
+# Or run as a stdio MCP server for agent pairs (Claude Desktop, Antigravity)
+cargo run --release --bin sema-gui -- --mcp
 ```
 
 Real output:

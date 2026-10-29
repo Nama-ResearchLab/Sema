@@ -1,0 +1,142 @@
+[
+{
+"cat": "derivation",
+"subject": "1SG",
+"tense": "PRES",
+"negation": false,
+"object": null,
+"root": "soma",
+"mood": "a",
+"derivations": [
+"causative"
+],
+"expected": "ninasomesha",
+"id": "STRETCH-01"
+},
+{
+"cat": "derivation",
+"subject": "1SG",
+"tense": "PRES",
+"negation": false,
+"object": null,
+"root": "fika",
+"mood": "a",
+"derivations": [
+"applicative"
+],
+"expected": "ninafikia",
+"id": "STRETCH-02"
+},
+{
+"cat": "derivation",
+"subject": "3SG",
+"tense": "PRES",
+"negation": false,
+"object": null,
+"root": "fika",
+"mood": "a",
+"derivations": [
+"causative"
+],
+"expected": "anafikisha",
+"id": "STRETCH-03"
+},
+{
+"cat": "derivation",
+"subject": "3SG",
+"tense": "PRES",
+"negation": false,
+"object": null,
+"root": "fanya",
+"mood": "a",
+"derivations": [
+"applicative"
+],
+"expected": "anafanyia",
+"id": "STRETCH-04"
+},
+{
+"cat": "derivation",
+"subject": "3SG",
+"tense": "PRES",
+"negation": false,
+"object": null,
+"root": "pika",
+"mood": "a",
+"derivations": [
+"passive"
+],
+"expected": "anapikwa",
+"id": "STRETCH-05"
+},
+{
+"cat": "derivation",
+"subject": "3SG",
+"tense": "PRES",
+"negation": false,
+"object": null,
+"root": "penda",
+"mood": "a",
+"derivations": [
+"passive"
+],
+"expected": "anapendwa",
+"id": "STRETCH-06"
+},
+{
+"cat": "derivation",
+"subject": "3SG",
+"tense": "PRES",
+"negation": false,
+"object": null,
+"root": "piga",
+"mood": "a",
+"derivations": [
+"passive"
+],
+"expected": "anapigwa",
+"id": "STRETCH-07"
+},
+{
+"cat": "derivation",
+"subject": "1SG",
+"tense": "PRES",
+"negation": false,
+"object": null,
+"root": "soma",
+"mood": "a",
+"derivations": [
+"applicative"
+],
+"expected": "ninasomea",
+"id": "STRETCH-08"
+},
+{
+"cat": "derivation",
+"subject": "3PL",
+"tense": "PRES",
+"negation": false,
+"object": null,
+"root": "andika",
+"mood": "a",
+"derivations": [
+"causative"
+],
+"expected": "wanaandikisha",
+"id": "STRETCH-09"
+},
+{
+"cat": "derivation",
+"subject": "3SG",
+"tense": "PRES",
+"negation": false,
+"object": null,
+"root": "andika",
+"mood": "a",
+"derivations": [
+"passive"
+],
+"expected": "anaandikwa",
+"id": "STRETCH-10"
+}
+]
