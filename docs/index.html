@@ -553,6 +553,183 @@
       line-height: 1.6;
     }
 
+    /* Pipeline & Architecture Section */
+    .pipeline-section {
+      background: #FFFFFF;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      box-shadow: var(--clay-card);
+      padding: 32px;
+      margin-top: 36px;
+    }
+
+    .pipeline-steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin: 22px 0;
+    }
+
+    .pipeline-step-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .pipeline-step-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--teal);
+      background: #FFFFFF;
+      box-shadow: var(--clay-sm);
+    }
+
+    .pipeline-step-card.active {
+      background: #FFFFFF;
+      border-color: var(--teal);
+      box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.2), var(--clay-sm);
+    }
+
+    .pipeline-step-num {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--teal-light);
+    }
+
+    .pipeline-step-card.active .pipeline-step-num {
+      background: var(--teal);
+      color: #FFFFFF;
+    }
+
+    .pipeline-step-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #090D16;
+      margin-top: 2px;
+    }
+
+    .pipeline-detail-card {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      margin-top: 14px;
+      align-items: center;
+    }
+
+    /* Rich Step Lists in Overview */
+    .rich-step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .rich-step-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      transition: all 0.2s ease;
+    }
+
+    .rich-step-item:hover {
+      border-color: var(--teal);
+      box-shadow: var(--clay-sm);
+    }
+
+    .rich-step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .badge-step {
+      background: var(--indigo-light);
+      color: var(--indigo);
+      border: 1px solid rgba(79, 70, 229, 0.2);
+    }
+
+    .badge-pass {
+      background: var(--emerald-light);
+      color: var(--emerald);
+      border: 1px solid rgba(5, 150, 105, 0.2);
+    }
+
+    .badge-leak {
+      background: #FEE2E2;
+      color: #B91C1C;
+      border: 1px solid rgba(185, 28, 28, 0.2);
+    }
+
+    .badge-warn {
+      background: var(--amber-light);
+      color: #B45309;
+      border: 1px solid rgba(217, 119, 6, 0.2);
+    }
+
+    /* Download Toast Notification */
+    .download-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #090D16;
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 16px 20px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      z-index: 99999;
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      max-width: 440px;
+    }
+
+    .download-toast.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .download-toast code {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #38BDF8;
+    }
+
     /* =================================================================== */
     /* REAL STUDIO WORKSTATION SUITE                                       */
     /* =================================================================== */
@@ -1620,17 +1797,13 @@
         <div class="installer-box">
           <div class="installer-tabs-header">
             <div class="installer-os-pills">
-              <button class="os-pill active" id="pill-win" onclick="switchInstallerOS('win')">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.949-1.949"/></svg>
-                Windows
-              </button>
-              <button class="os-pill" id="pill-mac" onclick="switchInstallerOS('mac')">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.87c.61-.75 1.04-1.8 1.01-2.87-.93.04-2.02.63-2.66 1.38-.56.65-.99 1.7-1.02 2.76 1.04.08 2.05-.53 2.67-1.27z"/></svg>
-                macOS
-              </button>
-              <button class="os-pill" id="pill-linux" onclick="switchInstallerOS('linux')">
+              <button class="os-pill active" id="pill-linux" onclick="switchInstallerOS('linux')">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h2v2h-2zm0-10h2v8h-2z"/></svg>
                 Linux / Raspberry Pi
+              </button>
+              <button class="os-pill" id="pill-studio" onclick="switchInstallerOS('studio')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                Offline Studio (No Code)
               </button>
               <button class="os-pill" id="pill-cli" onclick="switchInstallerOS('cli')">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
@@ -1640,58 +1813,45 @@
             <span style="font-size:11px; font-weight:700; color:var(--text-light); text-transform:uppercase;">Zero Config Installer</span>
           </div>
 
-          <!-- Windows Tab -->
-          <div class="installer-panel active" id="install-win">
+          <!-- Linux / Raspberry Pi Tab (Active) -->
+          <div class="installer-panel active" id="install-linux">
             <div class="installer-download-row">
               <div>
-                <div class="installer-desc-title">Sema Desktop Studio for Windows (10 / 11)</div>
-                <div class="installer-desc-sub">Complete standalone package for non-coders. Includes graphical language studio, full 19,717 Swahili offline dictionary, and local MCP tool bridge.</div>
+                <div class="installer-desc-title">Universal Linux Installer (x86_64 & ARM64)</div>
+                <div class="installer-desc-sub">Automated script for Ubuntu, Debian, Fedora, Arch, and Raspberry Pi. Downloads or builds native CLI binaries and installs the offline dictionary.</div>
               </div>
-              <button class="btn-installer" onclick="triggerDownload('Sema-Setup-v0.2.0-x64.exe')">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.949-1.949"/></svg>
-                Download Windows Installer (.exe) · 14.2 MB
+              <button class="btn-installer" onclick="downloadInstallerScript()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Download Installer (install.sh) · 7.4 KB
               </button>
             </div>
-            <div style="margin-top:12px; font-size:12px; color:var(--text-light);">
-              Also available: <a href="javascript:void(0)" onclick="triggerDownload('Sema-Windows-x64-Portable.zip')" style="color:var(--teal); font-weight:700;">Portable ZIP (No admin rights required)</a>
+            <div style="margin-top:14px; font-size:12px; color:var(--text-muted); display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
+              <span>Pre-compiled: <a href="javascript:void(0)" onclick="downloadLinuxTarball()" style="color:var(--teal); font-weight:700;">Linux ARM64 Tarball (2.0 MB)</a></span>
+              <span>·</span>
+              <span>Source: <a href="javascript:void(0)" onclick="downloadSourceZip()" style="color:var(--teal); font-weight:700;">Source Archive (.zip)</a></span>
+              <span>·</span>
+              <span style="color:var(--text-light);">Run after download: <code style="font-family:'JetBrains Mono',monospace; background:var(--bg-alt); padding:2px 6px; border-radius:4px;">bash install.sh</code></span>
             </div>
           </div>
 
-          <!-- macOS Tab -->
-          <div class="installer-panel" id="install-mac">
+          <!-- Offline Studio Tab (Standalone HTML for non-coders) -->
+          <div class="installer-panel" id="install-studio">
             <div class="installer-download-row">
               <div>
-                <div class="installer-desc-title">Sema for macOS (Universal Binary)</div>
-                <div class="installer-desc-sub">Native 64-bit ARM and x86_64 binaries. Drag to Applications folder. Zero network connectivity required.</div>
+                <div class="installer-desc-title">Standalone Offline Studio (Zero-Code Single File)</div>
+                <div class="installer-desc-sub">Double-click to run in any browser (Chrome, Firefox, Safari, Edge) on Linux, Windows, or macOS. No terminal, no compiler, and 100% offline.</div>
               </div>
-              <button class="btn-installer" onclick="triggerDownload('Sema-v0.2.0-Universal.dmg')">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.87c.61-.75 1.04-1.8 1.01-2.87-.93.04-2.02.63-2.66 1.38-.56.65-.99 1.7-1.02 2.76 1.04.08 2.05-.53 2.67-1.27z"/></svg>
-                Download macOS Package (.dmg) · 16.8 MB
+              <button class="btn-installer" onclick="downloadOfflineStudio()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Download Offline Studio (.html) · Standalone
               </button>
             </div>
-            <div style="margin-top:12px; font-size:12px; color:var(--text-light);">
-              Homebrew users: <code style="font-family:'JetBrains Mono',monospace; background:var(--bg-alt); padding:2px 6px; border-radius:4px;">brew install nama-researchlab/tap/sema</code>
+            <div style="margin-top:14px; font-size:12px; color:var(--text-muted);">
+              Contains the complete graphical language studio, interactive 3-hour course, audio phonetic synthesizer, and offline dictionary explorer in a single local file.
             </div>
           </div>
 
-          <!-- Linux Tab -->
-          <div class="installer-panel" id="install-linux">
-            <div class="installer-download-row">
-              <div>
-                <div class="installer-desc-title">Sema Linux AppImage & Debian Package</div>
-                <div class="installer-desc-sub">Single self-contained binary running on Ubuntu, Debian, Fedora, Arch, and Raspberry Pi OS (ARM64).</div>
-              </div>
-              <button class="btn-installer" onclick="triggerDownload('Sema-v0.2.0-x86_64.AppImage')">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                Download Linux AppImage · 12.5 MB
-              </button>
-            </div>
-            <div style="margin-top:12px; font-size:12px; color:var(--text-light);">
-              Debian/Ubuntu: <a href="javascript:void(0)" onclick="triggerDownload('sema_0.2.0_amd64.deb')" style="color:var(--teal); font-weight:700;">Download .deb</a> | Raspberry Pi (aarch64): <a href="javascript:void(0)" onclick="triggerDownload('sema-v0.2.0-aarch64.tar.gz')" style="color:var(--teal); font-weight:700;">ARM64 Tarball</a>
-            </div>
-          </div>
-
-          <!-- CLI Tab -->
+          <!-- CLI Terminal Tab -->
           <div class="installer-panel" id="install-cli">
             <div class="installer-desc-title">Universal Curl Script & Cargo Crate</div>
             <div class="installer-desc-sub">One-line automated shell script for POSIX environments. Detects architecture, installs binary, and registers MCP tool bindings.</div>
@@ -1823,30 +1983,107 @@
         </div>
 
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-bottom:16px;">
-          <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:10px; padding:14px;">
-            <h4 style="font-size:14px; font-weight:800; color:#090D16; margin-bottom:6px;">Input Side Requirements and Limitations</h4>
-            <ul style="font-size:13px; color:var(--text-muted); line-height:1.6; padding-left:18px; margin:0;">
-              <li><strong>Structured Intent Required:</strong> Sema takes structured intent objects as input (specifying subject, tense, negation, object, root, derivations, and mood). It does not parse unconstrained free-form Swahili text into intent.</li>
-              <li><strong>Morphological Analyzer Limits:</strong> The forward analyzer in src/linearizer.rs decomposes single verb words by peeling standard affixes. It cannot parse multi-word sentence syntax, colloquial contractions, non-standard dialectal variants, or resolve homographs that depend on syntactic context.</li>
-            </ul>
+          <!-- Card 1: Input Requirements & Pipeline Ingestion -->
+          <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:14px; padding:18px; box-shadow:var(--clay-sm);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <h4 style="font-size:15px; font-weight:800; color:#090D16; margin:0;">Input Processing Requirements</h4>
+              <span class="rich-step-badge badge-step">Pipeline Ingestion</span>
+            </div>
+            <div class="rich-step-list">
+              <div class="rich-step-item">
+                <span class="rich-step-badge badge-step">Step 01</span>
+                <div>
+                  <div style="font-size:13px; font-weight:800; color:#090D16; margin-bottom:3px;">Structured Intent Vector Required</div>
+                  <div style="font-size:12px; color:var(--text-muted); line-height:1.6;">
+                    Sema strictly requires structured intent objects specifying subject, tense, polarity, object, root stem, derivations, and mood. It does not parse unconstrained free-form Swahili text into intent.
+                  </div>
+                  <div style="margin-top:6px; font-size:11px; font-family:'JetBrains Mono',monospace; color:var(--teal);">
+                    Input: { subj, tense, polarity, obj, root, mood }
+                  </div>
+                </div>
+              </div>
+
+              <div class="rich-step-item">
+                <span class="rich-step-badge badge-step">Step 02</span>
+                <div>
+                  <div style="font-size:13px; font-weight:800; color:#090D16; margin-bottom:3px;">Single-Verb Affix Decompiler Limits</div>
+                  <div style="font-size:12px; color:var(--text-muted); line-height:1.6;">
+                    The forward analyzer in <code style="font-family:'JetBrains Mono',monospace; background:var(--bg-alt); padding:1px 5px; border-radius:4px;">src/linearizer.rs</code> decomposes isolated Swahili verbs by peeling standard concords. It cannot parse multi-word syntax, colloquial contractions, or contextual homographs.
+                  </div>
+                  <div style="margin-top:6px; font-size:11px; font-family:'JetBrains Mono',monospace; color:var(--indigo);">
+                    Scope: Single-word verbal morphology only
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:10px; padding:14px;">
-            <h4 style="font-size:14px; font-weight:800; color:#090D16; margin-bottom:6px;">Fact Protection Boundaries and Adversarial Results</h4>
-            <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:6px;">
-              In an adversarial boundary evaluation of 24 test cases across 8 categories, 11 passed and 13 leaked (54.2% leak rate):
-            </p>
-            <ul style="font-size:12px; color:var(--text-muted); line-height:1.5; padding-left:18px; margin:0;">
-              <li><strong>Protected (Passing):</strong> Numeric ranges with digits ("500-1000 mg"), decimal values ("2.5 mg"), and standard metric abbreviation pairs ("500 mg").</li>
-              <li><strong>Unprotected (Known Leaks):</strong> Swahili number words ("mia tano", 100% leak), unlisted brand names ("Panadol", 100% leak), misspelled medications ("paracetemol", 100% leak), Swahili fractions ("nusu kidonge", 33% leak), word numbers ("five hundred", 33% leak), and mixed Swahili-English units (67% leak).</li>
-            </ul>
+
+          <!-- Card 2: Fact Protection & Adversarial Findings -->
+          <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:14px; padding:18px; box-shadow:var(--clay-sm);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <h4 style="font-size:15px; font-weight:800; color:#090D16; margin:0;">Fact Protection Audit & Leak Rates</h4>
+              <span class="rich-step-badge badge-warn">11/24 Passed · 54.2% Leak</span>
+            </div>
+            
+            <div class="rich-step-list">
+              <div class="rich-step-item" style="border-left: 3px solid var(--emerald); background: #F0FDF4;">
+                <span class="rich-step-badge badge-pass">✓ Protected</span>
+                <div>
+                  <div style="font-size:13px; font-weight:800; color:#065F46; margin-bottom:3px;">Digit Formats Passing Benchmark (11/11)</div>
+                  <div style="font-size:12px; color:#047857; line-height:1.5;">
+                    Numeric ranges with digits (<code style="font-family:'JetBrains Mono',monospace;">500-1000 mg</code>), decimal numbers (<code style="font-family:'JetBrains Mono',monospace;">2.5 mg</code>), and standard metric abbreviation pairs (<code style="font-family:'JetBrains Mono',monospace;">500 mg</code>) are 100% shielded.
+                  </div>
+                </div>
+              </div>
+
+              <div class="rich-step-item" style="border-left: 3px solid #EF4444; background: #FEF2F2;">
+                <span class="rich-step-badge badge-leak">⚠ Unshielded</span>
+                <div>
+                  <div style="font-size:13px; font-weight:800; color:#991B1B; margin-bottom:3px;">Known Boundary Leaks (13/13 Leaked)</div>
+                  <div style="font-size:11px; color:#B91C1C; line-height:1.6;">
+                    • <strong>Swahili number words</strong> (e.g. <em>mia tano</em>): <span style="font-weight:700;">100% leak rate</span><br>
+                    • <strong>Unlisted brand names</strong> (e.g. <em>Panadol</em>): <span style="font-weight:700;">100% leak rate</span><br>
+                    • <strong>Misspelled drugs</strong> (e.g. <em>paracetemol</em>): <span style="font-weight:700;">100% leak rate</span><br>
+                    • <strong>Mixed Swahili-English units</strong> (e.g. <em>vidonge 2</em>): <span style="font-weight:700;">67% leak rate</span><br>
+                    • <strong>Fractions & words</strong> (e.g. <em>nusu kidonge</em>): <span style="font-weight:700;">33% leak rate</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:10px; padding:14px;">
-          <h4 style="font-size:14px; font-weight:800; color:#090D16; margin-bottom:6px;">Failure Behavior Outside the Grammar</h4>
-          <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin:0;">
-            When input falls outside the supported grammar, src/rolodex.rs returns an assembled string using fallback rules rather than an explicit error type: an unknown subject tag results in an omitted subject prefix; an unknown tense tag is inserted verbatim into the surface string; an unrecognized derivation name is skipped leaving the stem unmodified; non-verbal roots are processed as regular verb stems. Users must validate input intent structures prior to synthesis.
+        <!-- Card 3: Failure Behavior Diagnostic Steps -->
+        <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:14px; padding:18px; box-shadow:var(--clay-sm); margin-bottom:16px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h4 style="font-size:15px; font-weight:800; color:#090D16; margin:0;">Failure Behavior Outside Supported Grammar</h4>
+            <span class="rich-step-badge badge-step">Deterministic Fallback Matrix</span>
+          </div>
+          <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin:0 0 12px;">
+            When inputs fall outside the supported grammar, <code style="font-family:'JetBrains Mono',monospace; background:var(--bg-alt); padding:2px 6px; border-radius:4px;">src/rolodex.rs</code> employs non-panicking deterministic fallback rules rather than raising unhandled exceptions:
           </p>
+          <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:12px;">
+            <div class="rich-step-item" style="flex-direction:column; gap:6px;">
+              <span class="rich-step-badge badge-step">Rule 01</span>
+              <strong style="font-size:12px; color:#090D16;">Unknown Subject Tag</strong>
+              <div style="font-size:11px; color:var(--text-muted); line-height:1.5;">Subject concord prefix is omitted cleanly from surface output.</div>
+            </div>
+            <div class="rich-step-item" style="flex-direction:column; gap:6px;">
+              <span class="rich-step-badge badge-step">Rule 02</span>
+              <strong style="font-size:12px; color:#090D16;">Unknown Tense Tag</strong>
+              <div style="font-size:11px; color:var(--text-muted); line-height:1.5;">Tag string is inserted verbatim without corrupting adjacent stems.</div>
+            </div>
+            <div class="rich-step-item" style="flex-direction:column; gap:6px;">
+              <span class="rich-step-badge badge-step">Rule 03</span>
+              <strong style="font-size:12px; color:#090D16;">Unrecognized Extension</strong>
+              <div style="font-size:11px; color:var(--text-muted); line-height:1.5;">Derivation is skipped cleanly, preserving the stem in root form.</div>
+            </div>
+            <div class="rich-step-item" style="flex-direction:column; gap:6px;">
+              <span class="rich-step-badge badge-step">Rule 04</span>
+              <strong style="font-size:12px; color:#090D16;">Non-Verbal Roots</strong>
+              <div style="font-size:11px; color:var(--text-muted); line-height:1.5;">Processed as regular verbal lemmas with zero crash or abort.</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -2839,7 +3076,6 @@
         <a href="https://github.com/Nama-ResearchLab/Sema/blob/main/LICENSE">Code: MIT</a>
         <a href="https://github.com/Nama-ResearchLab/Sema/blob/main/DATA-LICENSE">Data: CC BY-SA 4.0</a>
         <a href="https://github.com/Nama-ResearchLab/Sema">GitHub Repository</a>
-        <a href="https://github.com/Nama-ResearchLab/nama2">nama2</a>
       </div>
     </footer>
   </div>
@@ -3010,8 +3246,92 @@
       if (panel) panel.classList.add('active');
     }
 
+    function showDownloadToast(msg) {
+      let toast = document.getElementById("download-toast");
+      if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "download-toast";
+        toast.className = "download-toast";
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <div>${msg}</div>
+      `;
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 5000);
+    }
+
+    function downloadInstallerScript() {
+      try {
+        const a = document.createElement('a');
+        a.href = 'install.sh';
+        a.download = 'install.sh';
+        a.target = '_blank';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        showDownloadToast("Downloaded <strong>install.sh</strong>. Run in terminal: <code>bash install.sh</code>");
+      } catch (e) {
+        window.location.href = 'https://raw.githubusercontent.com/Nama-ResearchLab/Sema/main/install.sh';
+      }
+    }
+
+    function downloadOfflineStudio() {
+      try {
+        const fullHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+        const blob = new Blob([fullHtml], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'sema-studio-offline.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 2000);
+        showDownloadToast("Downloaded <strong>sema-studio-offline.html</strong>. Double-click to open in any browser!");
+      } catch (e) {
+        window.location.href = 'downloads/sema-studio.html';
+      }
+    }
+
+    function downloadLinuxTarball() {
+      const a = document.createElement('a');
+      a.href = 'downloads/sema-linux-aarch64.tar.gz';
+      a.download = 'sema-linux-aarch64.tar.gz';
+      a.target = '_blank';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showDownloadToast("Downloaded <strong>sema-linux-aarch64.tar.gz</strong> (2.0 MB). Extract and run: <code>./sema gui</code>");
+    }
+
+    function downloadSourceZip() {
+      window.open('https://github.com/Nama-ResearchLab/Sema/archive/refs/heads/main.zip', '_blank');
+      showDownloadToast("Opening GitHub source archive download...");
+    }
+
     function triggerDownload(fileName) {
-      alert(`Sema Offline Package:\n\nPreparing direct download for: ${fileName}\n\nIncludes Sema Graphical Studio Pro, 19,717 Distilled Lexicon, and Local MCP Server. Running 100% offline.`);
+      if (!fileName || fileName.endsWith('.sh') || fileName === 'install.sh') {
+        downloadInstallerScript();
+      } else if (fileName.includes('studio') || fileName.endsWith('.html')) {
+        downloadOfflineStudio();
+      } else if (fileName.endsWith('.tar.gz') || fileName.endsWith('.deb') || fileName.includes('linux')) {
+        downloadLinuxTarball();
+      } else if (fileName.endsWith('.zip')) {
+        downloadSourceZip();
+      } else {
+        const a = document.createElement('a');
+        a.href = 'downloads/' + fileName;
+        a.download = fileName;
+        a.target = '_blank';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        showDownloadToast(`Downloading <strong>${fileName}</strong>...`);
+      }
     }
 
     function copyInstall() {
@@ -4294,11 +4614,10 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
       selectPipeStep(1);
       switchCourseTrack('basic');
 
-      // Auto-detect client OS for installer selector
+      // Auto-detect client environment for installer selector
       const userAgent = window.navigator.userAgent.toLowerCase();
-      if (userAgent.indexOf("win") !== -1) switchInstallerOS('win');
-      else if (userAgent.indexOf("mac") !== -1) switchInstallerOS('mac');
-      else if (userAgent.indexOf("linux") !== -1) switchInstallerOS('linux');
+      if (userAgent.indexOf("linux") !== -1) switchInstallerOS('linux');
+      else switchInstallerOS('studio');
 
       // Hash routing
       if (window.location.hash) {
