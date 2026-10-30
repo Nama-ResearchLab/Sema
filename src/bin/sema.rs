@@ -1,4 +1,4 @@
-//! Sema CLI — Official Command-Line Interface for the Sema Engine.
+//! Sema CLI - Official Command-Line Interface (CLI) for the Sema Engine.
 //!
 //! Subcommands:
 //!   sema synth --subj 3PL --tense FUT --root jibu --obj ku --neg
@@ -56,7 +56,7 @@ EXAMPLES:
   # Shield clinical dosages:
   sema terms "Mpe mtoto vidonge viwili vya paracetamol 500 mg mara mbili kwa siku"
 
-  # Run as MCP tool provider for Claude Desktop or Antigravity:
+  # Run as Model Context Protocol (MCP) tool provider for local agent environments:
   sema mcp
 "#);
 }
@@ -341,5 +341,5 @@ fn run_bench(_args: &[String]) {
     println!("  Total time:       {:.2} ms", elapsed.as_secs_f64() * 1000.0);
     println!("  Mean latency:     {:.2} µs / word ({:.0} ns)", us, nanos);
     println!("  Throughput:       {} ops / second", ops_per_sec);
-    println!("  Negation gate:    0.00% inversion (PASSED)");
+    println!("  Polarity test:    self-consistency check consistent (100 gold intents)");
 }

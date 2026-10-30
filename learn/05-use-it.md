@@ -32,15 +32,15 @@ Run the complete verification test suite (61 tests plus gold 100 benchmarks):
 cargo test
 ```
 
-## 2. Interactive Studio & MCP Agent Server
+## 2. Interactive Studio and Model Context Protocol (MCP) Server
 
-Launch the native claymorphic interface directly from your desktop:
+Launch the native claymorphic interface directly on your local system:
 
 ```bash
 cargo run --release --bin sema-gui
 ```
 
-To connect Sema directly to Claude Desktop, Cursor, or Antigravity, start the built-in Model Context Protocol server:
+To connect Sema directly to local desktop agent environments and tool hosts, start the built-in Model Context Protocol (MCP) server:
 
 ```bash
 cargo run --release --bin sema-gui -- --mcp

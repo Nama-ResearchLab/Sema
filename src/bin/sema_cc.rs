@@ -112,8 +112,8 @@ fn health(args: &[String]) -> Result<Value, String> {
     // model files present?
     let mut models = Vec::new();
     for f in [
-        "Qwen2.5-0.5B-Instruct.Q4_K_M.gguf",
-        "qwen2.5-1.5b-instruct-q4_k_m.gguf",
+        "model-0.5b-instruct.gguf",
+        "model-1.5b-instruct.gguf",
     ] {
         let p = std::path::Path::new(f);
         let present = p.exists();

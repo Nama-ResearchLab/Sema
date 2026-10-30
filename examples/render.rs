@@ -2,7 +2,7 @@
 //!
 //! After the model reasons in English, this module finds Swahili equivalents
 //! for key content words and produces a bilingual response. The model never
-//! back-translates prose — Sema handles the rendering.
+//! back-translates prose - Sema handles the rendering.
 
 use sema::Lexicon;
 use std::collections::HashMap;
@@ -17,7 +17,7 @@ impl RenderIndex {
     /// Build from a loaded lexicon.
     pub fn from_lexicon(_lex: &Lexicon) -> Self {
         let eng_to_sw: HashMap<String, Vec<(String, String)>> = HashMap::new();
-        // Lexicon doesn't expose entries() directly — we need to iterate
+        // Lexicon doesn't expose entries() directly - we need to iterate
         // via a known approach. For now, use the public API.
         // We'll build this from skeleton_for calls during render instead.
         Self { eng_to_sw }

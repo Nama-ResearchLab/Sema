@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sema Studio — Offline Semantic Anchoring & Swahili Language Layer</title>
+  <title>Sema Studio - Offline Semantic Anchoring & Swahili Language Layer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -29,7 +29,7 @@
       --purple: #7C3AED;
       --purple-light: #EDE9FE;
       
-      /* Apple HIG Claymorphic Tactile Shadows */
+      /* Claymorphic Tactile Shadows */
       --clay-card-shadow: 
         16px 24px 48px rgba(15, 23, 42, 0.04),
         -10px -10px 32px rgba(255, 255, 255, 0.95),
@@ -94,7 +94,7 @@
       gap: 28px;
     }
 
-    /* Apple HIG Header Navigation */
+    /* Header Navigation */
     header {
       display: flex;
       align-items: center;
@@ -139,7 +139,7 @@
       gap: 5px;
     }
 
-    /* Segmented Navigation (Apple HIG pill) */
+    /* Segmented Navigation (Segmented pill) */
     .nav-tabs {
       display: flex;
       background: #F1F5F9;
@@ -664,11 +664,11 @@
   <canvas id="dotted-canvas"></canvas>
 
   <div class="app-container">
-    <!-- Header with SVG Logo and Apple HIG Segmented Navigation -->
+    <!-- Header with SVG Logo and Segmented Navigation -->
     <header>
       <div class="brand-section">
         <!-- Minimalist Typographic SVG Logo: Clean "Sema" Wordmark -->
-        <a href="/" class="logo-container" title="Sema — Offline Swahili Language Layer">
+        <a href="/" class="logo-container" title="Sema - Offline Swahili Language Layer">
           <svg class="logo-svg" width="136" height="42" viewBox="0 0 136 42" fill="none" xmlns="http://www.w3.org/2000/svg">
             <text x="4" y="32" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="34" font-weight="800" letter-spacing="-0.05em" fill="#0F172A">Sema</text>
             <circle cx="98" cy="14" r="4.5" fill="#0D9488"/>
@@ -782,13 +782,13 @@
         <div class="card-title-row">
           <div>
             <h2 class="card-title">Bring Your Own Model (BYOM) Pipe</h2>
-            <p class="card-subtitle">Connect any local small model (Ollama, CLI, API) to reason in English while Sema locks facts and renders Swahili.</p>
+            <p class="card-subtitle">Connect any local small model (CLI or HTTP API) to reason in English while Sema locks facts and renders Swahili.</p>
           </div>
           <div style="display:flex; gap:10px;">
             <select class="clay-input" id="model-backend" style="width:210px; padding:10px 16px; font-size:13px; font-weight:700;">
               <option value="mock">Offline Assistant (Mock)</option>
-              <option value="ollama">Ollama (qwen2.5:0.5b / local)</option>
-              <option value="openai">Local OpenAI / vLLM (HTTP)</option>
+              <option value="local_cli">Local Small Model (CLI / local)</option>
+              <option value="local_http">Local Model Endpoint (HTTP)</option>
               <option value="cli">Shell Command CLI Pipe</option>
             </select>
             <button class="btn-clay btn-clay-primary" id="btn-run-model">Run End-to-End Pipe</button>
@@ -938,7 +938,7 @@
         <div class="card-title-row">
           <div>
             <h2 class="card-title">Model Context Protocol (MCP) Server</h2>
-            <p class="card-subtitle">Expose Sema's offline tools directly to Claude Desktop, Antigravity, and AI agents via JSON-RPC 2.0.</p>
+            <p class="card-subtitle">Expose Sema's offline tools directly to local agent environments, desktop hosts, and AI agents via JSON-RPC 2.0.</p>
           </div>
           <button class="btn-clay" id="btn-copy-mcp">Copy mcp_config.json</button>
         </div>
@@ -947,19 +947,19 @@
           <div style="display:flex; flex-direction:column; gap:12px;">
             <label style="font-size:12px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">Registered MCP Tools in Sema:</label>
             <div class="slot-pill-card" style="text-align:left;">
-              <strong style="color:var(--teal);">sema_anchor</strong> — Resolve Swahili surface words to lemmas + English glosses
+              <strong style="color:var(--teal);">sema_anchor</strong> - Resolve Swahili surface words to lemmas + English glosses
             </div>
             <div class="slot-pill-card" style="text-align:left;">
-              <strong style="color:var(--indigo);">sema_linearize</strong> — Transpose Swahili sentence to telegraphic English skeleton
+              <strong style="color:var(--indigo);">sema_linearize</strong> - Transpose Swahili sentence to telegraphic English skeleton
             </div>
             <div class="slot-pill-card" style="text-align:left;">
-              <strong style="color:var(--purple);">sema_synthesize</strong> — Compile structured intent to exact grammatical Swahili verb
+              <strong style="color:var(--purple);">sema_synthesize</strong> - Compile structured intent to exact grammatical Swahili verb
             </div>
             <div class="slot-pill-card" style="text-align:left;">
-              <strong style="color:var(--amber);">sema_terms_protect</strong> — Lock drug names, dosages, and nouns as [#T..] / [#N..]
+              <strong style="color:var(--amber);">sema_terms_protect</strong> - Lock drug names, dosages, and nouns as [#T..] / [#N..]
             </div>
             <div class="slot-pill-card" style="text-align:left;">
-              <strong style="color:var(--emerald);">sema_terms_restore</strong> — Restore protected IDs with noun-class agreement
+              <strong style="color:var(--emerald);">sema_terms_restore</strong> - Restore protected IDs with noun-class agreement
             </div>
           </div>
 
@@ -1031,7 +1031,7 @@
     }
     requestAnimationFrame(drawDots);
 
-    // Apple HIG Navigation Tabs
+    // Navigation Tabs
     const tabs = document.querySelectorAll('.nav-tab');
     const panes = document.querySelectorAll('.tab-pane');
     tabs.forEach(tab => {
@@ -1055,9 +1055,9 @@
       const nodes = [
         { id: 'subj', label: data.negation ? (data.subject ? data.subject + ' (Neg)' : 'si-') : (data.subject || 'None'), title: 'Subject Concord', class: data.subject_class || 'Person', x: 80, y: 135, color: '#4F46E5' },
         { id: 'tense', label: data.tense || 'PRES', title: 'TAM Aspect', class: 'Tense', x: 250, y: 80, color: '#D97706' },
-        { id: 'obj', label: data.object || '—', title: 'Object Infix', class: data.object_class || 'None', x: 420, y: 135, color: '#0D9488' },
-        { id: 'root', label: data.root || '—', title: 'Base Root Stem', class: 'Lexicon Verb', x: 590, y: 80, color: '#059669' },
-        { id: 'deriv', label: data.derivations && data.derivations.length ? data.derivations.join(',') : '—', title: 'Derivation Harmony', class: 'Voice', x: 740, y: 135, color: '#7C3AED' },
+        { id: 'obj', label: data.object || '-', title: 'Object Infix', class: data.object_class || 'None', x: 420, y: 135, color: '#0D9488' },
+        { id: 'root', label: data.root || '-', title: 'Base Root Stem', class: 'Lexicon Verb', x: 590, y: 80, color: '#059669' },
+        { id: 'deriv', label: data.derivations && data.derivations.length ? data.derivations.join(',') : '-', title: 'Derivation Harmony', class: 'Voice', x: 740, y: 135, color: '#7C3AED' },
         { id: 'mood', label: data.mood || 'a', title: 'Mood Vowel', class: 'Final Vowel', x: 870, y: 80, color: '#E11D48' }
       ];
 
@@ -1116,7 +1116,7 @@
         slotsDiv.innerHTML = `
           <div class="slot-pill-card">
             <div class="slot-label">Subject</div>
-            <div class="slot-value">${data.subject || '—'}</div>
+            <div class="slot-value">${data.subject || '-'}</div>
             <div class="slot-desc">${data.subject_class ? 'Class ' + data.subject_class : 'Person Concord'}</div>
           </div>
           <div class="slot-pill-card">
@@ -1126,17 +1126,17 @@
           </div>
           <div class="slot-pill-card">
             <div class="slot-label">Object Infix</div>
-            <div class="slot-value">${data.object || '—'}</div>
+            <div class="slot-value">${data.object || '-'}</div>
             <div class="slot-desc">${data.object ? 'Class Concord' : 'None'}</div>
           </div>
           <div class="slot-pill-card">
             <div class="slot-label">Root Stem</div>
-            <div class="slot-value" style="color:var(--teal);">${data.root || '—'}</div>
+            <div class="slot-value" style="color:var(--teal);">${data.root || '-'}</div>
             <div class="slot-desc">Base Verb</div>
           </div>
           <div class="slot-pill-card">
             <div class="slot-label">Derivations</div>
-            <div class="slot-value">${data.derivations && data.derivations.length ? data.derivations.join(',') : '—'}</div>
+            <div class="slot-value">${data.derivations && data.derivations.length ? data.derivations.join(',') : '-'}</div>
             <div class="slot-desc">Vowel Harmony</div>
           </div>
           <div class="slot-pill-card">
@@ -1177,8 +1177,8 @@
           <tr onclick="setPreset('${item.word}')">
             <td style="font-weight:800; font-family:'JetBrains Mono', monospace;">${item.word}</td>
             <td><span class="pos-pill pos-${item.pos === 'verb' ? 'verb' : 'noun'}">${item.pos}</span></td>
-            <td style="font-weight:500;">${item.gloss || '—'}</td>
-            <td style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--teal);">${item.root ? '-' + item.root : '—'}</td>
+            <td style="font-weight:500;">${item.gloss || '-'}</td>
+            <td style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--teal);">${item.root ? '-' + item.root : '-'}</td>
             <td><span style="font-size:11px; font-weight:800; color:var(--emerald);">✓ Distilled</span></td>
           </tr>
         `).join('');

@@ -1,0 +1,32 @@
+DATA SOURCES AND PROVENANCE
+
+This file documents the provenance, lemma counts, source licenses, and attribution obligations for all lexical datasets included in the Sema repository.
+
+1. Distilled Lexicon: data/swahili.distilled.jsonl
+- Entry count: 20,756 records in JavaScript Object Notation Lines (JSONL) format.
+- Deduplicated lemma count: 19,717 unique headwords as loaded by the Lexicon parser.
+- Upstream source: Wiktionary Swahili dataset, extracted and formatted via Kaikki (wiktextract).
+- Primary license: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) and GNU Free Documentation License (GFDL).
+- Transformation: Distilled using src/bin/sema-distill.rs, which removes wiki markup, selects up to three clean English glosses per sense, extracts derivational roots from form-of glosses, and records inflected surface forms.
+- Share-alike status: Satisfied under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0). Any redistribution or adaptation of this dataset must retain attribution to Wiktionary contributors and Kaikki, and must remain licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+
+2. General Vocabulary Terms: data/terms.general.tsv
+- Entry count: 2,752 tab-separated values (TSV) rows.
+- Upstream source: Auto-generated from data/swahili.distilled.jsonl by filtering single-gloss noun entries.
+- Primary license: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+- Transformation: Automated script extraction. Unreviewed by native speakers.
+
+3. Core Vocabulary Terms: data/terms.core.tsv
+- Entry count: 118 tab-separated values (TSV) rows covering common nouns, numbers, and basic pronouns.
+- Provenance: Written directly by the engine author as a minimal bootstrapping dictionary. Unreviewed by independent native speakers.
+- Primary license: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+
+4. Clinical Starter Terms: data/terms.clinical.tsv
+- Entry count: 89 tab-separated values (TSV) rows covering basic anatomical terms, symptom labels, and sample medications.
+- Provenance: Written directly by the engine author as a starter test set. Not audited or validated by any medical professional or native speaker.
+- Primary license: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+
+5. Benchmark Intent Vectors: bench/gold/back100.json
+- Entry count: 100 structured intent specifications with target surface strings.
+- Provenance: Written directly by the engine author to verify internal rule coverage. Not an independently collected or double-blind validated test set.
+- Primary license: Massachusetts Institute of Technology (MIT) license, aligned with repository source code.

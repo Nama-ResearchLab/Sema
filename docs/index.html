@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sema: Offline Swahili Language Studio, Interactive Academy & Deterministic Engine</title>
-  <meta name="description" content="Sema v0.2.0: Offline Swahili language engine, professional audio-morphology studio, interactive 3-hour master course, zero-hallucination fact shielding, and sub-microsecond deterministic synthesis.">
+  <meta name="description" content="Sema v0.2.0: Offline Swahili language engine, audio-morphology studio, interactive educational course, dictionary term shielding, and rule-based morphological synthesis.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@
       --amber-light: #FEF3C7;
       --slate-dark: #0F172A;
       
-      /* Apple HIG Tactile Claymorphism & Depth Shadows */
+      /* Tactile Claymorphism & Depth Shadows */
       --clay-card: 
         16px 24px 48px rgba(15, 23, 42, 0.04),
         -10px -10px 32px rgba(255, 255, 255, 0.95),
@@ -61,7 +61,7 @@
     }
 
     body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--bg);
       color: var(--text-main);
       min-height: 100vh;
@@ -1595,10 +1595,10 @@
       <section class="hero">
         <div class="hero-badge">
           <span class="dot"></span>
-          Sovereign Edge Swahili AI · Zero Cloud Dependency · Sub-Microsecond
+          Sovereign Edge Swahili Processing · Pure Local Execution · Slotted Synthesis
         </div>
         <h1>Deterministic Swahili Language Engine</h1>
-        <p>A lightweight, zero-hallucination language companion for African edge AI. Sub-microsecond morphological synthesis, clinical term shielding, and closed-loop verification running 100% offline.</p>
+        <p>A lightweight, rule-based language companion for Swahili edge text processing. Slotted morphological synthesis, dictionary-based term shielding, and self-consistency verification running 100% offline.</p>
 
         <div class="hero-actions">
           <button class="btn-primary" onclick="showPage('page-studio')">
@@ -1662,7 +1662,7 @@
             <div class="installer-download-row">
               <div>
                 <div class="installer-desc-title">Sema for macOS (Universal Binary)</div>
-                <div class="installer-desc-sub">Native Apple Silicon (M1/M2/M3/M4) & Intel 64-bit. Drag to Applications folder. Zero network connectivity required.</div>
+                <div class="installer-desc-sub">Native 64-bit ARM and x86_64 binaries. Drag to Applications folder. Zero network connectivity required.</div>
               </div>
               <button class="btn-installer" onclick="triggerDownload('Sema-v0.2.0-Universal.dmg')">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.87c.61-.75 1.04-1.8 1.01-2.87-.93.04-2.02.63-2.66 1.38-.56.65-.99 1.7-1.02 2.76 1.04.08 2.05-.53 2.67-1.27z"/></svg>
@@ -1714,6 +1714,142 @@
         </div>
       </section>
 
+      <!-- Scope and Limitations Section -->
+      <div class="studio-box" style="margin: 28px 0; border-left: 4px solid var(--teal); background: var(--bg-alt);">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+          <h2 style="font-size:22px; font-weight:800; color:#090D16; margin:0;">Scope and Limitations</h2>
+          <span class="version-tag" style="background:#FEF3C7; color:#B45309; font-weight:800;">Research Prototype · v0.2.0</span>
+        </div>
+        <div style="background:#FFFBEB; border:1px solid #FDE68A; border-radius:10px; padding:14px 18px; margin-bottom:18px; font-size:13px; color:#92400E; line-height:1.6;">
+          <strong>Clinical Disclaimer:</strong> Sema is a research prototype (version 0.2.0) and is not validated for clinical use, medical diagnosis, treatment planning, or regulatory compliance. All outputs must be reviewed by a qualified Swahili speaker and clinician before any patient-facing or clinical use. The realization step is rule-based and does not generate unconstrained text.
+        </div>
+
+        <h3 style="font-size:16px; font-weight:800; margin-bottom:10px; color:#090D16;">Grammatical Coverage Matrix</h3>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">
+          Evaluation of Swahili grammatical features supported by the engine rules:
+        </p>
+        <div class="scientific-table-wrap" style="margin-bottom:20px;">
+          <table class="scientific-table">
+            <thead>
+              <tr>
+                <th>Grammatical Feature</th>
+                <th>Status</th>
+                <th>Implementation Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Verb subject concords</strong></td>
+                <td><span class="sd-pill" style="background:#ECFDF5; color:#059669;">Supported</span></td>
+                <td>Personal concords (1SG, 2SG, 3SG, 1PL, 2PL, 3PL) and noun classes 1 through 18 (C1 to C18) mapped in src/rolodex.rs.</td>
+              </tr>
+              <tr>
+                <td><strong>Verb object concords (infixes)</strong></td>
+                <td><span class="sd-pill" style="background:#ECFDF5; color:#059669;">Supported</span></td>
+                <td>Personal infixes (-ni-, -ku-, -m-/-mw-, -tu-, -wa-) and noun class infixes (-ki-, -vi-, -i-, -zi-, -li-, -ya-).</td>
+              </tr>
+              <tr>
+                <td><strong>Tense and aspect markers</strong></td>
+                <td><span class="sd-pill" style="background:#ECFDF5; color:#059669;">Supported</span></td>
+                <td>Present (-na-), past (-li-), future (-ta-), perfect (-me-), habitual (-hu-), consecutive (-ka-), not-yet (-ja-), infinitive (-ku-).</td>
+              </tr>
+              <tr>
+                <td><strong>Negation morphology</strong></td>
+                <td><span class="sd-pill" style="background:#ECFDF5; color:#059669;">Supported</span></td>
+                <td>Subject-negation portmanteaus (si-, hu-, ha-, hatu-, ham-, hawa-), negative past (-ku-), negative perfect (-ja-), present negative zero marker with stem shift (-a to -i), negative subjunctive (-si-).</td>
+              </tr>
+              <tr>
+                <td><strong>Verb extensions (applicative)</strong></td>
+                <td><span class="sd-pill" style="background:#ECFDF5; color:#059669;">Supported</span></td>
+                <td>Suffixes -i- and -e- with vowel harmony; -li- and -le- for vowel-final stems.</td>
+              </tr>
+              <tr>
+                <td><strong>Verb extensions (causative)</strong></td>
+                <td><span class="sd-pill" style="background:#ECFDF5; color:#059669;">Supported</span></td>
+                <td>Suffixes -ish- and -esh- with vowel harmony; -z- for vowel-final stems.</td>
+              </tr>
+              <tr>
+                <td><strong>Verb extensions (passive)</strong></td>
+                <td><span class="sd-pill" style="background:#ECFDF5; color:#059669;">Supported</span></td>
+                <td>Suffix -w-; -liwa and -lewa for vowel-final stems; irregular monosyllabic forms (liwa, pewa, nywewa).</td>
+              </tr>
+              <tr>
+                <td><strong>Verb extensions (reciprocal)</strong></td>
+                <td><span class="sd-pill" style="background:#ECFDF5; color:#059669;">Supported</span></td>
+                <td>Suffix -an-.</td>
+              </tr>
+              <tr>
+                <td><strong>Verb extensions (stative)</strong></td>
+                <td><span class="sd-pill" style="background:#ECFDF5; color:#059669;">Supported</span></td>
+                <td>Suffixes -ik- and -ek- with vowel harmony; -k- for vowel-final stems.</td>
+              </tr>
+              <tr>
+                <td><strong>Subjunctive and imperative</strong></td>
+                <td><span class="sd-pill" style="background:#ECFDF5; color:#059669;">Supported</span></td>
+                <td>Subjunctive final vowel -e, negative subjunctive -si-, bare imperatives and irregular imperatives (nenda, njoo, kula).</td>
+              </tr>
+              <tr>
+                <td><strong>Conditionals (-ki-, -ngali-, -nge-)</strong></td>
+                <td><span class="sd-pill" style="background:#FEF3C7; color:#B45309;">Partial</span></td>
+                <td>Markers can be passed as raw tense tags and monosyllabic -ku- support recognizes them; negative conditional forms (-sipo-) and counterfactual compound clauses are not modeled.</td>
+              </tr>
+              <tr>
+                <td><strong>Relative clauses</strong></td>
+                <td><span class="sd-pill" style="background:#FEF3C7; color:#B45309;">Partial</span></td>
+                <td>Temporal and locative relative infixes (-po-, -ko-, -mo-) are recognized; general relative pronoun infixes (-ye-, -o-, -cho-) and amba- relative clauses are not supported.</td>
+              </tr>
+              <tr>
+                <td><strong>Adjective and numeral concords</strong></td>
+                <td><span class="sd-pill" style="background:#FEE2E2; color:#B91C1C;">Not supported</span></td>
+                <td>The synthesizer generates verbs only; noun class concord agreement for adjectives and numerals is not dynamically inflected.</td>
+              </tr>
+              <tr>
+                <td><strong>Locative morphology</strong></td>
+                <td><span class="sd-pill" style="background:#FEF3C7; color:#B45309;">Partial</span></td>
+                <td>Subject prefixes for locative classes 16, 17, and 18 (pa-, ku-, mu-) are mapped; noun locative suffixation (-ni) is not generated.</td>
+              </tr>
+              <tr>
+                <td><strong>Copula (ni, si, ndiyo, sio, locatives)</strong></td>
+                <td><span class="sd-pill" style="background:#FEE2E2; color:#B91C1C;">Not supported</span></td>
+                <td>Copular sentences and inflected locative copulas (yuko, kiko) are not handled by the verbal synthesizer.</td>
+              </tr>
+              <tr>
+                <td><strong>Compound tenses</strong></td>
+                <td><span class="sd-pill" style="background:#FEE2E2; color:#B91C1C;">Not supported</span></td>
+                <td>Multi-verb constructions (e.g. alikuwa akisoma) are outside the single-verb slot pipeline.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-bottom:16px;">
+          <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:10px; padding:14px;">
+            <h4 style="font-size:14px; font-weight:800; color:#090D16; margin-bottom:6px;">Input Side Requirements and Limitations</h4>
+            <ul style="font-size:13px; color:var(--text-muted); line-height:1.6; padding-left:18px; margin:0;">
+              <li><strong>Structured Intent Required:</strong> Sema takes structured intent objects as input (specifying subject, tense, negation, object, root, derivations, and mood). It does not parse unconstrained free-form Swahili text into intent.</li>
+              <li><strong>Morphological Analyzer Limits:</strong> The forward analyzer in src/linearizer.rs decomposes single verb words by peeling standard affixes. It cannot parse multi-word sentence syntax, colloquial contractions, non-standard dialectal variants, or resolve homographs that depend on syntactic context.</li>
+            </ul>
+          </div>
+          <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:10px; padding:14px;">
+            <h4 style="font-size:14px; font-weight:800; color:#090D16; margin-bottom:6px;">Fact Protection Boundaries and Adversarial Results</h4>
+            <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:6px;">
+              In an adversarial boundary evaluation of 24 test cases across 8 categories, 11 passed and 13 leaked (54.2% leak rate):
+            </p>
+            <ul style="font-size:12px; color:var(--text-muted); line-height:1.5; padding-left:18px; margin:0;">
+              <li><strong>Protected (Passing):</strong> Numeric ranges with digits ("500-1000 mg"), decimal values ("2.5 mg"), and standard metric abbreviation pairs ("500 mg").</li>
+              <li><strong>Unprotected (Known Leaks):</strong> Swahili number words ("mia tano", 100% leak), unlisted brand names ("Panadol", 100% leak), misspelled medications ("paracetemol", 100% leak), Swahili fractions ("nusu kidonge", 33% leak), word numbers ("five hundred", 33% leak), and mixed Swahili-English units (67% leak).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:10px; padding:14px;">
+          <h4 style="font-size:14px; font-weight:800; color:#090D16; margin-bottom:6px;">Failure Behavior Outside the Grammar</h4>
+          <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin:0;">
+            When input falls outside the supported grammar, src/rolodex.rs returns an assembled string using fallback rules rather than an explicit error type: an unknown subject tag results in an omitted subject prefix; an unknown tense tag is inserted verbatim into the surface string; an unrecognized derivation name is skipped leaving the stem unmodified; non-verbal roots are processed as regular verb stems. Users must validate input intent structures prior to synthesis.
+          </p>
+        </div>
+      </div>
+
       <div class="section-header">
         <h2>Architecture for Sovereign Reliability</h2>
         <p>Built for low-resource environments and healthcare applications where exactness matters.</p>
@@ -1727,8 +1863,8 @@
               <polyline points="8 6 2 12 8 18"></polyline>
             </svg>
           </div>
-          <h3>Sub-Microsecond Realization</h3>
-          <p>Pure data-driven morphology translates structured intent slots directly into grammatical Swahili with dynamic vowel harmony in 0.78 microseconds.</p>
+          <h3>Slotted Verb Synthesis</h3>
+          <p>Data-driven morphology translates structured intent slots into Swahili verbs with dynamic vowel harmony in 1.06 microseconds on ARM Cortex-A76 (0.78 microseconds on 3.2 GHz workstation cores).</p>
         </div>
 
         <div class="feature-card">
@@ -1738,8 +1874,8 @@
               <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
             </svg>
           </div>
-          <h3>Clinical Fact Guardian</h3>
-          <p>Shields clinical dosages, medication compounds, and units behind secure ID tokens so compact edge models cannot drift or alter medical facts.</p>
+          <h3>Slotted Term Protector</h3>
+          <p>Replaces dictionary-matched vocabulary, units, and numeric literals behind opaque tokens before external processing, restoring them afterwards.</p>
         </div>
 
         <div class="feature-card">
@@ -1749,8 +1885,8 @@
               <polyline points="22 4 12 14.01 9 11.01"></polyline>
             </svg>
           </div>
-          <h3>Closed-Loop Verification</h3>
-          <p>Re-evaluates synthesized text through the forward linearizer to verify that polarities, tenses, and facts match with zero negation inversion.</p>
+          <h3>Round-Trip Self-Consistency</h3>
+          <p>Re-evaluates synthesized verbs through the forward analyzer to verify that polarities, tenses, and slots match the original intent without polarity inversions in internal test suites.</p>
         </div>
       </div>
 
@@ -1762,7 +1898,7 @@
             <h3 style="font-size:22px; font-weight:800; color:#090D16; margin-top:6px;">Deterministic Processing Architecture</h3>
           </div>
           <p style="font-size:13px; color:var(--text-muted); max-width:460px;">
-            Explore each stage of the sub-microsecond realization pipeline. Pure deterministic rules eliminate model hallucination at the source.
+            Explore each stage of the slotted realization pipeline. The realization step is rule-based and does not generate unconstrained text.
           </p>
         </div>
 
@@ -1798,7 +1934,7 @@
               Compact edge models output strongly typed slot structures rather than unconstrained text tokens. This isolates reasoning from grammatical conjugation, preventing hallucinated negations and corrupted prefixes.
             </div>
             <div id="pipe-detail-meta" style="margin-top:14px; font-size:12px; font-weight:700; color:var(--indigo);">
-              Zero Heap Allocation · Static TOML Lexicon · Fully Inspectable
+              Dynamic Heap Buffer · Static TOML Lexicon · Fully Inspectable
             </div>
           </div>
           <div style="background:#FFFFFF; border-radius:12px; padding:16px; border:1px solid var(--border); box-shadow:var(--clay-sm);">
@@ -1831,13 +1967,13 @@
           <span>ENGINE: NOMINAL (RUST 2024 CORE)</span>
         </div>
         <div class="telemetry-item">
-          <span>HEAP ALLOC: <strong>0 B (STACK ONLY)</strong></span>
+          <span>HEAP ALLOC: <strong>DYNAMIC (RESULT BUFFERS)</strong></span>
         </div>
         <div class="telemetry-item">
           <span>CACHE: <strong>64B LINE ALIGNED</strong></span>
         </div>
         <div class="telemetry-item">
-          <span>LATENCY: <strong>0.78 µs</strong></span>
+          <span>LATENCY: <strong>1.06 µs (ARM) / 0.78 µs</strong></span>
         </div>
         <div class="telemetry-item">
           <span>LEXICON: <strong>19,717 LEMMAS</strong></span>
@@ -1882,10 +2018,10 @@
         <div style="margin-bottom:18px;">
           <div style="font-size:11px; font-weight:800; color:var(--text-light); text-transform:uppercase; margin-bottom:8px;">Studio Production Presets:</div>
           <div class="preset-pills">
-            <button class="preset-pill active" onclick="loadStudioPreset('clinical-malaria')">Emergency: Malaria Protocol</button>
+            <button class="preset-pill active" onclick="loadStudioPreset('clinical-malaria')">Demo String: Demo String: Malaria Example</button>
             <button class="preset-pill" onclick="loadStudioPreset('complex-appl')">Applicative: Hawatatupikishia</button>
             <button class="preset-pill" onclick="loadStudioPreset('monosyllabic-la')">Epenthesis Invariant: Tutakula</button>
-            <button class="preset-pill" onclick="loadStudioPreset('pediatric-syrup')">Pediatric Dosage: Paracetamol 250mg</button>
+            <button class="preset-pill" onclick="loadStudioPreset('pediatric-syrup')">Demo String: Pediatric Note</button>
             <button class="preset-pill" onclick="loadStudioPreset('class7-cup')">Class 7 Concord: Kikombe Kimevunjika</button>
           </div>
         </div>
@@ -1968,7 +2104,7 @@
               <div style="display:flex; align-items:center; gap:10px; margin-top:8px;">
                 <input type="checkbox" id="synth-neg" onchange="runSynth()" checked style="width:18px; height:18px; cursor:pointer;">
                 <label for="synth-neg" style="font-size:14px; font-weight:700; color:var(--text-main); cursor:pointer;">
-                  Negative Polarity (Engage Zero-Inversion Gate)
+                  Negative Polarity (Engage Negation Consistency Check)
                 </label>
               </div>
             </div>
@@ -1977,7 +2113,7 @@
               <div>
                 <div class="output-header">
                   <span>Surface Linearization Result</span>
-                  <span class="version-tag">Verified 0.78 µs</span>
+                  <span class="version-tag">Benchmark: 1.06 µs (ARM) / 0.78 µs</span>
                 </div>
                 <div class="output-display-container">
                   <div class="output-display" id="synth-result">hawatakujibu</div>
@@ -1992,13 +2128,13 @@
                   [Tense Marker: FUT (-ta-)]<br>
                   [Object Infix: ku]<br>
                   [Stem: -jibu]<br>
-                  Verification Status: 100% Invariant Match
+                  Status: Round-trip check: match
                 </div>
 
                 <!-- 64-Bit Bitfield Slot Register -->
                 <div class="slot-register-bar">
                   <div class="slot-register-title">
-                    <span>64-Bit Slot Register (Zero Heap Machine State)</span>
+                    <span>64-Bit Slot Register (Packed State View)</span>
                     <span style="color:var(--teal);">0x0000000003024801</span>
                   </div>
                   <div class="bitfield-row">
@@ -2065,7 +2201,7 @@
                 <span style="font-size:11px; font-weight:700; color:var(--text-light); text-transform:uppercase;">English Semantic Skeleton</span>
                 <div id="analyzer-gloss" style="font-size:18px; font-weight:800; color:#090D16; margin-top:4px;">"They saw us"</div>
               </div>
-              <span class="version-tag" id="analyzer-verified-tag">100% Deterministic Match</span>
+              <span class="version-tag" id="analyzer-verified-tag">Round-trip check: match</span>
             </div>
             <div class="analyzer-grid">
               <div class="analyzer-pill">
@@ -2099,7 +2235,7 @@
         <!-- 3. Clinical Directive Builder View -->
         <div id="view-builder" class="subtab-view" style="display:none;">
           <p style="font-size:14px; color:var(--text-muted); margin-bottom:18px;">
-            Construct hospital triage directives with verified noun concord agreement across medical compounds and dosages:
+            Construct hospital directive examples with noun concord agreement across medication compounds and dosages:
           </p>
           <div class="builder-grid">
             <div class="control-panel">
@@ -2151,7 +2287,7 @@
               <div>
                 <div class="output-header">
                   <span>Synthesized Clinical Directive</span>
-                  <span class="version-tag">Verified Fact Shield</span>
+                  <span class="version-tag">Tokens restored: match</span>
                 </div>
                 <div class="output-display-container">
                   <div class="output-display" id="bld-result" style="font-size:16px; line-height:1.6;">
@@ -2163,11 +2299,11 @@
                   </button>
                 </div>
                 <div class="output-details" id="bld-trace">
-                  [Safety Gate: Clinical Fact Shield Engaged]<br>
+                  [Safety Gate: Slotted Term Protection Engaged]<br>
                   [Patient Target: mtoto]<br>
                   [Medication: Paracetamol 500 mg (Shielded Compound)]<br>
                   [Dosage Unit: vidonge viwili (Class 8 Agreement Verified)]<br>
-                  Verification Status: 100% Deterministic Realization
+                  Status: Realization complete
                 </div>
               </div>
             </div>
@@ -2234,9 +2370,9 @@
             Test real-time regex entity shielding. Clinical medication dosages, numbers, and contraindications are locked behind opaque tokens:
           </p>
           <div style="display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;">
-            <button class="preset-pill" onclick="loadClinicalPreset('malaria')">Malaria Prescription</button>
-            <button class="preset-pill" onclick="loadClinicalPreset('sepsis')">IV Ceftriaxone & Gentamicin</button>
-            <button class="preset-pill" onclick="loadClinicalPreset('allergy')">Penicillin Allergy Warning</button>
+            <button class="preset-pill" onclick="loadClinicalPreset('malaria')">Demo String: Malaria Example</button>
+            <button class="preset-pill" onclick="loadClinicalPreset('sepsis')">Demo String: Antibiotic Example</button>
+            <button class="preset-pill" onclick="loadClinicalPreset('allergy')">Demo String: Allergy Note Example</button>
           </div>
           <div class="builder-grid">
             <div>
@@ -2246,7 +2382,7 @@
             <div class="output-panel">
               <div class="output-header">
                 <span>Shielded Intent Representation</span>
-                <span class="version-tag">Tamper-Proof</span>
+                <span class="version-tag">Tokens shielded: match</span>
               </div>
               <div class="output-display" id="clin-output" style="font-size:15px; line-height:1.6; color:#090D16;">
                 Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] mara mbili kwa siku. Usimpe [#T3].
@@ -2283,7 +2419,7 @@
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
             <div>
               <div style="font-size:16px; font-weight:800; color:#090D16;">High-Throughput Batch Realization Suite</div>
-              <div style="font-size:13px; color:var(--text-muted);">Execute hundreds of slot permutations simultaneously to verify jitter bounds, latency distributions, and absence of polarity flips.</div>
+              <div style="font-size:13px; color:var(--text-muted);">Execute slot permutations simultaneously to evaluate latency distributions and verify self-consistency.</div>
             </div>
             <div style="display:flex; gap:8px;">
               <button class="btn-primary" style="padding:10px 18px; font-size:13px;" onclick="runBatchSuite(50)">Run 50 Intent Sweep</button>
@@ -2291,9 +2427,9 @@
             </div>
           </div>
           <div id="batch-stats-summary" style="display:flex; gap:16px; margin-bottom:14px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-muted);">
-            <span>Total Verified: <strong id="batch-pass-count">0/0</strong></span>
+            <span>Total Evaluated: <strong id="batch-pass-count">0/0</strong></span>
             <span>Avg Sweep Latency: <strong id="batch-sweep-lat">0.00 µs</strong></span>
-            <span>Inversions: <strong id="batch-inv-count" style="color:var(--emerald);">0 (0.00%)</strong></span>
+            <span>Polarity Flips: <strong id="batch-inv-count" style="color:var(--emerald);">0 (Self-consistency check)</strong></span>
           </div>
           <div class="scientific-table-wrap" style="max-height:260px; overflow-y:auto; margin:0;">
             <table class="batch-result-table">
@@ -2303,7 +2439,7 @@
                   <th>Intent Slots</th>
                   <th>Realized Form</th>
                   <th>Latency</th>
-                  <th>Negation Gate</th>
+                  <th>Polarity Gate</th>
                   <th>Result</th>
                 </tr>
               </thead>
@@ -2322,7 +2458,7 @@
     <div id="page-course" class="page-view">
       <div class="section-header">
         <h2>Learn Sema: Interactive Academy</h2>
-        <p>A rigorous, modular mastery course spanning Bantu agglutinative morphophonology, sub-microsecond compiler design, closed-loop formal invariants, and hospital edge safety.</p>
+        <p>A rigorous, modular mastery course spanning Bantu agglutinative morphophonology, compiler design, closed-loop self-consistency checks, and edge safety.</p>
       </div>
 
       <!-- Course Track Switcher -->
@@ -2402,7 +2538,7 @@
               <div style="font-size:14px; color:var(--text-muted); margin:18px 0 6px;">This certifies that</div>
               <div id="cert-user-name" style="font-size:28px; font-weight:900; color:var(--teal-dark); letter-spacing:-0.02em;">John Doe</div>
               <div style="font-size:14px; color:var(--text-muted); max-width:580px; margin:12px auto; line-height:1.6;" id="cert-text-desc">
-                has successfully passed all formal evaluation modules and comprehensive checkpoint quizzes of the Sema Language Engine Academy, demonstrating proven competency in Bantu Agglutinative Morphology, Sub-Microsecond Deterministic Realization, and Clinical Fact Protection.
+                has successfully completed all evaluation modules and checkpoint quizzes of the Sema Language Engine Academy, demonstrating competency in Bantu Agglutinative Morphology, Rule-Based Slot Realization, and Slotted Fact Protection.
               </div>
               <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; border-top:1px solid var(--border); padding-top:18px; margin-top:24px; font-size:12px; color:var(--text-light);">
                 <div>Date Issued: <strong id="cert-date" style="color:var(--text-main);">October 30, 2026</strong></div>
@@ -2429,23 +2565,23 @@
     <!-- =================================================================== -->
     <div id="page-benchmarks" class="page-view">
       <div class="section-header">
-        <h2>Measured Proof & Statistical Benchmarks</h2>
-        <p>Scientific validation across 100,000 realization sweeps on standard commodity CPUs without GPU acceleration or cloud dependencies.</p>
+        <h2>Evaluation Suites and Empirical Measurements</h2>
+        <p>Evaluated across test suites, gold intent vectors, and latency sweeps on commodity hardware with pure local execution.</p>
       </div>
 
       <!-- Auto-Rolling Metric Counters -->
       <div class="benchmarks-grid">
         <div class="bench-card">
           <div class="bench-val accent" id="roll-bm-gold">0/100</div>
-          <div class="bench-label">Gold Benchmark Intents</div>
+          <div class="bench-label">Gold Benchmark Matches (Author Suite)</div>
         </div>
         <div class="bench-card">
           <div class="bench-val" id="roll-bm-lat">0.00 µs</div>
-          <div class="bench-label">Average Realization Latency</div>
+          <div class="bench-label">Realization Latency (ARM / 3.2GHz)</div>
         </div>
         <div class="bench-card">
           <div class="bench-val accent" id="roll-bm-inv">100.00%</div>
-          <div class="bench-label">Negation Inversion Rate</div>
+          <div class="bench-label">Polarity Inversions (100 Gold Intents)</div>
         </div>
         <div class="bench-card">
           <div class="bench-val" id="roll-bm-lex">0</div>
@@ -2458,7 +2594,7 @@
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
           <div>
             <span class="version-tag">Interactive Client Proof</span>
-            <h3 style="font-size:22px; font-weight:800; color:#090D16; margin-top:6px;">Live In-Browser Realization Benchmark</h3>
+            <h3 style="font-size:22px; font-weight:800; color:#090D16; margin-top:6px;">Client-Side Round-Trip Benchmark</h3>
           </div>
           <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; width:100%; margin-top:8px;">
             <select id="bench-iter-select" style="padding:8px 12px; font-size:13px; border-radius:10px; border:1px solid var(--border);">
@@ -2473,7 +2609,7 @@
           </div>
         </div>
         <p style="font-size:14px; color:var(--text-muted); margin-top:10px; line-height:1.6;">
-          Execute client-side Swahili morphological realizations right now in your browser. Measures latency, throughput, and tests for zero negation inversion across random permutations with live animated counter feedback.
+          Execute client-side Swahili morphological realizations in your browser. This interactive benchmark tests round-trip consistency on random permutations against client-side rules (self-consistency check, not independent correctness validation) with live counter feedback.
         </p>
 
         <div class="benchmark-stats-row">
@@ -2491,7 +2627,7 @@
           </div>
           <div class="benchmark-stat-card">
             <div class="benchmark-stat-val" style="color:var(--emerald);" id="bm-inv">0.00%</div>
-            <div class="benchmark-stat-lbl">Negation Inversion</div>
+            <div class="benchmark-stat-lbl">Polarity Flips (Self-Consistency)</div>
           </div>
         </div>
 
@@ -2504,7 +2640,7 @@
       <div class="studio-box">
         <h3 style="font-size:20px; font-weight:800; margin-bottom:8px;">Table 1: Microarchitectural Latency & Jitter Profiles (N = 100,000 Runs)</h3>
         <p style="color:var(--text-muted); font-size:14px; margin-bottom:16px;">
-          Measured on AMD EPYC 7763 (3.2 GHz) and Apple M3 Max with performance governor enabled. Standard deviations calculated across 100,000 independent intent vectors after 10,000 warmup cycles.
+          Measured on ARM Cortex-A76 (4 cores at 2.4 GHz, Linux 6.6) and x86_64 workstation cores (3.2 GHz) with performance governor enabled. Measures synthesis of pre-constructed Intent structs only; heap memory is allocated dynamically for result buffers.
         </p>
         <div class="scientific-table-wrap">
           <table class="scientific-table">
@@ -2518,7 +2654,7 @@
                 <th>P90</th>
                 <th>P99</th>
                 <th>Throughput</th>
-                <th>Heap Allocation</th>
+                <th>Memory Allocation</th>
               </tr>
             </thead>
             <tbody>
@@ -2531,7 +2667,7 @@
                 <td>0.66 µs</td>
                 <td>0.71 µs</td>
                 <td>1,612,900 ops/s</td>
-                <td>0 B (stack only)</td>
+                <td>Heap-allocated (String and Vec)</td>
               </tr>
               <tr>
                 <td><strong>7-Slot Agglutinative Extension</strong></td>
@@ -2542,7 +2678,7 @@
                 <td>0.85 µs</td>
                 <td>0.92 µs</td>
                 <td>1,282,000 ops/s</td>
-                <td>0 B (stack only)</td>
+                <td>Heap-allocated (String and Vec)</td>
               </tr>
               <tr>
                 <td><strong>Epenthetic Monosyllabic (-la/-fa)</strong></td>
@@ -2553,7 +2689,7 @@
                 <td>0.78 µs</td>
                 <td>0.84 µs</td>
                 <td>1,408,400 ops/s</td>
-                <td>0 B (stack only)</td>
+                <td>Heap-allocated (String and Vec)</td>
               </tr>
               <tr>
                 <td><strong>Deconstruction & Morphology Parse</strong></td>
@@ -2564,7 +2700,7 @@
                 <td>1.25 µs</td>
                 <td>1.38 µs</td>
                 <td>877,100 ops/s</td>
-                <td>0 B</td>
+                <td>Heap-allocated (String and Vec)</td>
               </tr>
               <tr>
                 <td><strong>Clinical Fact Guardian (50 Tokens)</strong></td>
@@ -2586,69 +2722,63 @@
                 <td>1.95 µs</td>
                 <td>2.10 µs</td>
                 <td>549,400 ops/s</td>
-                <td>0 B</td>
+                <td>Heap-allocated (String and Vec)</td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <!-- Table 2: Comparative Architecture Benchmark -->
-        <h3 style="font-size:20px; font-weight:800; margin:28px 0 8px;">Table 2: Comparative Architecture & Reliability Matrix</h3>
+        <!-- Table 2: Test Suite Coverage and Reliability Matrix -->
+        <h3 style="font-size:20px; font-weight:800; margin:28px 0 8px;">Table 2: Test Suite Coverage and Reliability Matrix</h3>
         <p style="color:var(--text-muted); font-size:14px; margin-bottom:16px;">
-          Evaluating deterministic realization against finite-state transducers and contemporary neural language models:
+          Measured verification results across internal benchmark suites and adversarial boundary tests:
         </p>
         <div class="scientific-table-wrap">
           <table class="scientific-table">
             <thead>
               <tr>
-                <th>Engine Architecture</th>
-                <th>Mean Latency</th>
-                <th>Negation Inversion</th>
-                <th>Memory Footprint</th>
-                <th>100% Offline</th>
-                <th>Cost per 1M Ops</th>
+                <th>Test Suite / Component</th>
+                <th>Sample Size</th>
+                <th>Target Metric</th>
+                <th>Measured Result</th>
+                <th>Evaluation Scope & Methodology</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>Sema v0.2.0 (Deterministic)</strong></td>
-                <td><strong>0.78 µs</strong></td>
-                <td><strong style="color:var(--emerald);">0.00%</strong></td>
-                <td><strong>4.2 MB</strong></td>
-                <td>Yes (Pure Local)</td>
-                <td><strong>$0.00</strong></td>
+                <td><strong>Gold Intent Realization Suite (bench/gold/back100.json)</strong></td>
+                <td>100 intent vectors</td>
+                <td>Surface character match</td>
+                <td><strong>100 / 100 (100.0%)</strong></td>
+                <td>Written by engine author to verify rule coverage; unreviewed by independent native speaker or clinician.</td>
               </tr>
               <tr>
-                <td>Helsinki HFST (Finite-State Transducer)</td>
-                <td>42.0 µs</td>
-                <td>0.00%</td>
-                <td>38.0 MB</td>
-                <td>Yes</td>
-                <td>$0.00</td>
+                <td><strong>Derivational Extension Suite (bench/gold/back_stretch_derivations.json)</strong></td>
+                <td>10 extension patterns</td>
+                <td>Extension harmony</td>
+                <td><strong>10 / 10 (100.0%)</strong></td>
+                <td>Evaluates applicative, causative, passive, stative, and reciprocal rules.</td>
               </tr>
               <tr>
-                <td>LLaMA-3-8B-Instruct (Zero-Shot Swahili)</td>
-                <td>145,000.0 µs</td>
-                <td><span style="color:var(--rose); font-weight:700;">8.80%</span></td>
-                <td>16.0 GB</td>
-                <td>Hardware Constrained</td>
-                <td>~$15.00</td>
+                <td><strong>Negation Self-Consistency Suite</strong></td>
+                <td>100 gold intents + synthetic sweeps</td>
+                <td>Negation marker preservation</td>
+                <td><strong style="color:var(--emerald);">0 inversions (0.00%)</strong></td>
+                <td>Internal decompiler check against engine's own forward rules (self-consistency check, not independent validation).</td>
               </tr>
               <tr>
-                <td>Gemma-2-9B (Prompted Generation)</td>
-                <td>162,000.0 µs</td>
-                <td><span style="color:var(--rose); font-weight:700;">7.20%</span></td>
-                <td>18.0 GB</td>
-                <td>Hardware Constrained</td>
-                <td>~$18.00</td>
+                <td><strong>Fact Guardian Adversarial Boundary Test</strong></td>
+                <td>24 boundary cases (8 categories)</td>
+                <td>Unshielded entity leak rate</td>
+                <td><strong style="color:var(--rose);">13 / 24 leaked (54.2%)</strong></td>
+                <td>Passes numeric ranges and decimals; leaks Swahili number words, brand names, typos, and fractions.</td>
               </tr>
               <tr>
-                <td>Cloud API (GPT-4o)</td>
-                <td>480,000.0 µs</td>
-                <td><span style="color:var(--rose); font-weight:700;">3.40%</span></td>
-                <td>Cloud Only</td>
-                <td>No (Cloud Mandatory)</td>
-                <td>$30.00+</td>
+                <td><strong>Word Realization Latency (Release Build)</strong></td>
+                <td>100,000 iterations</td>
+                <td>Mean per-word assembly time</td>
+                <td><strong>1.06 µs (ARM) / 0.78 µs (3.2 GHz)</strong></td>
+                <td>Measures synthesize() on pre-constructed intent structs; dynamic heap allocation for result buffers.</td>
               </tr>
             </tbody>
           </table>
@@ -2670,13 +2800,13 @@
     <div id="page-mcp" class="page-view">
       <div class="section-header">
         <h2>Model Context Protocol (MCP) Server</h2>
-        <p>Integrate Sema directly into modern agent environments including Claude Desktop, Cursor, and Antigravity.</p>
+        <p>Integrate Sema directly into local agent environments and desktop tool hosts over standard input/output (stdio).</p>
       </div>
 
       <div class="studio-box" style="max-width: 880px; margin: 0 auto;">
-        <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 12px;">Claude Desktop Configuration</h3>
+        <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 12px;">Local Desktop Agent Configuration</h3>
         <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px; line-height: 1.6;">
-          Add Sema as an offline MCP tool provider by updating your configuration file:
+          Add Sema as an offline Model Context Protocol (MCP) tool provider by updating your agent tools configuration file (for example, agent_tools_config.json):
         </p>
 
         <div class="terminal-body" style="border-radius:14px; margin-bottom:28px;">
@@ -2693,7 +2823,7 @@
         <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 12px;">Available Agent Tools</h3>
         <ul style="color: var(--text-muted); font-size: 14px; line-height: 1.8; padding-left: 20px;">
           <li><strong>sema_morph:</strong> Deconstruct any Swahili surface verb into structured morpheme slots.</li>
-          <li><strong>sema_synth:</strong> Build an exact, verified Swahili verb from intent parameters.</li>
+          <li><strong>sema_synth:</strong> Synthesize a Swahili verb from intent parameters.</li>
           <li><strong>sema_terms:</strong> Shield clinical vocabulary and quantities behind deterministic tokens.</li>
           <li><strong>sema_lexicon:</strong> Query word lemmas, grammatical roles, and translations offline.</li>
         </ul>
@@ -3150,7 +3280,7 @@
       const full = `${pStr} ${dStr} vya ${mStr} ${fStr}.${wStr}`;
       document.getElementById("bld-result").innerText = full;
       document.getElementById("bld-trace").innerHTML = 
-        `[Patient Target: ${patient}]<br>[Medication: ${mStr} (Shielded)]<br>[Dosage: ${dStr} (Class 8 Concord Verified)]<br>[Schedule: ${fStr}]<br>Verification Status: 100% Deterministic Realization`;
+        `[Patient Target: ${patient}]<br>[Medication: ${mStr} (Shielded)]<br>[Dosage: ${dStr} (Class 8 Concord Verified)]<br>[Schedule: ${fStr}]<br>Status: Realization complete`;
     }
 
     function playBuilderPronunciation() {
@@ -3286,8 +3416,8 @@
           <td>(${s}, ${t}, ${r}, ${neg ? "NEG" : "POS"})</td>
           <td><strong>${surface}</strong></td>
           <td>${lat} µs</td>
-          <td><span style="color:var(--emerald); font-weight:700;">PASSED</span></td>
-          <td><span class="version-tag" style="background:#ECFDF5; color:#059669;">100% Invariant</span></td>
+          <td><span style="color:var(--emerald); font-weight:700;">Match</span></td>
+          <td><span class="version-tag" style="background:#ECFDF5; color:#059669;">Consistent</span></td>
         `;
         tbody.appendChild(row);
       }
@@ -3443,12 +3573,12 @@
         ]
       },
       4: {
-        title: "Module 4: Zero-Hallucination Realization vs Neural Sampling",
+        title: "Module 4: Rule-Based Realization versus Neural Sampling",
         time: "15 mins study · Compilers vs Neural Models",
         text: `
           <p>Large language models generate text autoregressively by sampling next-token probabilities. In low-resource agglutinative languages, subword tokenizers (such as BPE) fragment morphological words into arbitrary slices (e.g., <code>[ha] [wata] [ku] [jibu]</code>).</p>
           <p>This token fragmentation leads to catastrophic hallucinations in production edge deployments: dropped negation markers converting life-saving medical warnings into lethal commands, or corrupted noun class concords that destroy user trust.</p>
-          <p><strong>The Sema Invariant:</strong> Sema treats language generation as a deterministic compilation process. Intent slot structures are mapped into character strings via mathematical state machines with 0% negation inversion.</p>
+          <p><strong>Rule-Based Realization:</strong> The realization step in Sema is rule-based and does not generate unconstrained text. Intent slot structures are mapped into character strings via deterministic state tables with 0 negation inversions across 100 gold intents (self-consistency check, not independent validation).</p>
         `,
         exerciseTitle: "Safety Demonstration",
         exerciseHtml: `
@@ -3474,9 +3604,9 @@
           },
           {
             q: "3. What is the measured negation inversion rate in Sema's test suite?",
-            opts: ["0.00% (Strictly zero)", "4.8%", "12.3%"],
+            opts: ["0 inversions in 100 gold intents and random round-trips (self-consistency check, not independent validation)", "4.8%", "12.3%"],
             a: 0,
-            exp: "Sema maintains an exact 0.00% negation inversion rate across all gold suites."
+            exp: "Sema records 0 negation inversions in 100 gold benchmark intents and random round-trip consistency tests."
           }
         ]
       },
@@ -3505,12 +3635,12 @@
           },
           {
             q: "2. Can Sema run in an offline clinic with zero internet access?",
-            opts: ["Yes, 100% offline with zero cloud telemetry or external calls", "No, it requires constant internet connection to AWS", "Only if connected via satellite"],
+            opts: ["Yes, 100% offline with zero cloud telemetry or external calls", "No, it requires an external cloud API connection", "Only if connected via satellite"],
             a: 0,
             exp: "Sema is completely offline, self-contained in pure Rust, and requires zero network access."
           },
           {
-            q: "3. What tool protocol enables Sema to be used in Claude Desktop and Antigravity?",
+            q: "3. What tool protocol enables Sema to be used in local agent environments?",
             opts: ["Model Context Protocol (MCP)", "FTP", "SOAP XML"],
             a: 0,
             exp: "Sema implements native Model Context Protocol (MCP) tool bindings via <code>sema-gui --mcp</code>."
@@ -3566,7 +3696,7 @@
         ]
       },
       2: {
-        title: "Adv Module 2: Sub-Microsecond Compiler Architecture & Bitwise Slot Packing",
+        title: "Adv Module 2: Compiler Architecture and Slot Representation",
         time: "30 mins study · Systems & Low-Level Compilers",
         text: `
           <p>Real-time edge language realization cannot tolerate garbage collection pauses, heap reallocations, or statistical pointer dereferencing. Sema's engine is designed from first principles for bare-metal deterministic execution.</p>
@@ -3601,8 +3731,8 @@ impl PackedIntent {
         `,
         quiz: [
           {
-            q: "1. How does Sema achieve sub-microsecond realization without heap allocations?",
-            opts: ["Packs intent slots into a single 64-bit register and writes to a stack-allocated buffer", "By compiling to Python bytecode", "By downloading precomputed tables from the cloud"],
+            q: "1. How does Sema structure realization parameters?",
+            opts: ["Maps intent slots into structured register fields before dynamic string assembly", "By compiling to Python bytecode", "By downloading precomputed tables from the cloud"],
             a: 0,
             exp: "Packing slots into a u64 primitive and concatenating into a cache-line aligned stack buffer eliminates heap allocations."
           },
@@ -3705,7 +3835,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
           },
           {
             q: "3. What is the impact on clinical fact drift when using Sema's Guardian?",
-            opts: ["Reduces entity drift and numerical dosage error to 0.00%", "Increases latency by 5 minutes", "Deletes medical records"],
+            opts: ["Replaces matched dictionary terms and digits with opaque tokens (leaks unmatched terms, typos, and number words)", "Increases latency by 5 minutes", "Deletes medical records"],
             a: 0,
             exp: "Fact shielding eliminates numerical drift and compound corruption completely."
           }
@@ -3720,7 +3850,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
             <li><strong>C-ABI Foreign Function Interface:</strong> <code>sema_realize_c(intent_ptr, out_buf, out_len)</code> enables direct embedding into C/C++, Flutter mobile apps, iOS Swift via bridging headers, and Android NDK.</li>
             <li><strong>Python Wheels (PyO3 & CTypes):</strong> <code>import sema; sema.realize(intent)</code> for offline Python edge runtimes.</li>
             <li><strong>WebAssembly Target:</strong> Compiles via <code>wasm32-unknown-unknown</code> to a 140 KB binary for client-side browser execution.</li>
-            <li><strong>Model Context Protocol (MCP):</strong> Native JSON-RPC tool server running over stdio for Claude Desktop, Cursor, and Antigravity.</li>
+            <li><strong>Model Context Protocol (MCP):</strong> Native JSON-RPC tool server running over stdio for local agent environments and desktop tool hosts.</li>
           </ul>
         `,
         exerciseTitle: "MCP Protocol Tool Call Structure",
@@ -3744,7 +3874,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
         `,
         quiz: [
           {
-            q: "1. Which tool protocol connects Sema to Claude Desktop and Antigravity?",
+            q: "1. Which tool protocol connects Sema to local desktop agent environments?",
             opts: ["Model Context Protocol (MCP)", "WebRTC", "Bluetooth LE"],
             a: 0,
             exp: "The Model Context Protocol (MCP) provides standard JSON-RPC tool calls for LLM agent workspaces."
@@ -4082,7 +4212,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
         `Benchmark Complete! Executed ${count.toLocaleString()} realizations.\n` +
         `Total Elapsed: ${totalTime.toFixed(2)} ms | Mean Latency: ${meanLatency} microseconds/word\n` +
         `Peak Throughput: ${opsPerSec.toLocaleString()} ops/second\n` +
-        `Negation Inversion: 0.00% (Passed Closed-Loop Verification Gate)\n` +
+        `Polarity Flips: 0 (0.00%) (Internal Self-Consistency Check)\n` +
         `Sample Realized Form: "${lastGenerated}"`;
     }
 
@@ -4112,7 +4242,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
       1: {
         title: "Step 1: Structured Semantic Intent",
         desc: "Compact edge models output strongly typed slot structures rather than unconstrained text tokens. This isolates reasoning from grammatical conjugation, preventing hallucinated negations and corrupted prefixes.",
-        meta: "Zero Heap Allocation · Static TOML Lexicon · Fully Inspectable",
+        meta: "Dynamic Heap Buffer · Static TOML Lexicon · Fully Inspectable",
         code: `Intent {\n  subject: Subject::Plural3,\n  tense: Tense::Future,\n  polarity: Polarity::Negative,\n  object: Some(Object::Singular2),\n  root: "jibu"\n}`
       },
       2: {
@@ -4128,15 +4258,15 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
         code: `// Dynamic Vowel Harmony\nfn harmonize_applicative(stem: &str) -> String {\n  match stem.chars().last() {\n    Some('e' | 'o') => format!("{}ea", stem),\n    _ => format!("{}ia", stem)\n  }\n}`
       },
       4: {
-        title: "Step 4: Clinical Fact Guardian",
-        desc: "Encapsulates clinical dosages, medication names, and numeric units behind immutable ID tokens. Model reasoning cannot tamper with or drift medication numbers during processing.",
-        meta: "Clinical Safety Shield · Zero Entity Drift",
+        title: "Step 4: Slotted Term Protector",
+        desc: "Replaces clinical terms and numeric digits behind token IDs. External models reason over shielded tokens, which are restored upon realization.",
+        meta: "Slotted Token Replacement · Slotted Preservation",
         code: `// Fact Guardian Tokenization\n"[#T1] = vidonge viwili"\n"[#T2] = paracetamol"\n"[#N1] = 500"\n"[#N2] = mg"`
       },
       5: {
-        title: "Step 5: Closed-Loop Decompiler Proof",
-        desc: "Re-evaluates the synthesized surface form through the forward linearizer to prove polarity, tense, and subject identity before output is served. Completely eliminates negation inversion.",
-        meta: "Formal Verification Loop · 0% Negation Inversion",
+        title: "Step 5: Round-Trip Self-Consistency Check",
+        desc: "Re-evaluates the synthesized surface form through the forward analyzer to verify that polarity and slots match the original intent without polarity inversions in internal test suites.",
+        meta: "Self-Consistency Check · 0 Inversions in Gold Suite",
         code: `// Decompiler verification gate\nassert_eq!(\n  decompile("hawatakujibu").polarity,\n  Polarity::Negative\n);`
       }
     };

@@ -1,4 +1,4 @@
-//! Sema Studio — Single-Executable Rust GUI & MCP Server.
+//! Sema Studio - Single-Executable Rust GUI & MCP Server.
 //!
 //! Run native studio:
 //!   cargo run --bin sema-gui
@@ -53,7 +53,7 @@ fn main() {
         .unwrap_or("data/swahili.distilled.jsonl");
 
     println!("========================================================================");
-    println!("  Sema Studio (v0.2.0) — Offline Swahili Language Studio");
+    println!("  Sema Studio (v0.2.0) - Offline Swahili Language Studio");
     println!("  Claymorphic Graph Relations Studio & Native Double-Pass Pipeline");
     println!("========================================================================");
     print!("  [•] Loading distilled lexicon ({})... ", data_path);
@@ -424,7 +424,7 @@ fn send_response(stream: &mut TcpStream, status: u16, content_type: &str, body: 
     let _ = stream.write_all(body);
 }
 
-/// Run as a pure stdio MCP server for agent pairs (Claude Desktop / Antigravity)
+/// Run as a pure stdio Model Context Protocol (MCP) server for local agent tool environments
 fn run_mcp_stdio() {
     let stdin = std::io::stdin();
     let mut stdout = std::io::stdout();

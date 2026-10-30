@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# Sema Studio & Engine — Robust Universal Installer
+# Sema Studio & Engine - Robust Universal Installer
 # Nama Research Lab (https://github.com/Nama-ResearchLab/Sema)
 # ==============================================================================
 set -e

@@ -2,7 +2,7 @@
 //!
 //! Given a Swahili sentence, segment it and tag each word with its POS
 //! and English gloss. This produces structured data the model can reason
-//! over — not just a word list, but a grammatical parse.
+//! over - not just a word list, but a grammatical parse.
 
 use sema::Lexicon;
 use sema::lexicon::segment_words;
