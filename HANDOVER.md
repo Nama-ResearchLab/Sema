@@ -1,4 +1,4 @@
-﻿# SEMA -- HANDOVER DOCUMENT
+# SEMA -- HANDOVER DOCUMENT
 
 > Read this fully before touching anything. Last updated: 2026-08-22.
 
@@ -20,10 +20,8 @@ Back-translating free prose is the thing we refuse to do -- it loses clinical
 facts, numbers, and negation. If a feature request pulls toward "just
 translate it", push back and point them here.
 
-Origin: Sema was extracted from the private Eden project
-(`github.com/Nama-ResearchLab/EDENN`, dir `eden/bethlehem/src/lexicon.rs` + distill tooling).
-Eden is an edge LLM runtime; Sema is the language layer that makes small
-models usable for Swahili speakers on offline devices.
+Origin: Sema was developed as a dedicated sovereign language layer
+to make small edge models fully reliable for Swahili speakers on offline devices.
 
 ## 2. Repo layout
 
@@ -107,9 +105,8 @@ Known limitations (the honest list):
    `kaikki.org-dictionary-English.jsonl` entries where
    translations[].lang_code == "sw" -> build `english.distilled.jsonl`
    with g = Swahili renderings. NOTE: as of handover, a background
-   download of this multi-GB dump may still be running at
-   `C:\Users\hp\Documents\eden\lexica\english_kaikki.jsonl`
-   (resumable: `curl.exe -sL -C - <url>` -- URL in eden git history).
+   download of this multi-GB dump can be run directly from Kaikki:
+   (resumable: `curl.exe -sL -C - <url>`).
 3. **Sense ranking**: prefer non-form-of, shorter, capitalized-consistent
    glosses; consider frequency signal from raw dump head_templates.
 4. **Second language proof** (community ask): Hausa or Luganda end-to-end.
@@ -128,7 +125,7 @@ cargo test && cargo run --release --example acceptance
 
 Distiller contract: JSONL in -> JSONL out, records
 {"w","p","g":[max 3],"r"?,"f":[max 8]}. Keep the format stable; consumers exist
-outside this repo (Eden/Bethlehem).
+outside this repo in downstream edge runtimes.
 
 ## 7. Deploy mechanics (for this machine)
 
@@ -147,6 +144,5 @@ outside this repo (Eden/Bethlehem).
   comments.
 - The README's voice matters to the owner: direct, honest numbers, no hype.
   The "Your model barely speaks Swahili." hook stays unless he says otherwise.
-- If you rename/move things, grep EDENN repo too -- Bethlehem consumes Sema's
-  distilled format (`eden/bethlehem/src/lexicon.rs` is the internal twin;
-  plan is for Eden to depend on Sema as a path/git dependency later).
+- If you rename/move things, ensure downstream runtimes consuming Sema's
+  distilled format remain compatible.
