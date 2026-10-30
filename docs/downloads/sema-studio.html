@@ -1372,6 +1372,16 @@
       color: var(--teal-dark);
     }
 
+    .quiz-opt-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+
+    .quiz-opt-btn.correct:disabled,
+    .quiz-opt-btn.incorrect:disabled {
+      opacity: 1;
+    }
+
     .quiz-opt-btn.correct {
       background: var(--emerald-light) !important;
       border-color: var(--emerald) !important;
@@ -1637,63 +1647,84 @@
     /* DEDICATED PRINT ENGINE (PRINTS ONLY CERTIFICATE, NEVER THE PAGE)    */
     /* =================================================================== */
     @media print {
-      body {
+      @page {
+        size: A4 landscape;
+        margin: 0;
+      }
+
+      html, body {
         background: #FFFFFF !important;
-        color: #000000 !important;
+        color: #090D16 !important;
         margin: 0 !important;
         padding: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        overflow: hidden !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
 
-      /* Hide entire site infrastructure */
-      .graffiti-backdrop, .grid-overlay, header, footer,
-      .hero, .features-grid, .pipeline-section, .subtabs,
-      .installer-box, .course-track-selector, .course-progress-bar-wrap,
-      .course-sidebar, #page-overview, #page-studio, #page-benchmarks,
-      #page-mcp, .interactive-exercise, .checkpoint-quiz-box,
-      .cert-lock-banner, #cert-setup-controls, .btn-primary, .btn-secondary,
-      .btn-installer, .btn-github, nav, .lesson-time-badge,
-      .course-main > :not(#cert-display-card), .noprint {
+      /* Hide entire site infrastructure and non-certificate elements */
+      .graffiti-backdrop,
+      .grid-overlay,
+      header,
+      footer,
+      nav,
+      #page-overview,
+      #page-studio,
+      #page-benchmarks,
+      #page-mcp,
+      .course-track-selector,
+      .course-progress-bar-wrap,
+      .course-sidebar,
+      #course-content-area,
+      #lesson-quiz-box,
+      #cert-lock-status,
+      #cert-setup-controls,
+      .noprint {
         display: none !important;
       }
 
-      #page-course {
+      /* Clean transparent layout parents */
+      .container,
+      #page-course,
+      .course-layout,
+      .course-main,
+      #certificate-guard-wrapper {
         display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
         padding: 0 !important;
-        margin: 0 !important;
-      }
-
-      .course-layout {
-        display: block !important;
-        margin: 0 !important;
-      }
-
-      .course-main {
-        display: block !important;
-        padding: 0 !important;
-        margin: 0 !important;
         border: none !important;
         box-shadow: none !important;
+        background: transparent !important;
+        overflow: hidden !important;
       }
 
-      /* Pristine Isolated Certificate Print Card */
-      .certificate-container, #cert-display-card {
+      /* Standalone Pristine Certificate Card */
+      #cert-display-card {
         display: block !important;
-        margin: 10mm auto !important;
-        padding: 24mm 20mm !important;
+        visibility: visible !important;
+        position: relative !important;
+        width: 270mm !important;
+        height: 185mm !important;
+        max-width: 95vw !important;
+        box-sizing: border-box !important;
+        margin: 8mm auto !important;
+        padding: 16mm 20mm !important;
         border: 4px double #0D9488 !important;
         border-radius: 12px !important;
+        background: #FFFFFF !important;
         box-shadow: none !important;
         page-break-inside: avoid !important;
-        width: 92% !important;
-        max-width: 900px !important;
-        background: #FFFFFF !important;
+        page-break-after: avoid !important;
+        page-break-before: avoid !important;
+        break-inside: avoid !important;
       }
 
-      @page {
-        size: A4 landscape;
-        margin: 8mm;
+      #cert-display-card * {
+        visibility: visible !important;
       }
     }
 
@@ -2757,7 +2788,7 @@
                 Enter your full name to generate your verified cryptographic credential:
               </p>
               <div style="display:flex; gap:10px; flex-wrap:wrap; max-width:540px; margin-bottom:16px;">
-                <input type="text" id="cert-name-input" placeholder="Your Full Name (e.g., John Doe)" style="flex:1 1 100%;">
+                <input type="text" id="cert-name-input" placeholder="Your Full Name" style="flex:1 1 100%;">
                 <button class="btn-primary" style="padding:10px 22px; font-size:13px;" onclick="generateVerifiedCertificate()">
                   Generate Certificate
                 </button>
@@ -2773,7 +2804,7 @@
               <h3 style="font-size:26px; font-weight:800; color:#090D16; margin:16px 0 6px;" id="cert-track-title">Sema Sovereign Swahili AI Engineer</h3>
               <div style="font-size:12px; color:var(--text-light); text-transform:uppercase; letter-spacing:0.08em;">Nama Research Lab · Sovereign Language Foundation</div>
               <div style="font-size:14px; color:var(--text-muted); margin:18px 0 6px;">This certifies that</div>
-              <div id="cert-user-name" style="font-size:28px; font-weight:900; color:var(--teal-dark); letter-spacing:-0.02em;">John Doe</div>
+              <div id="cert-user-name" style="font-size:28px; font-weight:900; color:var(--teal-dark); letter-spacing:-0.02em;">Candidate Name</div>
               <div style="font-size:14px; color:var(--text-muted); max-width:580px; margin:12px auto; line-height:1.6;" id="cert-text-desc">
                 has successfully completed all evaluation modules and checkpoint quizzes of the Sema Language Engine Academy, demonstrating competency in Bantu Agglutinative Morphology, Rule-Based Slot Realization, and Slotted Fact Protection.
               </div>
@@ -2781,8 +2812,8 @@
                 <div>Date Issued: <strong id="cert-date" style="color:var(--text-main);">October 30, 2026</strong></div>
                 <div>Verification ID: <strong id="cert-id" style="color:var(--text-main); font-family:'JetBrains Mono',monospace;">SEMA-CERT-2026-9F8A4B</strong></div>
                 <div style="text-align:right;">
-                  <div>Instructors: <strong>John Doe</strong> & <strong>Dr. N. Ahadi</strong></div>
-                  <div style="font-size:10px; color:var(--teal);">Chief AI Scientist & Lead Systems Architect</div>
+                  <div>Assessed by: <strong style="color:var(--teal-dark); font-size:13px;">NamaLabs</strong></div>
+                  <div style="font-size:10px; color:var(--teal); font-weight:700;">Sovereign AI Research Laboratory</div>
                 </div>
               </div>
               <div class="noprint" style="margin-top:24px; text-align:center;">
@@ -4615,6 +4646,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
 
     function loadLesson(num) {
       currentLessonNum = num;
+      currentQuizState = {};
       document.querySelectorAll('.lesson-item').forEach(i => i.classList.remove('active'));
       const activeItem = document.getElementById(`sidebar-item-${num}`);
       if (activeItem) activeItem.classList.add('active');
@@ -4622,6 +4654,8 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
       const lessons = currentTrack === 'basic' ? basicLessons : advLessons;
       const lesson = lessons[num];
       const area = document.getElementById("course-content-area");
+      const completedSet = currentTrack === 'basic' ? completedBasicLessons : completedAdvLessons;
+      const isAlreadyPassed = completedSet.has(num);
 
       area.innerHTML = `
         <span class="lesson-time-badge">
@@ -4637,10 +4671,43 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
           </div>
           ${lesson.exerciseHtml}
         </div>
+        <div id="quiz-unlock-action-card" style="margin-top:28px; padding:22px 20px; background:linear-gradient(135deg, rgba(13,148,136,0.05), rgba(99,102,241,0.05)); border:1.5px dashed var(--teal); border-radius:14px; text-align:center;">
+          <div style="font-size:26px; margin-bottom:8px;">${isAlreadyPassed ? '✓' : '🎯'}</div>
+          <h4 style="font-size:17px; font-weight:800; color:var(--text-main); margin-bottom:6px;">
+            ${isAlreadyPassed ? `Module ${num} Passed! Review Checkpoint Quiz?` : `Finished Studying Module ${num}?`}
+          </h4>
+          <p style="font-size:13px; color:var(--text-muted); max-width:540px; margin:0 auto 16px; line-height:1.5;">
+            ${isAlreadyPassed 
+              ? `You have already demonstrated 100% mastery on this module. You can review the questions or continue through the track.` 
+              : `Verify your understanding with the 3-question evaluation. 100% accuracy is required to unlock subsequent modules. Once started, answers cannot be undone.`}
+          </p>
+          <button class="btn-primary" style="padding:11px 26px; font-size:14px; font-weight:700; cursor:pointer;" onclick="startCheckpointQuiz(${num})">
+            <span>${isAlreadyPassed ? 'Review Module Checkpoint Quiz' : `Take Module ${num} Checkpoint Quiz`}</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left:6px; vertical-align:middle;"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
       `;
+
+      // Hide quiz box by default until user clicks the start quiz button
+      const quizBox = document.getElementById("lesson-quiz-box");
+      if (quizBox) {
+        quizBox.style.display = "none";
+      }
 
       renderCheckpointQuiz(lesson.quiz, num);
       initLessonInteractiveWidgets(currentTrack, num);
+    }
+
+    function startCheckpointQuiz(lessonNum) {
+      const quizBox = document.getElementById("lesson-quiz-box");
+      if (quizBox) {
+        quizBox.style.display = "block";
+        quizBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      const actionCard = document.getElementById("quiz-unlock-action-card");
+      if (actionCard) {
+        actionCard.style.display = "none";
+      }
     }
 
     function renderCheckpointQuiz(quizQuestions, lessonNum) {
@@ -4655,7 +4722,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
             <h3 style="font-size:20px; font-weight:800; color:#090D16; margin-top:4px;">Comprehension Verification (All 3 Required)</h3>
           </div>
           <span id="quiz-completion-badge" class="version-tag" style="${isAlreadyPassed ? 'background:#ECFDF5; color:#059669;' : 'background:#FEF3C7; color:#B45309;'}">
-            ${isAlreadyPassed ? 'PASSED ✓' : 'QUIZ PENDING'}
+            ${isAlreadyPassed ? 'PASSED ✓' : 'QUIZ IN PROGRESS'}
           </span>
         </div>
       `;
@@ -4677,7 +4744,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
       });
 
       html += `
-        <div id="quiz-feedback-banner" style="display:none; padding:14px; border-radius:12px; font-size:13px; font-weight:700; margin-top:16px;"></div>
+        <div id="quiz-feedback-banner" style="display:none; padding:16px; border-radius:12px; font-size:13px; font-weight:600; margin-top:16px;"></div>
       `;
 
       quizBox.innerHTML = html;
@@ -4685,8 +4752,18 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
 
     let currentQuizState = {};
     function answerCheckpointQuestion(lessonNum, qIdx, selectedIdx, correctIdx, explanation) {
-      currentQuizState[qIdx] = (selectedIdx === correctIdx);
+      // Lock options on this question card (no going back or second guessing)
+      const card = document.getElementById(`quiz-card-${qIdx}`);
+      if (card) {
+        const buttons = card.querySelectorAll(".quiz-opt-btn");
+        buttons.forEach(btn => {
+          btn.disabled = true;
+          btn.style.cursor = "not-allowed";
+        });
+      }
+
       const isCorrect = (selectedIdx === correctIdx);
+      currentQuizState[qIdx] = isCorrect;
 
       const expEl = document.getElementById(`quiz-exp-${qIdx}`);
       expEl.style.display = "block";
@@ -4698,40 +4775,134 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
         expEl.innerHTML = `<strong>✓ Correct!</strong> ${explanation}`;
       } else {
         document.getElementById(`opt-${qIdx}-${selectedIdx}`).classList.add("incorrect");
+        const correctBtn = document.getElementById(`opt-${qIdx}-${correctIdx}`);
+        if (correctBtn) correctBtn.classList.add("correct");
         expEl.style.background = "var(--rose-light)";
         expEl.style.color = "var(--rose)";
         expEl.innerHTML = `<strong>✗ Incorrect.</strong> ${explanation}`;
       }
 
-      // Check if all 3 answered and all correct
+      // Check if all questions in checkpoint are answered
       const lessons = currentTrack === 'basic' ? basicLessons : advLessons;
       const totalQ = lessons[lessonNum].quiz.length;
-      let allAnswered = true;
-      let allPassed = true;
+      const answeredCount = Object.keys(currentQuizState).length;
 
-      for (let i = 0; i < totalQ; i++) {
-        if (currentQuizState[i] === undefined) allAnswered = false;
-        if (currentQuizState[i] !== true) allPassed = false;
+      if (answeredCount === totalQ) {
+        const correctCount = Object.values(currentQuizState).filter(v => v === true).length;
+        const banner = document.getElementById("quiz-feedback-banner");
+        const badge = document.getElementById("quiz-completion-badge");
+
+        if (correctCount === totalQ) {
+          // Passed 100%
+          const completedSet = currentTrack === 'basic' ? completedBasicLessons : completedAdvLessons;
+          completedSet.add(lessonNum);
+          renderSidebarLessons();
+          updateOverallProgress();
+
+          if (badge) {
+            badge.innerText = "PASSED ✓";
+            badge.style.background = "#ECFDF5";
+            badge.style.color = "#059669";
+          }
+
+          const nextNum = lessonNum + 1;
+          const hasNext = (nextNum in lessons);
+
+          banner.style.display = "block";
+          banner.style.background = "var(--emerald-light)";
+          banner.style.color = "var(--emerald)";
+          banner.style.border = "1px solid var(--emerald)";
+
+          if (hasNext) {
+            const nextTitle = (lessons[nextNum].title.split(':')[1] || lessons[nextNum].title).trim();
+            banner.innerHTML = `
+              <div style="font-size:15px; font-weight:800; margin-bottom:6px;">✓ Perfect Score! (3/3 Correct)</div>
+              <p style="margin:0 0 14px; font-weight:500; font-size:13px; color:var(--text-main);">
+                You demonstrated complete mastery of Module ${lessonNum}. Module ${nextNum} (${nextTitle}) is now unlocked!
+              </p>
+              <button class="btn-primary" style="padding:10px 22px; font-size:13px; font-weight:700; cursor:pointer;" onclick="proceedToNextLesson(${nextNum})">
+                Proceed to Module ${nextNum}: ${nextTitle} →
+              </button>
+            `;
+          } else {
+            banner.innerHTML = `
+              <div style="font-size:15px; font-weight:800; margin-bottom:6px;">🎉 Congratulations! Track Curriculum Mastered!</div>
+              <p style="margin:0 0 14px; font-weight:500; font-size:13px; color:var(--text-main);">
+                You scored 100% on every module in this track. Your verified cryptographic certificate is officially unlocked!
+              </p>
+              <button class="btn-primary" style="padding:10px 22px; font-size:13px; font-weight:700; cursor:pointer;" onclick="scrollToCertificate()">
+                Claim Your Verified Certificate →
+              </button>
+            `;
+          }
+        } else {
+          // Failed (< 3/3)
+          if (badge) {
+            badge.innerText = "REVISE REQUIRED";
+            badge.style.background = "#FEF3C7";
+            badge.style.color = "#B45309";
+          }
+
+          banner.style.display = "block";
+          banner.style.background = "var(--rose-light)";
+          banner.style.color = "var(--rose)";
+          banner.style.border = "1px solid var(--rose)";
+          banner.innerHTML = `
+            <div style="font-size:15px; font-weight:800; margin-bottom:6px;">⚠️ Checkpoint Incomplete: ${correctCount} of ${totalQ} Correct</div>
+            <p style="margin:0 0 14px; font-weight:500; font-size:13px; color:var(--text-main);">
+              Deterministic AI systems require 100% accuracy with zero morpheme hallucinations. Revise the study materials and interactive exercise above, then re-attempt this checkpoint.
+            </p>
+            <button class="btn-secondary" style="padding:10px 22px; font-size:13px; font-weight:700; cursor:pointer;" onclick="reviseAndRetryQuiz(${lessonNum})">
+              🔄 Revise Study Materials & Re-attempt
+            </button>
+          `;
+        }
+      }
+    }
+
+    function reviseAndRetryQuiz(lessonNum) {
+      currentQuizState = {};
+      const lessons = currentTrack === 'basic' ? basicLessons : advLessons;
+      const lesson = lessons[lessonNum];
+      renderCheckpointQuiz(lesson.quiz, lessonNum);
+
+      const quizBox = document.getElementById("lesson-quiz-box");
+      if (quizBox) quizBox.style.display = "none";
+
+      const actionCard = document.getElementById("quiz-unlock-action-card");
+      if (actionCard) {
+        actionCard.style.display = "block";
+        actionCard.innerHTML = `
+          <div style="font-size:26px; margin-bottom:8px;">📖</div>
+          <h4 style="font-size:17px; font-weight:800; color:var(--text-main); margin-bottom:6px;">Revise & Master Module ${lessonNum}</h4>
+          <p style="font-size:13px; color:var(--text-muted); max-width:540px; margin:0 auto 16px; line-height:1.5;">
+            Take your time to re-read the morphological rules and test the interactive sandbox above. When you are confident, click below to re-attempt the checkpoint quiz.
+          </p>
+          <button class="btn-primary" style="padding:11px 26px; font-size:14px; font-weight:700; cursor:pointer;" onclick="startCheckpointQuiz(${lessonNum})">
+            <span>Re-attempt Module ${lessonNum} Checkpoint Quiz</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left:6px; vertical-align:middle;"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        `;
       }
 
-      if (allAnswered && allPassed) {
-        const completedSet = currentTrack === 'basic' ? completedBasicLessons : completedAdvLessons;
-        completedSet.add(lessonNum);
-        renderSidebarLessons();
-        updateOverallProgress();
+      const contentArea = document.getElementById("course-content-area");
+      if (contentArea) {
+        contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
 
-        const banner = document.getElementById("quiz-feedback-banner");
-        banner.style.display = "block";
-        banner.style.background = "var(--emerald-light)";
-        banner.style.color = "var(--emerald)";
-        banner.innerHTML = `✓ Congratulations! You scored 100% on Module ${lessonNum}. Next module is now unlocked!`;
+    function proceedToNextLesson(nextNum) {
+      loadLesson(nextNum);
+      const contentArea = document.getElementById("course-content-area");
+      if (contentArea) {
+        contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
 
-        const badge = document.getElementById("quiz-completion-badge");
-        if (badge) {
-          badge.innerText = "PASSED ✓";
-          badge.style.background = "#ECFDF5";
-          badge.style.color = "#059669";
-        }
+    function scrollToCertificate() {
+      const certWrapper = document.getElementById("certificate-guard-wrapper");
+      if (certWrapper) {
+        certWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
 
@@ -5715,7 +5886,8 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
     // 6. VERIFIED CERTIFICATE GENERATION & PRINT ISOLATION
     // ===================================================================
     function generateVerifiedCertificate() {
-      const name = document.getElementById("cert-name-input").value.trim() || "John Doe";
+      const nameInput = document.getElementById("cert-name-input");
+      const name = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : "Verified Scholar";
       const certCard = document.getElementById("cert-display-card");
       certCard.style.display = "block";
 
@@ -5730,6 +5902,11 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
     }
 
     function printCertificateOnly() {
+      const certCard = document.getElementById("cert-display-card");
+      if (!certCard || certCard.style.display === "none") {
+        alert("Please enter your name and click 'Generate Certificate' first!");
+        return;
+      }
       window.print();
     }
 
