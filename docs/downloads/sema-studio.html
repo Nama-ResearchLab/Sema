@@ -8,8 +8,8 @@
   <meta name="keywords" content="Sema, Swahili NLP, Swahili grammar engine, Swahili verb synthesizer, Bantu noun classes, Swahili morphology, Swahili concord, clinical term shielding, offline AI Africa, Nama Research Lab, Rust NLP, Model Context Protocol">
   <meta name="author" content="Nama Research Lab">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta name="theme-color" content="#0D9488">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230D9488'/><text x='50' y='67' font-size='56' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='white'>S</text></svg>">
+  <meta name="theme-color" content="#C2410C">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23C2410C'/><text x='50' y='67' font-size='56' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='white'>S</text></svg>">
   <link rel="canonical" href="https://nama-researchlab.github.io/Sema/">
 
   <!-- Open Graph / Social Sharing -->
@@ -75,45 +75,76 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #F8FAFC;
-      --bg-alt: #F1F5F9;
+    :root,
+    [data-version-theme="v0.2.5"] {
+      /* v0.2.5 — Warm Terracotta on Sunlit Ivory Paper */
+      --bg: #FAF7F2;
+      --bg-alt: #F2ECE3;
       --card-bg: #FFFFFF;
-      --text-main: #0F172A;
-      --text-muted: #475569;
-      --text-light: #64748B;
-      --border: #E2E8F0;
-      --border-strong: #CBD5E1;
-      --teal: #0D9488;
-      --teal-light: #F0FDFA;
-      --teal-border: #99F6E4;
-      --teal-dark: #0F766E;
-      --indigo: #4F46E5;
+      --text-main: #1C1917;
+      --text-muted: #57534E;
+      --text-light: #78716C;
+      --border: #E7E0D6;
+      --border-strong: #D6CEC2;
+      --accent: #C2410C;
+      --accent-dark: #9A3412;
+      --accent-soft: #FFF4EC;
+      --accent-border: #FDBA8C;
+      --accent-glow: rgba(194, 65, 12, 0.09);
+      /* Semantic aliases keep existing workstation & course controls synchronized */
+      --teal: var(--accent);
+      --teal-light: var(--accent-soft);
+      --teal-border: var(--accent-border);
+      --teal-dark: var(--accent-dark);
+      --indigo: #4338CA;
       --indigo-light: #EEF2FF;
-      --emerald: #059669;
+      --emerald: #047857;
       --emerald-light: #ECFDF5;
-      --rose: #E11D48;
+      --rose: #BE123C;
       --rose-light: #FFF1F2;
-      --amber: #D97706;
+      --amber: #B45309;
       --amber-light: #FFFBEB;
-      --slate-dark: #0F172A;
+      --slate-dark: #1C1917;
 
-      /* Clean Architectural Elevation Shadows */
+      /* Editorial Soft Card Elevation */
       --clay-card:
-        0 1px 3px rgba(15, 23, 42, 0.04),
-        0 8px 24px -4px rgba(15, 23, 42, 0.05);
-
+        0 1px 2px rgba(28, 25, 23, 0.04),
+        0 12px 32px -8px rgba(28, 25, 23, 0.07);
       --clay-sm:
-        0 1px 2px rgba(15, 23, 42, 0.04),
-        0 3px 10px -2px rgba(15, 23, 42, 0.04);
-
+        0 1px 2px rgba(28, 25, 23, 0.04),
+        0 4px 12px -2px rgba(28, 25, 23, 0.05);
       --clay-pill:
-        0 1px 2px rgba(15, 23, 42, 0.05);
-
+        0 1px 2px rgba(28, 25, 23, 0.05);
       --clay-inset:
-        inset 0 1px 2px rgba(15, 23, 42, 0.04);
+        inset 0 1px 2px rgba(28, 25, 23, 0.04);
+    }
+
+    [data-version-theme="v0.2.0"] {
+      /* v0.2.0 — Lagoon Teal on Pale Seafoam Paper */
+      --bg: #F3FAF9;
+      --bg-alt: #E7F3F1;
+      --border: #D5E8E5;
+      --border-strong: #B6D7D2;
+      --accent: #0D9488;
+      --accent-dark: #0F766E;
+      --accent-soft: #F0FDFA;
+      --accent-border: #99F6E4;
+      --accent-glow: rgba(13, 148, 136, 0.09);
+    }
+
+    [data-version-theme="v0.1.0"] {
+      /* v0.1.0 — Archival Indigo on Gallery Rag */
+      --bg: #F5F6FC;
+      --bg-alt: #EAEDF8;
+      --border: #DCE0F2;
+      --border-strong: #C2C8EA;
+      --accent: #4338CA;
+      --accent-dark: #3730A3;
+      --accent-soft: #EEF2FF;
+      --accent-border: #C7D2FE;
+      --accent-glow: rgba(67, 56, 202, 0.09);
     }
 
     * {
@@ -126,27 +157,16 @@
     body {
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--bg);
-      background-image:
-        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(13, 148, 136, 0.08), transparent),
-        radial-gradient(ellipse 60% 40% at 85% 15%, rgba(79, 70, 229, 0.05), transparent);
+      background-image: radial-gradient(ellipse 75% 45% at 50% -8%, var(--accent-glow), transparent);
       color: var(--text-main);
       min-height: 100vh;
       line-height: 1.6;
       overflow-x: hidden;
       position: relative;
+      transition: background-color 0.25s ease, color 0.2s ease;
     }
 
-    .grid-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: radial-gradient(rgba(15, 23, 42, 0.055) 1px, transparent 1px);
-      background-size: 28px 28px;
-      pointer-events: none;
-      z-index: 0;
-    }
+    .grid-overlay { display: none; }
 
     .container {
       position: relative;
@@ -184,11 +204,20 @@
       cursor: pointer;
     }
 
+    .nama-brand-mark {
+      height: 30px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
     .logo-text {
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: #0F172A;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: var(--text-main);
     }
 
     /* Unified Pill / Badge System */
@@ -212,9 +241,9 @@
       display: flex;
       align-items: center;
       gap: 4px;
-      background: #F1F5F9;
+      background: var(--bg-alt);
       padding: 4px;
-      border-radius: 12px;
+      border-radius: 999px;
       border: 1px solid var(--border);
       flex-wrap: wrap;
     }
@@ -225,7 +254,7 @@
       font-weight: 600;
       font-size: 13px;
       padding: 7px 14px;
-      border-radius: 8px;
+      border-radius: 999px;
       cursor: pointer;
       transition: all 0.15s ease;
       border: 1px solid transparent;
@@ -288,24 +317,24 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 11px 22px;
-      border-radius: 10px;
-      background: var(--teal);
+      padding: 12px 24px;
+      border-radius: 999px;
+      background: var(--accent);
       color: #FFFFFF;
       text-decoration: none;
       font-weight: 700;
       font-size: 14px;
       font-family: inherit;
-      box-shadow: 0 2px 8px rgba(13, 148, 136, 0.25);
-      transition: all 0.15s ease;
+      box-shadow: 0 6px 18px -6px var(--accent);
+      transition: all 0.18s ease;
       cursor: pointer;
-      border: 1px solid #0F766E;
+      border: 1px solid var(--accent-dark);
     }
 
     .btn-primary:hover {
-      background: var(--teal-dark);
+      background: var(--accent-dark);
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.32);
+      box-shadow: 0 10px 22px -6px var(--accent);
     }
 
     .btn-secondary {
@@ -313,8 +342,8 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 11px 20px;
-      border-radius: 10px;
+      padding: 12px 22px;
+      border-radius: 999px;
       background: #FFFFFF;
       color: var(--text-main);
       text-decoration: none;
@@ -2024,6 +2053,360 @@
       }
     }
 
+
+    /* Pinterest-Inspired Editorial Hero & Gallery Showcase */
+    .editorial-hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 40px;
+      align-items: center;
+      padding: 44px 0 36px;
+    }
+
+    .hero-copy {
+      text-align: left;
+    }
+
+    .hero-copy h1 {
+      font-size: 50px;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+      color: var(--text-main);
+      margin-bottom: 18px;
+    }
+
+    .hero-copy h1 em {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 58px;
+      color: var(--accent);
+      padding-right: 4px;
+    }
+
+    .hero-copy p {
+      font-size: 16.5px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 560px;
+      margin: 0 0 26px;
+    }
+
+    .hero-copy .hero-actions {
+      justify-content: flex-start;
+      margin-bottom: 24px;
+    }
+
+    .hero-gallery-card {
+      background: #FFFFFF;
+      border-radius: 26px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      box-shadow: var(--clay-card);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .hero-gallery-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 44px -12px rgba(28, 25, 23, 0.12);
+    }
+
+    .hero-gallery-media {
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--bg-alt);
+      aspect-ratio: 4 / 3;
+    }
+
+    .hero-gallery-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .hero-gallery-card:hover .hero-gallery-media img {
+      transform: scale(1.025);
+    }
+
+    .hero-gallery-caption {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 8px 4px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .version-pill-btn {
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .version-pill-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--clay-sm);
+    }
+
+    .ver-swatch {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    /* Versions & Release Packs Board */
+    .versions-board {
+      margin: 18px 0 42px;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      padding: 28px;
+      box-shadow: var(--clay-card);
+    }
+
+    .versions-board-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .versions-board-head h2 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--text-main);
+      margin-top: 6px;
+    }
+
+    .versions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .ver-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .ver-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--clay-sm);
+    }
+
+    .ver-card.active-theme {
+      border-color: var(--ver-color, var(--accent));
+      box-shadow: 0 12px 28px -10px var(--ver-shadow, rgba(194, 65, 12, 0.25));
+    }
+
+    .ver-color-ribbon {
+      height: 10px;
+      width: 100%;
+      background: var(--ver-color);
+    }
+
+    .ver-card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .ver-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .ver-badge-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--ver-soft);
+      color: var(--ver-dark);
+      border: 1px solid var(--ver-border);
+    }
+
+    .ver-theme-btn {
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .ver-card.active-theme .ver-theme-btn {
+      background: var(--ver-color);
+      color: #FFFFFF;
+      border-color: var(--ver-dark);
+    }
+
+    .ver-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+
+    .ver-story {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+
+    .ver-highlights {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12.5px;
+      color: var(--text-main);
+      padding: 10px 12px;
+      background: var(--bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .ver-highlights li {
+      display: flex;
+      gap: 7px;
+      align-items: flex-start;
+    }
+
+    .ver-highlights li::before {
+      content: "•";
+      color: var(--ver-color);
+      font-weight: 800;
+    }
+
+    .ver-packs {
+      padding: 14px 20px 18px;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ver-packs-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-light);
+    }
+
+    .ver-packs-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .pack-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-strong);
+      color: var(--text-main);
+      font-size: 11.5px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s ease;
+    }
+
+    .pack-link-btn:hover {
+      border-color: var(--ver-color, var(--accent));
+      color: var(--ver-dark, var(--accent-dark));
+      background: var(--ver-soft, var(--accent-soft));
+    }
+
+    /* Clean Plain-English Overview Cards */
+    .plain-overview-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin: 12px 0 34px;
+    }
+
+    .plain-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--clay-sm);
+    }
+
+    .plain-card h3 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .plain-card p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .plain-note-bar {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      box-shadow: var(--clay-sm);
+    }
+
+    /* Hide overly dense hex telemetry inside Studio Pro */
+    .slot-register-bar {
+      display: none !important;
+    }
+
+    @media (max-width: 960px) {
+      .editorial-hero-grid { grid-template-columns: 1fr; gap: 26px; padding-top: 24px; }
+      .hero-copy h1 { font-size: 38px; }
+      .hero-copy h1 em { font-size: 44px; }
+      .versions-grid, .plain-overview-strip { grid-template-columns: 1fr; }
+    }
+
     /* Responsive Breakdown */
     @media (max-width: 960px) {
       .container { padding: 0 16px; }
@@ -2054,19 +2437,21 @@
     <!-- Header Navigation Bar -->
     <header>
       <div class="logo-container" onclick="showPage('page-overview')">
+        <img src="assets/nama-logo.png" alt="Nama Research Lab" class="nama-brand-mark">
         <span class="logo-text">Sema</span>
-        <span class="version-tag">
-          <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
-          v0.2.5
-        </span>
+        <button type="button" class="version-tag version-pill-btn" id="header-version-pill" onclick="event.stopPropagation(); jumpToVersions();" title="Preview release colors and download packs">
+          <span class="ver-swatch"></span>
+          <span id="header-ver-label">v0.2.5 · Terracotta</span>
+        </button>
       </div>
 
       <nav aria-label="Primary Navigation">
         <button class="nav-link active" id="nav-overview" onclick="showPage('page-overview')">Overview</button>
-        <button class="nav-link" id="nav-studio" onclick="showPage('page-studio')">Studio Pro</button>
+        <button class="nav-link" id="nav-versions" onclick="jumpToVersions()">Versions</button>
+        <button class="nav-link" id="nav-studio" onclick="showPage('page-studio')">Studio</button>
         <button class="nav-link" id="nav-course" onclick="showPage('page-course')">Academy</button>
         <button class="nav-link" id="nav-benchmarks" onclick="showPage('page-benchmarks')">Benchmarks</button>
-        <button class="nav-link" id="nav-mcp" onclick="showPage('page-mcp')">MCP Server</button>
+        <button class="nav-link" id="nav-mcp" onclick="showPage('page-mcp')">MCP</button>
         <a href="https://github.com/Nama-ResearchLab/Sema" class="btn-github" target="_blank" rel="noopener">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
@@ -2080,318 +2465,254 @@
     <!-- PAGE 1: OVERVIEW & UNIVERSAL MULTI-PLATFORM DOWNLOADS               -->
     <!-- =================================================================== -->
     <div id="page-overview" class="page-view active">
-      <section class="hero">
-        <div class="hero-badge">
-          <span class="dot"></span>
-          Offline Swahili grammar · Runs on your own device · Rule-based, not guessed
+      <section class="editorial-hero-grid">
+        <div class="hero-copy">
+          <div class="hero-badge">
+            <span class="dot"></span>
+            <span id="hero-version-banner">Offline Swahili Language Companion · Release v0.2.5</span>
+          </div>
+          <h1>Swahili grammar that lives <em>on your device.</em></h1>
+          <p>
+            Build full Swahili verbs, relatives, noun-class clauses, and lock medical numbers or drug names cleanly before text ever leaves your phone or clinic workstation. Rule-based, inspectable, and completely offline.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn-primary" onclick="showPage('page-studio')">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              Open Studio
+            </button>
+            <button class="btn-secondary" onclick="jumpToVersions()">
+              Versions &amp; Downloads
+            </button>
+            <button class="btn-secondary" onclick="showPage('page-course')">
+              3-Hour Course
+            </button>
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; font-size:12.5px; color:var(--text-muted);">
+            <span style="padding:5px 12px; background:#FFFFFF; border:1px solid var(--border); border-radius:999px; font-weight:600;">19,717 Words</span>
+            <span style="padding:5px 12px; background:#FFFFFF; border:1px solid var(--border); border-radius:999px; font-weight:600;">18 Noun Classes</span>
+            <span style="padding:5px 12px; background:#FFFFFF; border:1px solid var(--border); border-radius:999px; font-weight:600;">Zero Cloud Required</span>
+          </div>
         </div>
-        <h1>Deterministic Swahili Language Engine</h1>
-        <p>A lightweight, rule-based language companion for Swahili edge text processing. Slotted morphological synthesis, dictionary-based term shielding, and self-consistency verification running 100% offline.</p>
 
-        <div class="hero-actions">
-          <button class="btn-primary" onclick="showPage('page-studio')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="5 3 19 12 5 21 5 3"></polygon>
-            </svg>
-            Launch Studio Pro
-          </button>
-          <button class="btn-secondary" onclick="showPage('page-course')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-            </svg>
-            Enter 3-Hour Master Course
-          </button>
+        <figure class="hero-gallery-card">
+          <div class="hero-gallery-media">
+            <img src="assets/sema_artistic_graffiti.jpg" alt="Sema Swahili Language Lab gallery mural">
+          </div>
+          <figcaption class="hero-gallery-caption">
+            <span>Sema Language Studio · Nama Research Lab</span>
+            <span style="color:var(--accent); font-weight:700;" id="gallery-active-theme-tag">Palette: v0.2.5 Terracotta</span>
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- Versions & Downloads Showcase (Color-coded by release) -->
+      <section id="versions-showcase" class="versions-board">
+        <div class="versions-board-head">
+          <div>
+            <span class="version-tag">
+              <span class="ver-swatch"></span>
+              Version Colors &amp; Release Packs
+            </span>
+            <h2>From v0.1 to v0.2.5 — each release wears its own color</h2>
+          </div>
+          <p style="font-size:13.5px; color:var(--text-muted); max-width:410px;">
+            Tap any version card to preview its color across the site, read what changed in plain English, and download that version's exact pack.
+          </p>
         </div>
 
-        <!-- Universal Multi-Platform Installer Suite (Non-Coders + Developers) -->
-        <div class="installer-box">
-          <div class="installer-tabs-header">
-            <div class="installer-os-pills">
-              <button class="os-pill active" id="pill-linux" onclick="switchInstallerOS('linux')">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h2v2h-2zm0-10h2v8h-2z"/></svg>
-                Linux / Raspberry Pi
-              </button>
-              <button class="os-pill" id="pill-studio" onclick="switchInstallerOS('studio')">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                Offline Studio (No Code)
-              </button>
-              <button class="os-pill" id="pill-cli" onclick="switchInstallerOS('cli')">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-                CLI Terminal
-              </button>
-            </div>
-            <span style="font-size:11px; font-weight:700; color:var(--text-light); text-transform:uppercase;">Zero Config Installer</span>
-          </div>
-
-          <!-- Linux / Raspberry Pi Tab (Active) -->
-          <div class="installer-panel active" id="install-linux">
-            <div class="installer-download-row">
-              <div>
-                <div class="installer-desc-title">Universal Linux Installer (x86_64 & ARM64)</div>
-                <div class="installer-desc-sub">Automated script for Ubuntu, Debian, Fedora, Arch, and Raspberry Pi. Downloads or builds native CLI binaries and installs the offline dictionary.</div>
+        <div class="versions-grid">
+          <!-- v0.1.0 Card (Archival Indigo) -->
+          <article class="ver-card" id="ver-card-v0.1.0" style="--ver-color:#4338CA; --ver-dark:#3730A3; --ver-soft:#EEF2FF; --ver-border:#C7D2FE; --ver-shadow:rgba(67,56,202,0.22);">
+            <div class="ver-color-ribbon"></div>
+            <div class="ver-card-body">
+              <div class="ver-card-top">
+                <span class="ver-badge-chip">v0.1.0 · Archival Indigo</span>
+                <button type="button" class="ver-theme-btn" id="btn-theme-v0.1.0" onclick="setVersionTheme('v0.1.0')">Preview Color</button>
               </div>
-              <button class="btn-installer" onclick="downloadInstallerScript()">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                Download Installer (install.sh) · 7.4 KB
-              </button>
+              <div class="ver-title">First Offline Roots &amp; Verb Engine</div>
+              <p class="ver-story">
+                Where Sema started. Built a clean offline Swahili vocabulary list and first-generation verb conjugation rules so simple tense, subject, and object prefixes worked without an internet connection.
+              </p>
+              <ul class="ver-highlights">
+                <li>19,717 distilled offline Swahili lemmas</li>
+                <li>Core subject, tense, and object verb slots</li>
+                <li>TOML morphology tables &amp; 88% verb test baseline</li>
+              </ul>
             </div>
-            <div style="margin-top:14px; font-size:12px; color:var(--text-muted); display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
-              <span>Pre-compiled: <a href="javascript:void(0)" onclick="downloadLinuxTarball()" style="color:var(--teal); font-weight:700;">Linux ARM64 Tarball (2.0 MB)</a></span>
-              <span>·</span>
-              <span>Source: <a href="javascript:void(0)" onclick="downloadSourceZip()" style="color:var(--teal); font-weight:700;">Source Archive (.zip)</a></span>
-              <span>·</span>
-              <span style="color:var(--text-light);">Run after download: <code style="font-family:'JetBrains Mono',monospace; background:var(--bg-alt); padding:2px 6px; border-radius:4px;">bash install.sh</code></span>
-            </div>
-          </div>
-
-          <!-- Offline Studio Tab (Standalone HTML for non-coders) -->
-          <div class="installer-panel" id="install-studio">
-            <div class="installer-download-row">
-              <div>
-                <div class="installer-desc-title">Standalone Offline Studio (Zero-Code Single File)</div>
-                <div class="installer-desc-sub">Double-click to run in any browser (Chrome, Firefox, Safari, Edge) on Linux, Windows, or macOS. No terminal, no compiler, and 100% offline.</div>
+            <div class="ver-packs">
+              <div class="ver-packs-label">v0.1.0 Download Packs</div>
+              <div class="ver-packs-row">
+                <a class="pack-link-btn" href="https://github.com/Nama-ResearchLab/Sema/archive/76037c2.zip" target="_blank" rel="noopener">Source Pack (.zip)</a>
+                <a class="pack-link-btn" href="https://github.com/Nama-ResearchLab/Sema/tree/76037c2" target="_blank" rel="noopener">Browse v0.1 Tree</a>
+                <a class="pack-link-btn" href="https://github.com/Nama-ResearchLab/Sema/raw/76037c2/data/swahili.distilled.jsonl" target="_blank" rel="noopener">Word List (.jsonl)</a>
               </div>
-              <button class="btn-installer" onclick="downloadOfflineStudio()">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                Download Offline Studio (.html) · Standalone
-              </button>
             </div>
-            <div style="margin-top:14px; font-size:12px; color:var(--text-muted);">
-              Contains the complete graphical language studio, interactive 3-hour course, audio phonetic synthesizer, and offline dictionary explorer in a single local file.
-            </div>
-          </div>
+          </article>
 
-          <!-- CLI Terminal Tab -->
-          <div class="installer-panel" id="install-cli">
-            <div class="installer-desc-title">Universal Curl Script & Cargo Crate</div>
-            <div class="installer-desc-sub">One-line automated shell script for POSIX environments. Detects architecture, installs binary, and registers MCP tool bindings.</div>
-            <div class="terminal-body">
-              <div class="terminal-code">
-                <span class="prompt">$</span>curl -fsSL https://raw.githubusercontent.com/Nama-ResearchLab/Sema/main/install.sh | bash
+          <!-- v0.2.0 Card (Lagoon Teal) -->
+          <article class="ver-card" id="ver-card-v0.2.0" style="--ver-color:#0D9488; --ver-dark:#0F766E; --ver-soft:#F0FDFA; --ver-border:#99F6E4; --ver-shadow:rgba(13,148,136,0.22);">
+            <div class="ver-color-ribbon"></div>
+            <div class="ver-card-body">
+              <div class="ver-card-top">
+                <span class="ver-badge-chip">v0.2.0 · Lagoon Teal</span>
+                <button type="button" class="ver-theme-btn" id="btn-theme-v0.2.0" onclick="setVersionTheme('v0.2.0')">Preview Color</button>
               </div>
-              <button class="btn-copy" onclick="copyInstall()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
-                <span id="copy-text">Copy</span>
-              </button>
+              <div class="ver-title">Safety Locks, Studio &amp; Pi Binary</div>
+              <p class="ver-story">
+                Introduced Fact Guardian to lock dosages and units (<code>500mg</code>, <code>Paracetamol</code>) before translation, double-checked verbs for negation accuracy, and shipped the single-file browser Studio and Linux ARM64 build.
+              </p>
+              <ul class="ver-highlights">
+                <li>Self-contained double-pass verb verification</li>
+                <li>Clinical term &amp; dosage slot protector (58 tests)</li>
+                <li>Standalone Studio HTML + Raspberry Pi binary</li>
+              </ul>
             </div>
-            <div style="margin-top:10px; font-size:12px; color:var(--text-light);">
-              Rust developers: <code style="font-family:'JetBrains Mono',monospace; background:var(--bg-alt); padding:2px 6px; border-radius:4px;">cargo install --git https://github.com/Nama-ResearchLab/Sema.git</code>
+            <div class="ver-packs">
+              <div class="ver-packs-label">v0.2.0 Download Packs</div>
+              <div class="ver-packs-row">
+                <a class="pack-link-btn" href="https://github.com/Nama-ResearchLab/Sema/archive/032d3fe.zip" target="_blank" rel="noopener">Source Pack (.zip)</a>
+                <button type="button" class="pack-link-btn" onclick="downloadLinuxTarball()">Linux ARM64 (.tar.gz)</button>
+                <a class="pack-link-btn" href="https://github.com/Nama-ResearchLab/Sema/tree/eee506a" target="_blank" rel="noopener">v0.2 Portal Snapshot</a>
+              </div>
             </div>
-          </div>
+          </article>
+
+          <!-- v0.2.5 Card (Warm Terracotta — Active Default) -->
+          <article class="ver-card active-theme" id="ver-card-v0.2.5" style="--ver-color:#C2410C; --ver-dark:#9A3412; --ver-soft:#FFF4EC; --ver-border:#FDBA8C; --ver-shadow:rgba(194,65,12,0.26);">
+            <div class="ver-color-ribbon"></div>
+            <div class="ver-card-body">
+              <div class="ver-card-top">
+                <span class="ver-badge-chip">v0.2.5 · Warm Terracotta</span>
+                <button type="button" class="ver-theme-btn" id="btn-theme-v0.2.5" onclick="setVersionTheme('v0.2.5')">Active Theme</button>
+              </div>
+              <div class="ver-title">Full Clauses, Relatives &amp; Typo Guard</div>
+              <p class="ver-story">
+                Sema's latest public release expands beyond isolated verbs into natural noun-class phrases (<em>vitabu vyangu vidogo haviko hospitalini</em>), relative verbs (<em>watakaojibu</em>), and 24/24 dosage safety against typos and Swahili number words.
+              </p>
+              <ul class="ver-highlights">
+                <li>Classes C1–C18 concords, locatives &amp; conditionals</li>
+                <li>24/24 zero-leak clinical &amp; typo protection</li>
+                <li>96/96 pure-Rust tests &amp; 500/500 round-trips</li>
+              </ul>
+            </div>
+            <div class="ver-packs">
+              <div class="ver-packs-label">v0.2.5 Download Packs</div>
+              <div class="ver-packs-row">
+                <a class="pack-link-btn" href="https://github.com/Nama-ResearchLab/Sema/archive/refs/tags/v0.2.5.zip" target="_blank" rel="noopener">Release v0.2.5 (.zip)</a>
+                <button type="button" class="pack-link-btn" onclick="downloadOfflineStudio()">Offline Studio (.html)</button>
+                <button type="button" class="pack-link-btn" onclick="downloadInstallerScript()">Installer (install.sh)</button>
+                <a class="pack-link-btn" href="https://github.com/Nama-ResearchLab/Sema/raw/v0.2.5/data/terms.clinical.tsv" target="_blank" rel="noopener">Clinical Terms (.tsv)</a>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
-      <!-- Scope and Limitations Section -->
-      <div class="studio-box" style="margin: 28px 0;">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
-          <h2 style="font-size:22px; font-weight:800; color:#090D16; margin:0;">Scope and Limitations</h2>
-          <span class="version-tag" style="background:#ECFDF5; color:#047857; font-weight:800;">Deterministic Release · v0.2.5</span>
-        </div>
-        <div style="background:#FFFBEB; border:1px solid #FDE68A; border-radius:10px; padding:14px 18px; margin-bottom:18px; font-size:13px; color:#92400E; line-height:1.6;">
-          <strong>Clinical Disclaimer:</strong> Sema (version 0.2.5) is an open-source research engine and is not validated for clinical use, medical diagnosis, treatment planning, or regulatory compliance. All outputs must be reviewed by a qualified Swahili speaker and clinician before any patient-facing or clinical use. The realization step is rule-based and does not generate unconstrained text.
-        </div>
-
-        <h3 style="font-size:16px; font-weight:800; margin-bottom:10px; color:#090D16;">Grammatical Coverage Matrix</h3>
-        <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">
-          Evaluation of Swahili grammatical features supported by the engine rules:
-        </p>
-        <div class="scientific-table-wrap" style="margin-bottom:20px;">
-          <table class="scientific-table">
-            <thead>
-              <tr>
-                <th>Grammatical Feature</th>
-                <th>Status</th>
-                <th>Implementation Details</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Verb subject concords</strong></td>
-                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported</span></td>
-                <td>Personal concords (1SG-3PL) and noun classes C1-C18 with C1/C2 negative fusion mapped in src/synth/sw.toml.</td>
-              </tr>
-              <tr>
-                <td><strong>Verb object concords (infixes)</strong></td>
-                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported</span></td>
-                <td>Personal infixes (-ni-, -ku-, -m-/-mw-, -tu-, -wa-) and noun class infixes (-ki-, -vi-, -i-, -zi-, -li-, -ya-).</td>
-              </tr>
-              <tr>
-                <td><strong>Tense and aspect markers</strong></td>
-                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported</span></td>
-                <td>Present (-na-), past (-li-), future (-ta-), perfect (-me-), habitual (-hu-), consecutive (-ka-), not-yet (-ja-), infinitive (-ku-).</td>
-              </tr>
-              <tr>
-                <td><strong>Negation morphology</strong></td>
-                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported</span></td>
-                <td>Subject-negation portmanteaus (si-, hu-, ha-, hatu-, ham-, hawa-), negative past (-ku-), negative perfect (-ja-), present negative zero marker with stem shift (-a to -i), negative subjunctive (-si-).</td>
-              </tr>
-              <tr>
-                <td><strong>Verb extensions (applicative)</strong></td>
-                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported</span></td>
-                <td>Suffixes -i- and -e- with vowel harmony; -li- and -le- for vowel-final stems.</td>
-              </tr>
-              <tr>
-                <td><strong>Verb extensions (causative)</strong></td>
-                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported</span></td>
-                <td>Suffixes -ish- and -esh- with vowel harmony; -z- for vowel-final stems.</td>
-              </tr>
-              <tr>
-                <td><strong>Verb extensions (passive)</strong></td>
-                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported</span></td>
-                <td>Suffix -w-; -liwa and -lewa for vowel-final stems; irregular monosyllabic forms (liwa, pewa, nywewa).</td>
-              </tr>
-              <tr>
-                <td><strong>Verb extensions (reciprocal)</strong></td>
-                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported</span></td>
-                <td>Suffix -an-.</td>
-              </tr>
-              <tr>
-                <td><strong>Verb extensions (stative)</strong></td>
-                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported</span></td>
-                <td>Suffixes -ik- and -ek- with vowel harmony; -k- for vowel-final stems.</td>
-              </tr>
-              <tr>
-                <td><strong>Subjunctive and imperative</strong></td>
-                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported</span></td>
-                <td>Subjunctive final vowel -e, negative subjunctive -si-, bare imperatives and irregular imperatives (nenda, njoo, kula).</td>
-              </tr>
-              <tr>
-                <td><strong>Conditionals (-ki-, -nge-, -ngali-, -sipo-)</strong></td>
-                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported (v0.2.5)</span></td>
-                <td>Full conditional and counterfactual TAM markers including negative forms (-sipo-, -singe-, -singali-) with automatic positive subject prefixes.</td>
-              </tr>
-              <tr>
-                <td><strong>Relative clauses (-ye-, -o-, -cho-, -po-)</strong></td>
-                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported (v0.2.5)</span></td>
-                <td>Noun-class and person relative infixes inside Slot 2b with future -ta- to -taka- allomorphy (watakaojibu, nitakapofika). Independent amba- relatives planned for v0.3.</td>
-              </tr>
-              <tr>
-                <td><strong>Adjective and numeral concords</strong></td>
-                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported (v0.2.5)</span></td>
-                <td>Dynamic table-driven inflection via ConcordEngine across classes C1-C18 (kidogo, vidogo, wawili, viwili, wangu, hicho).</td>
-              </tr>
-              <tr>
-                <td><strong>Locative morphology (-ni)</strong></td>
-                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported (v0.2.5)</span></td>
-                <td>Classes 16-18 (pa-, ku-, mu-) subject concords plus automatic nominal locative suffixation (hospitalini, nyumbani).</td>
-              </tr>
-              <tr>
-                <td><strong>Copula &amp; locative copulas (ni/si, yuko, hakuna)</strong></td>
-                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported (v0.2.5)</span></td>
-                <td>Plain/emphatic copulas (ni/si, ndiyo/siyo), locative copulas (yuko/hayuko/kiko), and existential/possessive -na (nina/hakuna).</td>
-              </tr>
-              <tr>
-                <td><strong>Compound tenses</strong></td>
-                <td><span class="status-indicator"><span class="status-dot unsupported"></span>Not supported</span></td>
-                <td>Multi-verb constructions (e.g. alikuwa akisoma) are outside the single-verb slot pipeline.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-bottom:16px;">
-          <!-- Card 1: Input Requirements & Pipeline Ingestion -->
-          <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:14px; padding:18px; box-shadow:var(--clay-sm);">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-              <h4 style="font-size:15px; font-weight:800; color:#090D16; margin:0;">Input Processing Requirements</h4>
-              <span class="rich-step-badge badge-step">Pipeline Ingestion</span>
-            </div>
-            <div class="rich-step-list">
-              <div class="rich-step-item">
-                <span class="rich-step-badge badge-step">Step 01</span>
-                <div>
-                  <div style="font-size:13px; font-weight:800; color:#090D16; margin-bottom:3px;">Structured Intent Vector Required</div>
-                  <div style="font-size:12px; color:var(--text-muted); line-height:1.6;">
-                    Sema strictly requires structured intent objects specifying subject, tense, polarity, object, root stem, derivations, and mood. It does not parse unconstrained free-form Swahili text into intent.
-                  </div>
-                  <div style="margin-top:6px; font-size:11px; font-family:'JetBrains Mono',monospace; color:var(--teal);">
-                    Input: { subj, tense, polarity, obj, root, mood }
-                  </div>
-                </div>
-              </div>
-
-              <div class="rich-step-item">
-                <span class="rich-step-badge badge-step">Step 02</span>
-                <div>
-                  <div style="font-size:13px; font-weight:800; color:#090D16; margin-bottom:3px;">Single-word verb analysis only</div>
-                  <div style="font-size:12px; color:var(--text-muted); line-height:1.6;">
-                    The forward analyzer in <code style="font-family:'JetBrains Mono',monospace; background:var(--bg-alt); padding:1px 5px; border-radius:4px;">src/linearizer.rs</code> decomposes isolated Swahili verbs by peeling standard concords. It cannot parse multi-word syntax, colloquial contractions, or contextual homographs.
-                  </div>
-                  <div style="margin-top:6px; font-size:11px; font-family:'JetBrains Mono',monospace; color:var(--indigo);">
-                    Scope: Single-word verbal morphology only
-                  </div>
-                </div>
-              </div>
-            </div>
+      <!-- Clean Multi-Platform Quick Installer -->
+      <div class="installer-box" style="max-width:100%; margin:0 0 28px;">
+        <div class="installer-tabs-header">
+          <div class="installer-os-pills">
+            <button class="os-pill active" id="pill-linux" onclick="switchInstallerOS('linux')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h2v2h-2zm0-10h2v8h-2z"/></svg>
+              Linux / Raspberry Pi
+            </button>
+            <button class="os-pill" id="pill-studio" onclick="switchInstallerOS('studio')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Offline Studio (No Code)
+            </button>
+            <button class="os-pill" id="pill-cli" onclick="switchInstallerOS('cli')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+              CLI &amp; Cargo
+            </button>
           </div>
+          <span style="font-size:11px; font-weight:700; color:var(--text-light); text-transform:uppercase;">Quick Install · v0.2.5</span>
+        </div>
 
-          <!-- Card 2: Fact Protection & Adversarial Findings -->
-          <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:14px; padding:18px; box-shadow:var(--clay-sm);">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-              <h4 style="font-size:15px; font-weight:800; color:#090D16; margin:0;">Fact Protection Audit &amp; Zero-Leak Gate</h4>
-              <span class="rich-step-badge badge-pass">24/24 Passed · 0.0% Leak (v0.2.5)</span>
+        <div class="installer-panel active" id="install-linux">
+          <div class="installer-download-row">
+            <div>
+              <div class="installer-desc-title">Linux &amp; Raspberry Pi Installer</div>
+              <div class="installer-desc-sub">Installs the native command-line app and 19,717-word offline dictionary on Ubuntu, Debian, Fedora, Arch, or ARM boards.</div>
             </div>
-            
-            <div class="rich-step-list">
-              <div class="rich-step-item">
-                <span class="rich-step-badge badge-pass">✓ Hardened</span>
-                <div>
-                  <div style="font-size:13px; font-weight:800; color:#065F46; margin-bottom:3px;">All 8 Adversarial Categories Shielded (24/24)</div>
-                  <div style="font-size:12px; color:#047857; line-height:1.5;">
-                    Upgraded zero-regex <code style="font-family:'JetBrains Mono',monospace;">FactGuardian</code> shields Swahili number words (<em>mia tano</em>, <em>elfu moja</em>), brand names (<em>Panadol</em>, <em>Septra</em>), decimals (<em>2.5</em>, <em>2,5</em>), ranges (<em>500 to 1000</em>), fractions (<em>nusu</em>), mixed units, and spaced digits (<em>5 0 0</em>).
-                  </div>
-                </div>
-              </div>
-
-              <div class="rich-step-item">
-                <span class="rich-step-badge badge-pass">✓ Typo Guard</span>
-                <div>
-                  <div style="font-size:13px; font-weight:800; color:#065F46; margin-bottom:3px;">Bounded Damerau-Levenshtein Drug Recovery</div>
-                  <div style="font-size:11px; color:#047857; line-height:1.6;">
-                    Misspelled generics (e.g. <em>paracetemol</em> &rarr; <em>paracetamol</em>, <em>amoxillin</em>, <em>ibuprufen</em>) are normalized into canonical shielded slots with strict stopword guards preventing prose false positives.
-                  </div>
-                </div>
-              </div>
-            </div>
+            <button class="btn-installer" onclick="downloadInstallerScript()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Download install.sh
+            </button>
+          </div>
+          <div style="margin-top:12px; font-size:12.5px; color:var(--text-muted); display:flex; gap:14px; flex-wrap:wrap; align-items:center;">
+            <span>Or grab directly: <a href="javascript:void(0)" onclick="downloadLinuxTarball()" style="color:var(--accent); font-weight:700;">Linux ARM64 Pack (2.0 MB)</a></span>
+            <span>·</span>
+            <span><a href="javascript:void(0)" onclick="downloadSourceZip()" style="color:var(--accent); font-weight:700;">v0.2.5 Source (.zip)</a></span>
+            <span>·</span>
+            <span style="color:var(--text-light);">Run: <code style="font-family:'JetBrains Mono',monospace; background:var(--bg-alt); padding:2px 6px; border-radius:4px;">bash install.sh</code></span>
           </div>
         </div>
 
-        <!-- Card 3: Failure Behavior Diagnostic Steps -->
-        <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:14px; padding:18px; box-shadow:var(--clay-sm); margin-bottom:16px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-            <h4 style="font-size:15px; font-weight:800; color:#090D16; margin:0;">Failure Behavior Outside Supported Grammar</h4>
-            <span class="rich-step-badge badge-step">Deterministic Fallback Matrix</span>
+        <div class="installer-panel" id="install-studio">
+          <div class="installer-download-row">
+            <div>
+              <div class="installer-desc-title">Single-File Offline Studio</div>
+              <div class="installer-desc-sub">Double-click this HTML file in any browser (Windows, macOS, Linux, ChromeOS) to use the Studio, 3-Hour Course, and audio tools with zero setup.</div>
+            </div>
+            <button class="btn-installer" onclick="downloadOfflineStudio()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Download Studio (.html)
+            </button>
           </div>
-          <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin:0 0 12px;">
-            When inputs fall outside the supported grammar, <code style="font-family:'JetBrains Mono',monospace; background:var(--bg-alt); padding:2px 6px; border-radius:4px;">src/rolodex.rs</code> employs non-panicking deterministic fallback rules rather than raising unhandled exceptions:
+        </div>
+
+        <div class="installer-panel" id="install-cli">
+          <div class="installer-desc-title">One-Line Terminal Install</div>
+          <div class="installer-desc-sub">Fetches the installer or builds directly from GitHub via Cargo.</div>
+          <div class="terminal-body">
+            <div class="terminal-code">
+              <span class="prompt">$</span>curl -fsSL https://raw.githubusercontent.com/Nama-ResearchLab/Sema/main/install.sh | bash
+            </div>
+            <button class="btn-copy" onclick="copyInstall()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span id="copy-text">Copy</span>
+            </button>
+          </div>
+          <div style="margin-top:10px; font-size:12px; color:var(--text-light);">
+            Rust developers: <code style="font-family:'JetBrains Mono',monospace; background:var(--bg-alt); padding:2px 6px; border-radius:4px;">cargo install --git https://github.com/Nama-ResearchLab/Sema.git</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plain-English Capabilities & Honest Scope -->
+      <div class="plain-overview-strip">
+        <div class="plain-card">
+          <h3>Full Verbs &amp; Relatives</h3>
+          <p>
+            Builds subjects, tenses, negatives, object infixes, conditionals (<em>-nge-</em>, <em>-sipo-</em>), and relative verbs like <em>watakaojibu</em> ("those who will answer") from clear grammar slots.
           </p>
-          <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:12px;">
-            <div class="rich-step-item" style="flex-direction:column; gap:6px;">
-              <span class="rich-step-badge badge-step">Rule 01</span>
-              <strong style="font-size:12px; color:#090D16;">Unknown Subject Tag</strong>
-              <div style="font-size:11px; color:var(--text-muted); line-height:1.5;">Subject concord prefix is omitted cleanly from surface output.</div>
-            </div>
-            <div class="rich-step-item" style="flex-direction:column; gap:6px;">
-              <span class="rich-step-badge badge-step">Rule 02</span>
-              <strong style="font-size:12px; color:#090D16;">Unknown Tense Tag</strong>
-              <div style="font-size:11px; color:var(--text-muted); line-height:1.5;">Tag string is inserted verbatim without corrupting adjacent stems.</div>
-            </div>
-            <div class="rich-step-item" style="flex-direction:column; gap:6px;">
-              <span class="rich-step-badge badge-step">Rule 03</span>
-              <strong style="font-size:12px; color:#090D16;">Unrecognized Extension</strong>
-              <div style="font-size:11px; color:var(--text-muted); line-height:1.5;">Derivation is skipped cleanly, preserving the stem in root form.</div>
-            </div>
-            <div class="rich-step-item" style="flex-direction:column; gap:6px;">
-              <span class="rich-step-badge badge-step">Rule 04</span>
-              <strong style="font-size:12px; color:#090D16;">Non-Verbal Roots</strong>
-              <div style="font-size:11px; color:var(--text-muted); line-height:1.5;">Processed as regular verbal lemmas with zero crash or abort.</div>
-            </div>
-          </div>
         </div>
+        <div class="plain-card">
+          <h3>18 Noun Classes &amp; Clauses</h3>
+          <p>
+            Matches possessives, adjectives, locatives, and existence copulas together automatically — turning simple parts into natural Swahili phrases like <em>vitabu vyangu vidogo haviko hospitalini</em>.
+          </p>
+        </div>
+        <div class="plain-card">
+          <h3>Dosage &amp; Typo Shielding</h3>
+          <p>
+            Locks numbers, units, drug brands, and Swahili quantities (<em>mia tano</em>, <em>ibuprufen</em> &rarr; <em>ibuprofen</em>) behind safe tokens so critical clinical details never get rewritten.
+          </p>
+        </div>
+      </div>
+
+      <div class="plain-note-bar">
+        <div style="font-size:13.5px; color:var(--text-main); max-width:740px; line-height:1.6;">
+          <strong>Honest Scope:</strong> Sema is an open-source research engine built around explicit grammar rules and fixed dictionary tables — it does not guess free-form paragraphs or replace a clinician or fluent Swahili speaker in patient care.
+        </div>
+        <button class="btn-secondary" onclick="showPage('page-benchmarks')">Read Full Benchmarks &rarr;</button>
       </div>
 
       <div class="section-header">
@@ -2504,23 +2825,20 @@
         <p>An offline workbench for Swahili verbs: build a verb from its parts, break one back down, hear it spoken, and test dosage-note protection.</p>
       </div>
 
-      <!-- Real-Time Hardware Telemetry Strip -->
+      <!-- Friendly Offline Status Strip -->
       <div class="studio-telemetry-bar">
         <div class="telemetry-item">
           <span class="telemetry-dot"></span>
-          <span>ENGINE: NOMINAL (RUST 2024 CORE)</span>
+          <span>Runs Locally · 100% Offline</span>
         </div>
         <div class="telemetry-item">
-          <span>HEAP ALLOC: <strong>DYNAMIC (RESULT BUFFERS)</strong></span>
+          <span>Dictionary: <strong>19,717 Swahili Words</strong></span>
         </div>
         <div class="telemetry-item">
-          <span>CACHE: <strong>64B LINE ALIGNED</strong></span>
+          <span>Rules: <strong>96/96 Verified · 18 Classes</strong></span>
         </div>
         <div class="telemetry-item">
-          <span>LATENCY: <strong>1.06 µs (ARM) / 0.78 µs</strong></span>
-        </div>
-        <div class="telemetry-item">
-          <span>LEXICON: <strong>19,717 LEMMAS</strong></span>
+          <span>Palette: <strong id="studio-active-palette">v0.2.5 Terracotta</strong></span>
         </div>
       </div>
 
@@ -3707,8 +4025,8 @@
     }
 
     function downloadSourceZip() {
-      window.open('https://github.com/Nama-ResearchLab/Sema/archive/refs/heads/main.zip', '_blank');
-      showDownloadToast("Opening GitHub source archive download...");
+      window.open('https://github.com/Nama-ResearchLab/Sema/archive/refs/tags/v0.2.5.zip', '_blank');
+      showDownloadToast("Downloading Sema v0.2.5 source archive...");
     }
 
     function triggerDownload(fileName) {
@@ -6448,6 +6766,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
 
     // Window Load Lifecycle
     window.addEventListener('DOMContentLoaded', () => {
+      setVersionTheme('v0.2.5', true);
       initOscilloscope();
       runSynth();
       runClinical();
@@ -6478,6 +6797,46 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
         showPage(targetPage);
       }
     });
+
+
+    const SEMA_VERSION_THEMES = {
+      "v0.1.0": { label: "v0.1.0 · Indigo", banner: "Archival Preview · v0.1.0 Indigo (First Offline Roots)", gallery: "Palette: v0.1.0 Archival Indigo" },
+      "v0.2.0": { label: "v0.2.0 · Teal", banner: "Release Preview · v0.2.0 Lagoon Teal (Dosage Guard & Studio)", gallery: "Palette: v0.2.0 Lagoon Teal" },
+      "v0.2.5": { label: "v0.2.5 · Terracotta", banner: "Offline Swahili Language Companion · Release v0.2.5", gallery: "Palette: v0.2.5 Terracotta" }
+    };
+
+    function setVersionTheme(ver, silent) {
+      const meta = SEMA_VERSION_THEMES[ver] || SEMA_VERSION_THEMES["v0.2.5"];
+      document.documentElement.setAttribute("data-version-theme", ver);
+      const pillLabel = document.getElementById("header-ver-label");
+      const heroBanner = document.getElementById("hero-version-banner");
+      const galleryTag = document.getElementById("gallery-active-theme-tag");
+      const studioTag = document.getElementById("studio-active-palette");
+      if (pillLabel) pillLabel.innerText = meta.label;
+      if (heroBanner) heroBanner.innerText = meta.banner;
+      if (galleryTag) galleryTag.innerText = meta.gallery;
+      if (studioTag) studioTag.innerText = meta.label;
+
+      ["v0.1.0", "v0.2.0", "v0.2.5"].forEach((id) => {
+        const card = document.getElementById("ver-card-" + id);
+        const btn = document.getElementById("btn-theme-" + id);
+        if (card) card.classList.toggle("active-theme", id === ver);
+        if (btn) btn.innerText = id === ver ? "Active Theme" : "Preview Color";
+      });
+
+      try { localStorage.setItem("sema_version_theme", ver); } catch (_) {}
+      if (!silent && typeof showDownloadToast === "function") {
+        showDownloadToast(`Switched theme to <strong>${meta.label}</strong>`);
+      }
+    }
+
+    function jumpToVersions() {
+      showPage("page-overview");
+      const target = document.getElementById("versions-showcase");
+      if (target) {
+        setTimeout(() => target.scrollIntoView({ behavior: "smooth", block: "start" }), 40);
+      }
+    }
 
     function runCompose25() {
       const nounEl = document.getElementById("cmp25-noun");
