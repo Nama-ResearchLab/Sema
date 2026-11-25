@@ -9,6 +9,7 @@
   <meta name="author" content="Nama Research Lab">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="theme-color" content="#0D9488">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230D9488'/><text x='50' y='67' font-size='56' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='white'>S</text></svg>">
   <link rel="canonical" href="https://nama-researchlab.github.io/Sema/">
 
   <!-- Open Graph / Social Sharing -->
@@ -967,13 +968,13 @@
     /* Segmented Studio Subtabs */
     .subtabs {
       display: flex;
-      gap: 4px;
+      flex-wrap: wrap;
+      gap: 6px;
       background: #F1F5F9;
-      padding: 5px;
+      padding: 6px;
       border-radius: 12px;
       border: 1px solid var(--border);
       margin-bottom: 22px;
-      overflow-x: auto;
     }
 
     .subtab-btn {
@@ -4023,19 +4024,27 @@
     // Clinical Fact Shield
     function runClinical() {
       const text = document.getElementById("clin-input").value;
+      const slots = [];
+      let tn = 0, nn = 0;
+      const addSlot = (kind, val, note) => {
+        const id = kind === "T" ? `T${++tn}` : `N${++nn}`;
+        slots.push(`[#${id}] = ${val} (${note})`);
+        return `[#${id}]`;
+      };
       const shielded = text
-        .replace(/vidonge viwili/gi, "[#T1]")
-        .replace(/paracet[ae]mol/gi, "[#T2]")
-        .replace(/amox[i]{1,2}l+in/gi, "[#T2]")
-        .replace(/ibupruf?en/gi, "[#T2]")
-        .replace(/panadol|septra|augmentin/gi, "[#T2]")
-        .replace(/artemether-lumefantrine/gi, "[#T2]")
-        .replace(/ceftriaxone/gi, "[#T2]")
-        .replace(/mia tano|elfu moja|five hundred|kumi|nusu/gi, "[#N1]")
-        .replace(/\b\d+(?:[.,/]\d+|\s*-\s*\d+|\s+to\s+\d+)?\b/gi, "[#N1]")
-        .replace(/\b(mg|ml|mcg|kg|g)\b/gi, "[#N2]")
-        .replace(/aspirin/gi, "[#T3]");
+        .replace(/vidonge viwili/gi, (m) => addSlot("T", m, "locked dosage unit"))
+        .replace(/paracet[ae]mol/gi, (m) => addSlot("T", "paracetamol", m.toLowerCase() === "paracetamol" ? "locked active compound" : `typo rescued from "${m}"`))
+        .replace(/amox[i]{1,2}l+in/gi, (m) => addSlot("T", "amoxicillin", m.toLowerCase() === "amoxicillin" ? "locked antibiotic" : `typo rescued from "${m}"`))
+        .replace(/ibupruf?en/gi, (m) => addSlot("T", "ibuprofen", m.toLowerCase() === "ibuprofen" ? "locked NSAID" : `typo rescued from "${m}"`))
+        .replace(/panadol|septra|augmentin|artemether-lumefantrine|ceftriaxone|penicillin|aspirin/gi, (m) => addSlot("T", m, "locked clinical entity"))
+        .replace(/mia tano|elfu moja|five hundred|kumi|nusu/gi, (m) => addSlot("N", m, "Swahili/word quantity"))
+        .replace(/\b\d+(?:[.,/]\d+|\s*-\s*\d+|\s+to\s+\d+)?\b/gi, (m) => addSlot("N", m, "locked numeric dosage"))
+        .replace(/\b(mg|ml|mcg|kg|g)\b/gi, (m) => addSlot("N", m, "unit measurement"));
       document.getElementById("clin-output").innerText = shielded;
+      const det = document.getElementById("clin-details");
+      if (det) {
+        det.innerHTML = slots.length ? slots.join("<br>") : "No protected entities or numbers matched yet.";
+      }
     }
 
     function loadClinicalPreset(key) {
