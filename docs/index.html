@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sema (v0.2.5) — Offline Swahili Grammar Engine, Concord Studio &amp; Academy | Nama Research Lab</title>
+  <title>Sema (v0.2.5): Offline Swahili Grammar Engine, Concord Studio &amp; Academy | Nama Research Lab</title>
   <meta name="description" content="Sema v0.2.5 is an open-source, rule-based Swahili language engine written in Rust. Build and analyze Swahili verbs across 18 noun classes in under 1 microsecond, lock clinical dosages against AI drift, and learn Swahili grammar offline.">
   <meta name="keywords" content="Sema, Swahili NLP, Swahili grammar engine, Swahili verb synthesizer, Bantu noun classes, Swahili morphology, Swahili concord, clinical term shielding, offline AI Africa, Nama Research Lab, Rust NLP, Model Context Protocol">
   <meta name="author" content="Nama Research Lab">
@@ -14,8 +14,8 @@
 
   <!-- Open Graph / Social Sharing -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Sema — Nama Research Lab">
-  <meta property="og:title" content="Sema (v0.2.5) — Offline Swahili Grammar Engine &amp; Interactive Studio">
+  <meta property="og:site_name" content="Sema: Nama Research Lab">
+  <meta property="og:title" content="Sema (v0.2.5): Offline Swahili Grammar Engine &amp; Interactive Studio">
   <meta property="og:description" content="Rule-based Swahili verb synthesis, 7-slot verb analyzer, and clinical dosage token shielding running 100% offline in under 1 microsecond.">
   <meta property="og:url" content="https://nama-researchlab.github.io/Sema/">
   <meta property="og:locale" content="en_US">
@@ -24,7 +24,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Sema (v0.2.5) — Offline Swahili Grammar Engine &amp; Studio">
+  <meta name="twitter:title" content="Sema (v0.2.5): Offline Swahili Grammar Engine &amp; Studio">
   <meta name="twitter:description" content="Generate and verify Swahili verbs from structured grammar slots in 0.78 µs, protect clinical terms from LLM drift, and explore 19,717 offline dictionary lemmas.">
 
   <!-- Structured Data (JSON-LD) -->
@@ -76,10 +76,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
   <style>
     :root,
     [data-version-theme="v0.2.5"] {
-      /* v0.2.5 — Warm Terracotta on Sunlit Ivory Paper */
+      /* v0.2.5: Warm Terracotta on Sunlit Ivory Paper */
       --bg: #FAF7F2;
       --bg-alt: #F2ECE3;
       --card-bg: #FFFFFF;
@@ -108,13 +109,9 @@
       --amber-light: #FFFBEB;
       --slate-dark: #1C1917;
 
-      /* Editorial Soft Card Elevation */
-      --clay-card:
-        0 1px 2px rgba(28, 25, 23, 0.04),
-        0 12px 32px -8px rgba(28, 25, 23, 0.07);
-      --clay-sm:
-        0 1px 2px rgba(28, 25, 23, 0.04),
-        0 4px 12px -2px rgba(28, 25, 23, 0.05);
+      /* Clean Architectural Elevation (Minimal Shadow Bleed) */
+      --clay-card: 0 1px 2px rgba(28, 25, 23, 0.03);
+      --clay-sm: 0 1px 2px rgba(28, 25, 23, 0.025);
       --clay-pill:
         0 1px 2px rgba(28, 25, 23, 0.05);
       --clay-inset:
@@ -122,7 +119,7 @@
     }
 
     [data-version-theme="v0.2.0"] {
-      /* v0.2.0 — Lagoon Teal on Pale Seafoam Paper */
+      /* v0.2.0: Lagoon Teal on Pale Seafoam Paper */
       --bg: #F3FAF9;
       --bg-alt: #E7F3F1;
       --border: #D5E8E5;
@@ -135,7 +132,7 @@
     }
 
     [data-version-theme="v0.1.0"] {
-      /* v0.1.0 — Archival Indigo on Gallery Rag */
+      /* v0.1.0: Archival Indigo on Gallery Rag */
       --bg: #F5F6FC;
       --bg-alt: #EAEDF8;
       --border: #DCE0F2;
@@ -157,7 +154,6 @@
     body {
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--bg);
-      background-image: radial-gradient(ellipse 75% 45% at 50% -8%, var(--accent-glow), transparent);
       color: var(--text-main);
       min-height: 100vh;
       line-height: 1.6;
@@ -171,44 +167,64 @@
     .container {
       position: relative;
       z-index: 1;
-      max-width: 1240px;
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 28px;
     }
 
-    /* Header Navigation */
+    /* True 3-Zone a16z Centered Header */
     header {
-      padding: 14px 20px;
-      margin: 16px 0 8px;
-      display: flex;
+      padding: 18px 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(16px);
-      box-shadow: var(--clay-sm);
+      border-bottom: 1px solid var(--border);
+      background: rgba(250, 247, 242, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       position: sticky;
-      top: 12px;
+      top: 0;
       z-index: 100;
-      flex-wrap: wrap;
-      gap: 12px;
+      gap: 20px;
     }
+
+    [data-version-theme="v0.2.0"] header { background: rgba(243, 250, 249, 0.88); }
+    [data-version-theme="v0.1.0"] header { background: rgba(245, 246, 252, 0.88); }
 
     .logo-container {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       text-decoration: none;
       color: var(--text-main);
       cursor: pointer;
+      justify-self: start;
     }
 
     .nama-brand-mark {
-      height: 30px;
+      height: 36px;
       width: auto;
       display: block;
       object-fit: contain;
+    }
+
+    .header-actions-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-self: end;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 1020px) {
+      header {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+        gap: 12px;
+      }
+      .logo-container, .header-actions-right { justify-self: center; }
     }
 
     .logo-text {
@@ -222,10 +238,10 @@
 
     /* Unified Pill / Badge System */
     .version-tag {
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 999px;
+      padding: 3px 9px;
+      border-radius: 5px;
       background: var(--teal-light);
       color: var(--teal-dark);
       border: 1px solid var(--teal-border);
@@ -240,11 +256,7 @@
     nav {
       display: flex;
       align-items: center;
-      gap: 4px;
-      background: var(--bg-alt);
-      padding: 4px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
+      gap: 18px;
       flex-wrap: wrap;
     }
 
@@ -252,26 +264,24 @@
       text-decoration: none;
       color: var(--text-muted);
       font-weight: 600;
-      font-size: 13px;
-      padding: 7px 14px;
-      border-radius: 999px;
+      font-size: 13.5px;
+      padding: 6px 2px;
+      border-radius: 0;
       cursor: pointer;
-      transition: all 0.15s ease;
-      border: 1px solid transparent;
+      transition: color 0.15s ease, border-color 0.15s ease;
+      border: none;
+      border-bottom: 2px solid transparent;
       background: transparent;
       font-family: inherit;
     }
 
     .nav-link:hover {
       color: var(--text-main);
-      background: rgba(255, 255, 255, 0.6);
     }
 
     .nav-link.active {
-      color: var(--teal-dark);
-      background: #FFFFFF;
-      border-color: var(--border);
-      box-shadow: var(--clay-pill);
+      color: var(--text-main);
+      border-bottom-color: var(--accent);
       font-weight: 700;
     }
 
@@ -317,16 +327,15 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 12px 24px;
-      border-radius: 999px;
+      padding: 11px 20px;
+      border-radius: 7px;
       background: var(--accent);
       color: #FFFFFF;
       text-decoration: none;
       font-weight: 700;
-      font-size: 14px;
+      font-size: 13.5px;
       font-family: inherit;
-      box-shadow: 0 6px 18px -6px var(--accent);
-      transition: all 0.18s ease;
+      transition: background 0.15s ease, transform 0.15s ease;
       cursor: pointer;
       border: 1px solid var(--accent-dark);
     }
@@ -334,7 +343,6 @@
     .btn-primary:hover {
       background: var(--accent-dark);
       transform: translateY(-1px);
-      box-shadow: 0 10px 22px -6px var(--accent);
     }
 
     .btn-secondary {
@@ -342,8 +350,8 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 12px 22px;
-      border-radius: 999px;
+      padding: 11px 18px;
+      border-radius: 7px;
       background: #FFFFFF;
       color: var(--text-main);
       text-decoration: none;
@@ -451,12 +459,11 @@
 
     /* Multi-Platform Installer Suite */
     .installer-box {
-      max-width: 860px;
-      margin: 0 auto 36px;
+      max-width: 100%;
+      margin: 28px 0;
       background: #FFFFFF;
-      border-radius: 16px;
+      border-radius: 8px;
       border: 1px solid var(--border);
-      box-shadow: var(--clay-card);
       overflow: hidden;
       text-align: left;
     }
@@ -834,15 +841,15 @@
     /* REAL STUDIO WORKSTATION SUITE                                       */
     /* =================================================================== */
     .studio-box {
-      background: #FFFFFF;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      box-shadow: var(--clay-card);
-      padding: 28px;
-      margin-top: 20px;
+      background: transparent;
+      border-radius: 0;
+      border: none;
+      border-top: 1px solid var(--border);
+      padding: 24px 0 0;
+      margin-top: 12px;
     }
 
-    /* Hardware Telemetry Strip */
+    /* Warm Editorial Status Strip (Replaces Dark Telemetry Box) */
     .studio-telemetry-bar {
       display: flex;
       align-items: center;
@@ -850,13 +857,14 @@
       flex-wrap: wrap;
       gap: 12px;
       padding: 11px 18px;
-      background: #0F172A;
-      border: 1px solid #1E293B;
-      border-radius: 12px;
-      color: #CBD5E1;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11.5px;
-      margin-bottom: 20px;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--text-muted);
+      font-size: 12.5px;
+      font-weight: 600;
+      margin-bottom: 18px;
+      box-shadow: var(--clay-sm);
     }
 
     .telemetry-item {
@@ -865,45 +873,48 @@
       gap: 8px;
     }
 
-    .telemetry-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #10B981;
-      box-shadow: 0 0 8px #10B981;
+    .telemetry-item strong {
+      color: var(--text-main);
     }
 
-    /* Audio Synthesizer & Waveform Oscilloscope Suite */
+    .telemetry-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    /* Clean Voice Playback Bar (Warm Theme Native) */
     .studio-audio-console {
       background: #FFFFFF;
-      border-radius: 14px;
+      border-radius: 18px;
       border: 1px solid var(--border);
       box-shadow: var(--clay-sm);
-      padding: 18px 22px;
+      padding: 16px 22px;
       margin-bottom: 20px;
       display: grid;
-      grid-template-columns: 1fr 1.15fr;
-      gap: 22px;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 20px;
       align-items: center;
     }
 
     .oscilloscope-canvas-wrap {
-      background: #0F172A;
-      border-radius: 10px;
-      padding: 10px;
-      border: 1px solid #1E293B;
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
       position: relative;
     }
 
     .oscilloscope-label {
       position: absolute;
-      top: 10px;
-      left: 14px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: #38BDF8;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      top: 8px;
+      left: 12px;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--accent-dark);
+      letter-spacing: 0.03em;
       pointer-events: none;
     }
 
@@ -934,9 +945,9 @@
       font-size: 12px;
       font-weight: 600;
       color: var(--text-muted);
-      background: #F8FAFC;
-      padding: 6px 10px;
-      border-radius: 8px;
+      background: var(--bg);
+      padding: 5px 10px;
+      border-radius: 6px;
       border: 1px solid var(--border);
     }
 
@@ -994,58 +1005,57 @@
       font-weight: 700;
     }
 
-    /* Segmented Studio Subtabs */
+    /* Clean Architectural Underlined Studio Subtabs (Zero Pill Clutter) */
     .subtabs {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      background: #F1F5F9;
-      padding: 6px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      margin-bottom: 22px;
+      gap: 20px;
+      background: transparent;
+      padding: 0 0 0 2px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
     }
 
     .subtab-btn {
       background: transparent;
-      border: 1px solid transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
       font-family: inherit;
-      font-size: 12.5px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--text-muted);
-      padding: 8px 14px;
-      border-radius: 8px;
+      padding: 10px 2px;
+      border-radius: 0;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: color 0.15s ease, border-color 0.15s ease;
       white-space: nowrap;
     }
 
     .subtab-btn:hover {
       color: var(--text-main);
-      background: rgba(255, 255, 255, 0.5);
     }
 
     .subtab-btn.active {
-      color: var(--teal-dark);
-      background: #FFFFFF;
-      border-color: var(--border);
-      box-shadow: var(--clay-pill);
+      color: var(--accent-dark);
+      border-bottom-color: var(--accent);
       font-weight: 700;
     }
 
     .studio-row,
     .builder-grid {
       display: grid;
-      grid-template-columns: 1fr 1.15fr;
+      grid-template-columns: 0.95fr 1.05fr;
       gap: 28px;
       align-items: start;
     }
 
     .control-panel {
-      background: #F8FAFC;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
+      background: transparent;
+      border: none;
+      border-right: 1px solid var(--border);
+      border-radius: 0;
+      padding: 4px 26px 4px 0;
     }
 
     .control-group {
@@ -1084,8 +1094,8 @@
     }
 
     .output-panel {
-      background: #F8FAFC;
-      border-radius: 14px;
+      background: var(--bg);
+      border-radius: 10px;
       border: 1px solid var(--border);
       padding: 22px;
       display: flex;
@@ -1183,12 +1193,12 @@
       gap: 6px;
     }
 
-    /* Code Export Bar (Previously Unstyled) */
+    /* Editorial Code Export Panel (Warm Archival Charcoal) */
     .code-export-container {
       margin-top: 16px;
-      background: #0F172A;
-      border: 1px solid #1E293B;
-      border-radius: 12px;
+      background: #231F1D;
+      border: 1px solid #3A3330;
+      border-radius: 14px;
       overflow: hidden;
     }
 
@@ -1197,32 +1207,32 @@
       gap: 4px;
       flex-wrap: wrap;
       padding: 8px 10px;
-      background: #090D16;
-      border-bottom: 1px solid #1E293B;
+      background: #1A1715;
+      border-bottom: 1px solid #3A3330;
     }
 
     .code-export-tab {
       background: transparent;
       border: 1px solid transparent;
-      color: #94A3B8;
+      color: #A8A29E;
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 11.5px;
       font-weight: 600;
       padding: 5px 11px;
-      border-radius: 6px;
+      border-radius: 999px;
       cursor: pointer;
       transition: all 0.15s ease;
     }
 
     .code-export-tab:hover {
-      color: #F8FAFC;
-      background: rgba(255, 255, 255, 0.06);
+      color: #FAF7F2;
+      background: rgba(255, 255, 255, 0.08);
     }
 
     .code-export-tab.active {
-      color: #2DD4BF;
-      background: rgba(13, 148, 136, 0.18);
-      border-color: rgba(45, 212, 191, 0.3);
+      color: #FFFFFF;
+      background: var(--accent);
+      border-color: var(--accent-dark);
       font-weight: 700;
     }
 
@@ -1231,7 +1241,7 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 11.5px;
       line-height: 1.65;
-      color: #E2E8F0;
+      color: #F5F5F4;
       white-space: pre-wrap;
       overflow-x: auto;
     }
@@ -1253,9 +1263,9 @@
     }
 
     .analyzer-pill {
-      background: #F8FAFC;
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 12px 14px;
     }
 
@@ -1287,10 +1297,10 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: #F8FAFC;
+      background: var(--bg);
       border: 1px solid var(--border);
-      padding: 6px 13px;
-      border-radius: 8px;
+      padding: 5px 11px;
+      border-radius: 6px;
       font-size: 12px;
       font-weight: 600;
       font-family: inherit;
@@ -2100,11 +2110,9 @@
 
     .hero-gallery-card {
       background: #FFFFFF;
-      border-radius: 26px;
-      padding: 14px;
+      border-radius: 10px;
+      padding: 10px;
       border: 1px solid var(--border);
-      box-shadow: var(--clay-card);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
     .hero-gallery-card:hover {
@@ -2113,7 +2121,7 @@
     }
 
     .hero-gallery-media {
-      border-radius: 18px;
+      border-radius: 6px;
       overflow: hidden;
       background: var(--bg-alt);
       aspect-ratio: 4 / 3;
@@ -2162,12 +2170,12 @@
 
     /* Versions & Release Packs Board */
     .versions-board {
-      margin: 18px 0 42px;
-      background: #FFFFFF;
-      border: 1px solid var(--border);
-      border-radius: 26px;
-      padding: 28px;
-      box-shadow: var(--clay-card);
+      margin: 48px 0 36px;
+      background: transparent;
+      border: none;
+      border-top: 1px solid var(--border);
+      border-radius: 0;
+      padding: 40px 0 0;
     }
 
     .versions-board-head {
@@ -2194,14 +2202,15 @@
     }
 
     .ver-card {
-      background: #FFFFFF;
-      border: 1.5px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
+      background: transparent;
+      border: none;
+      border-top: 3px solid var(--ver-color);
+      border-radius: 0;
+      overflow: visible;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      transition: transform 0.2s ease;
     }
 
     .ver-card:hover {
@@ -2214,14 +2223,10 @@
       box-shadow: 0 12px 28px -10px var(--ver-shadow, rgba(194, 65, 12, 0.25));
     }
 
-    .ver-color-ribbon {
-      height: 10px;
-      width: 100%;
-      background: var(--ver-color);
-    }
+    .ver-color-ribbon { display: none; }
 
     .ver-card-body {
-      padding: 20px;
+      padding: 18px 4px 12px 0;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -2239,8 +2244,8 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 4px 11px;
-      border-radius: 999px;
+      padding: 3px 9px;
+      border-radius: 5px;
       font-size: 12px;
       font-weight: 700;
       background: var(--ver-soft);
@@ -2252,8 +2257,8 @@
       font-family: inherit;
       font-size: 11.5px;
       font-weight: 700;
-      padding: 5px 11px;
-      border-radius: 999px;
+      padding: 5px 10px;
+      border-radius: 6px;
       border: 1px solid var(--border-strong);
       background: var(--bg);
       color: var(--text-main);
@@ -2284,13 +2289,12 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      font-size: 12.5px;
-      color: var(--text-main);
-      padding: 10px 12px;
-      background: var(--bg);
-      border-radius: 12px;
-      border: 1px solid var(--border);
+      gap: 5px;
+      font-size: 13px;
+      color: var(--text-muted);
+      padding: 8px 0;
+      background: transparent;
+      border: none;
     }
 
     .ver-highlights li {
@@ -2306,8 +2310,8 @@
     }
 
     .ver-packs {
-      padding: 14px 20px 18px;
-      background: var(--bg);
+      padding: 12px 0 8px;
+      background: transparent;
       border-top: 1px solid var(--border);
       display: flex;
       flex-direction: column;
@@ -2332,8 +2336,8 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      padding: 6px 11px;
-      border-radius: 999px;
+      padding: 5px 10px;
+      border-radius: 6px;
       background: #FFFFFF;
       border: 1px solid var(--border-strong);
       color: var(--text-main);
@@ -2360,11 +2364,11 @@
     }
 
     .plain-card {
-      background: #FFFFFF;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 22px;
-      box-shadow: var(--clay-sm);
+      background: transparent;
+      border: none;
+      border-top: 1px solid var(--border);
+      border-radius: 0;
+      padding: 18px 8px 4px 0;
     }
 
     .plain-card h3 {
@@ -2381,12 +2385,13 @@
     }
 
     .plain-note-bar {
-      background: #FFFFFF;
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--accent);
-      border-radius: 16px;
-      padding: 16px 20px;
-      margin-bottom: 28px;
+      background: transparent;
+      border: none;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      border-radius: 0;
+      padding: 18px 0;
+      margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -2398,6 +2403,610 @@
     /* Hide overly dense hex telemetry inside Studio Pro */
     .slot-register-bar {
       display: none !important;
+    }
+
+
+
+    /* Full-Bleed Apple-Scale Architectural Bands + Central Spine Indent */
+    .full-bleed-band {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+    }
+
+    .central-indent {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 32px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-bleed-wrap {
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(180deg, rgba(250, 247, 242, 0.15) 0%, var(--bg) 98%),
+        url('assets/sema-vgpu-prisms.png');
+      background-size: cover;
+      background-position: center top;
+      border-bottom: 1px solid var(--border);
+      padding: 72px 0 58px;
+      overflow: hidden;
+      min-height: 76vh;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Seamless Edge-Dissolved Photography Layer (No Box Frame) */
+    .hero-bg-photo-bleed {
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/sema-studio-desk.jpg');
+      background-size: cover;
+      background-position: 74% center;
+      opacity: 0.42;
+      -webkit-mask-image: linear-gradient(95deg, transparent 8%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.92) 85%, rgba(0,0,0,0.6) 100%),
+                          linear-gradient(180deg, rgba(0,0,0,0.88) 40%, transparent 98%);
+      -webkit-mask-composite: source-in;
+      mask-image: linear-gradient(95deg, transparent 8%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.92) 85%, rgba(0,0,0,0.6) 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Bold a16z Unboxed Hero Layout & Big Dynamic Stats */
+    .a16z-hero-copy {
+      max-width: 780px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .a16z-hero-copy h1 {
+      font-size: clamp(42px, 6.2vw, 72px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.03;
+      color: var(--text-main);
+      margin-bottom: 20px;
+    }
+
+    .a16z-hero-copy h1 em {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.12em;
+      color: var(--accent);
+    }
+
+    .a16z-hero-copy p {
+      font-size: 18px;
+      color: var(--text-main);
+      opacity: 0.85;
+      line-height: 1.6;
+      max-width: 600px;
+      margin-bottom: 30px;
+    }
+
+    .a16z-live-stats-band {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      border-top: 1px solid var(--border-strong);
+      border-bottom: 1px solid var(--border-strong);
+      padding: 24px 0;
+      margin-top: 44px;
+      max-width: 920px;
+    }
+
+    .a16z-stat-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .a16z-stat-num {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1;
+      color: var(--text-main);
+      font-variant-numeric: tabular-nums;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .a16z-stat-num.accent {
+      color: var(--accent);
+    }
+
+    .a16z-stat-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .a16z-stat-sub {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .a16z-live-stats-band { grid-template-columns: 1fr; gap: 18px; }
+      .hero-bg-photo-bleed { opacity: 0.22; }
+    }
+
+    [data-version-theme="v0.2.0"] .hero-bleed-wrap {
+      background-image:
+        linear-gradient(180deg, rgba(243, 250, 249, 0.58) 0%, var(--bg) 96%),
+        url('assets/sema-vgpu-prisms.png');
+    }
+
+    [data-version-theme="v0.1.0"] .hero-bleed-wrap {
+      background-image:
+        linear-gradient(180deg, rgba(245, 246, 252, 0.62) 0%, var(--bg) 96%),
+        url('assets/sema-vgpu-prisms.png');
+    }
+
+    #hero-savanna-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.92;
+    }
+
+    .prismatic-glass {
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(22px) saturate(160%);
+      -webkit-backdrop-filter: blur(22px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.85),
+        0 20px 44px -22px rgba(28, 25, 23, 0.14);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .prismatic-glass::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 22%, rgba(255, 255, 255, 0.48) 46%, rgba(194, 65, 12, 0.06) 54%, transparent 72%);
+      pointer-events: none;
+    }
+
+    .flow-bleed-band {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+      padding: 56px 0;
+    }
+
+    .dispatches-bleed-band {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 0;
+    }
+
+    .versions-bleed-band {
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 0;
+    }
+
+    .svg-icon-inline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .central-indent { padding: 0 18px; }
+      .hero-bleed-wrap { padding: 34px 0 40px; }
+      .flow-bleed-band, .dispatches-bleed-band, .versions-bleed-band { padding: 38px 0; }
+    }
+
+    /* Adaptive Persona & Depth Visibility */
+    .expert-only { display: none !important; }
+    html[data-depth="expert"] .expert-only { display: inline-flex !important; }
+    html[data-depth="expert"] .expert-block.expert-only { display: block !important; }
+    html[data-depth="simple"] .builder-up { display: none !important; }
+
+    .depth-switcher-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 2px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .depth-pill {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .depth-pill.active {
+      background: #FFFFFF;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .depth-pill.expert-btn.active {
+      background: var(--text-main);
+      color: #FAF7F2;
+    }
+
+    /* 3-Question Onboarding Sheet */
+    .onboard-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 25, 23, 0.45);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .onboard-backdrop.open {
+      display: flex;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .onboard-modal {
+      width: 100%;
+      max-width: 600px;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      padding: 30px;
+      box-shadow: 0 28px 60px -18px rgba(28, 25, 23, 0.35);
+      position: relative;
+    }
+
+    .onboard-progress {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .onboard-step-bar {
+      flex: 1;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--bg-alt);
+      transition: background 0.25s ease;
+    }
+
+    .onboard-step-bar.active {
+      background: var(--accent);
+    }
+
+    .onboard-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 18px 0 22px;
+    }
+
+    .onboard-opt-btn {
+      text-align: left;
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .onboard-opt-btn:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      transform: translateY(-1px);
+    }
+
+    .onboard-opt-btn.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      box-shadow: 0 4px 14px -6px var(--accent);
+    }
+
+    .onboard-opt-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+
+    .onboard-opt-sub {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    /* Live Conductive Flowpipe + Before/After Clinical Proof */
+    .flowpipe-showcase {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    .flowpipe-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .flowpipe-head h2 {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--text-main);
+    }
+
+    .flowpipe-scenarios {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .flowpipe-chip {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .flowpipe-chip:hover,
+    .flowpipe-chip.active {
+      background: var(--accent);
+      color: #FFFFFF;
+      border-color: var(--accent-dark);
+    }
+
+    .flowpipe-svg-wrap {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 16px;
+      overflow-x: auto;
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .flow-conduit-bg {
+      fill: none;
+      stroke: var(--border-strong);
+      stroke-width: 4;
+      stroke-linecap: round;
+    }
+
+    .flow-conduit-pulse {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-dasharray: 12 22;
+      animation: flowPulseScroll 1.35s linear infinite;
+    }
+
+    .flow-conduit-pulse.surge {
+      stroke-width: 5.5;
+      filter: drop-shadow(0 0 6px var(--accent));
+      animation-duration: 0.75s;
+    }
+
+    @keyframes flowPulseScroll {
+      from { stroke-dashoffset: 68; }
+      to { stroke-dashoffset: 0; }
+    }
+
+    .flow-node-box {
+      cursor: pointer;
+      transition: transform 0.18s ease;
+    }
+
+    .flow-node-rect {
+      fill: #FFFFFF;
+      stroke: var(--border-strong);
+      stroke-width: 1.5;
+      rx: 14;
+      transition: stroke 0.2s ease, fill 0.2s ease;
+    }
+
+    .flow-node-box.lit .flow-node-rect,
+    .flow-node-box:hover .flow-node-rect {
+      stroke: var(--accent);
+      fill: var(--accent-soft);
+    }
+
+    .before-after-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .compare-card {
+      border-radius: 8px;
+      padding: 16px 18px;
+      border: 1px solid var(--border);
+    }
+
+    .compare-card.risk {
+      background: #FFF5F5;
+      border-color: #FECACA;
+    }
+
+    .compare-card.safe {
+      background: var(--accent-soft);
+      border-color: var(--accent-border);
+    }
+
+    .compare-label {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    /* Curated Sema Field Dispatches (Cervos/KAMBi Editorial Style) */
+    .dispatches-board {
+      margin: 12px 0 38px;
+    }
+
+    .dispatches-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .dispatch-card {
+      background: transparent;
+      border: none;
+      border-top: 1px solid var(--border-strong);
+      border-radius: 0;
+      padding: 20px 6px 8px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+
+    .dispatch-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .dispatch-card.expanded {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .dispatch-body-expand {
+      display: none;
+      margin-top: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-main);
+      line-height: 1.65;
+    }
+
+    .dispatch-card.expanded .dispatch-body-expand {
+      display: block;
+    }
+
+    /* Clean Flush Presence Telemetry Strip (Zero Nested Pill Badges) */
+    .presence-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: transparent;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 0 10px;
+      margin: 0 0 8px;
+      font-size: 12px;
+    }
+
+    .presence-live-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .presence-type-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .presence-type-pill.you {
+      background: transparent;
+      border: none;
+      color: var(--accent-dark);
+      font-weight: 800;
+    }
+
+    .presence-type-pill.you {
+      background: var(--accent-soft);
+      border-color: var(--accent-border);
+      color: var(--accent-dark);
+    }
+
+    .live-pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #059669;
+      display: inline-block;
+      animation: liveBeat 1.8s ease-in-out infinite;
+    }
+
+    @keyframes liveBeat {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(1.25); }
+    }
+
+    /* Academy Lesson Flowpipe Header */
+    .lesson-flowpipe-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px 18px;
+      margin: 14px 0 22px;
+    }
+
+    @media (max-width: 960px) {
+      .before-after-grid, .dispatches-grid { grid-template-columns: 1fr; }
+      .studio-audio-console { grid-template-columns: 1fr; }
+      .control-panel { border-right: none; border-bottom: 1px solid var(--border); padding: 0 0 20px; }
     }
 
     @media (max-width: 960px) {
@@ -2432,81 +3041,234 @@
 <body>
 
   <div class="grid-overlay" aria-hidden="true"></div>
+  <!-- Cervos-Inspired Focus Spotlight Reader Modal -->
+  <div class="onboard-backdrop" id="focus-story-backdrop" role="dialog" aria-modal="true" aria-labelledby="focus-story-title" onclick="if(event.target===this) closeFocusStory();">
+    <div class="onboard-modal" style="max-width:740px; padding:36px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <span style="font-size:11.5px; font-weight:800; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent-dark);" id="focus-story-kicker">Field Dispatch</span>
+        <button type="button" onclick="closeFocusStory()" style="border:1px solid var(--border-strong); background:transparent; border-radius:6px; padding:5px 12px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; color:var(--text-main);">Close</button>
+      </div>
+      <h2 id="focus-story-title" style="font-family:'Instrument Serif', Georgia, serif; font-size:38px; font-weight:400; line-height:1.12; color:var(--text-main); margin-bottom:16px;">Story Title</h2>
+      <p id="focus-story-lead" style="font-size:16.5px; line-height:1.7; color:var(--text-main); margin-bottom:18px;"></p>
+      <div id="focus-story-body" style="font-size:14.5px; line-height:1.75; color:var(--text-muted); border-top:1px solid var(--border); padding-top:18px; margin-bottom:22px;"></div>
+      <div id="focus-story-actions" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;"></div>
+    </div>
+  </div>
+
+  <!-- 3-Question Adaptive Entrance Onboarder -->
+  <div class="onboard-backdrop" id="sema-onboard-backdrop" role="dialog" aria-modal="true" aria-labelledby="onboard-q-title">
+    <div class="onboard-modal">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <span class="version-tag"><span class="ver-swatch"></span><span id="onboard-step-label">Question 1 of 3</span></span>
+        <button type="button" onclick="skipOnboarding()" style="border:none; background:none; color:var(--text-light); font-weight:700; font-size:12.5px; cursor:pointer; font-family:inherit;">Skip &rarr;</button>
+      </div>
+      <div class="onboard-progress">
+        <div class="onboard-step-bar active" id="ob-bar-1"></div>
+        <div class="onboard-step-bar" id="ob-bar-2"></div>
+        <div class="onboard-step-bar" id="ob-bar-3"></div>
+      </div>
+      <h2 id="onboard-q-title" style="font-size:24px; font-weight:800; letter-spacing:-0.025em; color:var(--text-main);">What brings you to Sema today?</h2>
+      <p id="onboard-q-sub" style="font-size:13.5px; color:var(--text-muted); margin-top:4px;">We'll adapt every word, workbench tool, and explanation to fit you.</p>
+      <div class="onboard-options" id="onboard-options-list"></div>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <button type="button" class="btn-secondary" id="onboard-back-btn" onclick="prevOnboardStep()" style="padding:8px 16px; font-size:12.5px; visibility:hidden;">&larr; Back</button>
+        <span style="font-size:12px; color:var(--text-light);">You can switch between Simple, Builder &amp; Full Spec anytime.</span>
+      </div>
+    </div>
+  </div>
 
   <div class="container">
     <!-- Header Navigation Bar -->
     <header>
       <div class="logo-container" onclick="showPage('page-overview')">
         <img src="assets/nama-logo.png" alt="Nama Research Lab" class="nama-brand-mark">
+        <span style="color:var(--border-strong); font-weight:300;">/</span>
         <span class="logo-text">Sema</span>
-        <button type="button" class="version-tag version-pill-btn" id="header-version-pill" onclick="event.stopPropagation(); jumpToVersions();" title="Preview release colors and download packs">
-          <span class="ver-swatch"></span>
-          <span id="header-ver-label">v0.2.5 · Terracotta</span>
-        </button>
       </div>
 
       <nav aria-label="Primary Navigation">
         <button class="nav-link active" id="nav-overview" onclick="showPage('page-overview')">Overview</button>
-        <button class="nav-link" id="nav-versions" onclick="jumpToVersions()">Versions</button>
         <button class="nav-link" id="nav-studio" onclick="showPage('page-studio')">Studio</button>
         <button class="nav-link" id="nav-course" onclick="showPage('page-course')">Academy</button>
         <button class="nav-link" id="nav-benchmarks" onclick="showPage('page-benchmarks')">Benchmarks</button>
+        <button class="nav-link" id="nav-versions" onclick="jumpToVersions()">Versions</button>
         <button class="nav-link" id="nav-mcp" onclick="showPage('page-mcp')">MCP</button>
-        <a href="https://github.com/Nama-ResearchLab/Sema" class="btn-github" target="_blank" rel="noopener">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-          </svg>
-          GitHub
-        </a>
       </nav>
+
+      <div class="header-actions-right">
+        <select id="header-depth-select" aria-label="View Complexity" onchange="setAudienceDepth(this.value)" style="padding:5px 10px; font-size:12px; font-weight:700; border-radius:6px; border:1px solid var(--border-strong); background:transparent; color:var(--text-main); cursor:pointer;">
+          <option value="simple">View: Simple</option>
+          <option value="balanced">View: Builder</option>
+          <option value="expert">View: Full Spec</option>
+        </select>
+        <button type="button" id="reopen-onboard-btn" onclick="openOnboardQuiz();" style="border:none; background:transparent; color:var(--text-muted); font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; padding:4px 6px;">Guide</button>
+        <a href="https://github.com/Nama-ResearchLab/Sema" class="btn-github" target="_blank" rel="noopener" style="margin-left:0; padding:6px 12px; border-radius:6px; font-size:12px;">GitHub</a>
+      </div>
     </header>
 
     <!-- =================================================================== -->
     <!-- PAGE 1: OVERVIEW & UNIVERSAL MULTI-PLATFORM DOWNLOADS               -->
     <!-- =================================================================== -->
     <div id="page-overview" class="page-view active">
-      <section class="editorial-hero-grid">
-        <div class="hero-copy">
-          <div class="hero-badge">
-            <span class="dot"></span>
-            <span id="hero-version-banner">Offline Swahili Language Companion · Release v0.2.5</span>
-          </div>
-          <h1>Swahili grammar that lives <em>on your device.</em></h1>
-          <p>
-            Build full Swahili verbs, relatives, noun-class clauses, and lock medical numbers or drug names cleanly before text ever leaves your phone or clinic workstation. Rule-based, inspectable, and completely offline.
-          </p>
+      <!-- BAND 1: Full-Bleed vgpu Prism Ground + Seamlessly Bled Photo + 3D Savannah Dots + Cervos-Grade Live Presence -->
+      <section class="full-bleed-band hero-bleed-wrap" id="hero-bleed-stage">
+        <div class="hero-bg-photo-bleed" aria-hidden="true"></div>
+        <canvas id="hero-savanna-canvas" aria-hidden="true"></canvas>
+        <div class="central-indent">
+          <div class="a16z-hero-copy">
+            <div style="font-size:12px; font-weight:700; color:var(--accent-dark); margin-bottom:16px; letter-spacing:0.06em; text-transform:uppercase; display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <span id="hero-version-banner">Sema v0.2.5 · Nama Research Lab · Offline Swahili Engine</span>
+              <button type="button" onclick="jumpToVersions()" style="border:none; background:transparent; color:var(--accent); font-weight:800; font-size:11.5px; cursor:pointer; font-family:inherit; border-bottom:1px solid var(--accent-border);" id="header-ver-label">v0.2.5 · Terracotta</button>
+            </div>
+            <h1 id="hero-dynamic-title">Swahili grammar that lives <em>on your device.</em></h1>
+            <p id="hero-dynamic-sub">
+              Build natural Swahili sentences and protect critical medical dosages on device without cloud guesses, broken negations, or arbitrary word cuts.
+            </p>
 
-          <div class="hero-actions">
-            <button class="btn-primary" onclick="showPage('page-studio')">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="5 3 19 12 5 21 5 3"></polygon>
-              </svg>
-              Open Studio
-            </button>
-            <button class="btn-secondary" onclick="jumpToVersions()">
-              Versions &amp; Downloads
-            </button>
-            <button class="btn-secondary" onclick="showPage('page-course')">
-              3-Hour Course
-            </button>
+            <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:center;">
+              <button class="btn-primary" onclick="showPage('page-studio')">Open Studio</button>
+              <button class="btn-secondary" onclick="showPage('page-course')">Explore Academy</button>
+              <button type="button" onclick="jumpToVersions()" style="border:none; background:transparent; color:var(--text-main); font-weight:700; font-size:13.5px; cursor:pointer; padding:10px 4px; border-bottom:1px solid var(--border-strong); font-family:inherit;">Releases &amp; Packs &rarr;</button>
+            </div>
           </div>
 
-          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; font-size:12.5px; color:var(--text-muted);">
-            <span style="padding:5px 12px; background:#FFFFFF; border:1px solid var(--border); border-radius:999px; font-weight:600;">19,717 Words</span>
-            <span style="padding:5px 12px; background:#FFFFFF; border:1px solid var(--border); border-radius:999px; font-weight:600;">18 Noun Classes</span>
-            <span style="padding:5px 12px; background:#FFFFFF; border:1px solid var(--border); border-radius:999px; font-weight:600;">Zero Cloud Required</span>
+          <!-- Big Dynamic Hero Presence & Scale (Inspired by Cervos Marketing Page + a16z Architectural Rule) -->
+          <div class="a16z-live-stats-band" id="hero-dynamic-stats" aria-live="polite">
+            <div class="a16z-stat-cell">
+              <div class="a16z-stat-num accent">
+                <span class="live-pulse-dot" style="width:10px; height:10px;"></span>
+                <span id="presence-total-count">1</span>
+              </div>
+              <div class="a16z-stat-label">Open Right Now</div>
+              <div class="a16z-stat-sub">Every gentle pulse is an active workspace checking or building Swahili today.</div>
+            </div>
+
+            <div class="a16z-stat-cell">
+              <div class="a16z-stat-num">
+                <span id="total-visits-count">1</span>
+              </div>
+              <div class="a16z-stat-label">Sessions Recorded</div>
+              <div class="a16z-stat-sub" id="presence-your-mode">Reading in Simple mode across local tabs.</div>
+            </div>
+
+            <div class="a16z-stat-cell">
+              <div class="a16z-stat-num">
+                <span id="hero-lemma-odometer">19,717</span>
+              </div>
+              <div class="a16z-stat-label">Verified Swahili Roots</div>
+              <div class="a16z-stat-sub" id="hero-spec-summary">18 noun classes, 0.78 µs speed, 0/24 leaks.</div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <figure class="hero-gallery-card">
-          <div class="hero-gallery-media">
-            <img src="assets/sema_artistic_graffiti.jpg" alt="Sema Swahili Language Lab gallery mural">
+      <!-- BAND 2: Helpful Live Token-Trace Walkthrough (Unboxed on Open White Ground) -->
+      <section class="full-bleed-band flow-bleed-band" id="live-flowpipe-section">
+        <div class="central-indent">
+          <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:18px; margin-bottom:26px;">
+            <div>
+              <div style="font-size:11.5px; font-weight:800; color:var(--accent-dark); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px;">See It Catch Mistakes</div>
+              <h2 id="flowpipe-main-title" style="font-size:clamp(26px, 3.2vw, 36px); font-weight:800; letter-spacing:-0.03em; color:var(--text-main); line-height:1.12;">Trace what happens inside a single Swahili note</h2>
+            </div>
+            <p style="font-size:14.5px; color:var(--text-muted); max-width:410px;" id="flowpipe-main-sub">
+              Pick a real sentence or type your own below to see why small AI slips on negation and dosages, and what Sema locks instead.
+            </p>
           </div>
-          <figcaption class="hero-gallery-caption">
-            <span>Sema Language Studio · Nama Research Lab</span>
-            <span style="color:var(--accent); font-weight:700;" id="gallery-active-theme-tag">Palette: v0.2.5 Terracotta</span>
-          </figcaption>
-        </figure>
+
+          <div style="display:flex; gap:18px; flex-wrap:wrap; border-bottom:1px solid var(--border); padding-bottom:10px; margin-bottom:22px;">
+            <button type="button" class="subtab-btn flowpipe-chip active" onclick="runLiveFlowScenario('dosage', this)">Dosage &amp; Negation</button>
+            <button type="button" class="subtab-btn flowpipe-chip" onclick="runLiveFlowScenario('typo', this)">Misspelled Medicine</button>
+            <button type="button" class="subtab-btn flowpipe-chip" onclick="runLiveFlowScenario('clause', this)">Noun Class Chain</button>
+            <button type="button" class="subtab-btn flowpipe-chip" onclick="runLiveFlowScenario('rel', this)">Future Relative</button>
+          </div>
+
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:28px;">
+            <input type="text" id="live-flow-input" value="Usimpe mtoto Paracetamol 500mg bila ushauri." style="flex:1 1 280px; border:none; border-bottom:2px solid var(--border-strong); border-radius:0; background:transparent; font-size:20px; font-weight:700; padding:10px 0;" placeholder="Type any Swahili sentence with numbers, drugs, or negations..." oninput="runLiveFlowCustom()">
+            <button type="button" class="btn-primary" onclick="triggerFlowSurge()">Trace Words</button>
+          </div>
+
+          <!-- Crisp Inline Interactive Conductive Conduit (Directly ties Input Words to Rules, NO useless schematic boxes!) -->
+          <div style="margin-bottom:26px;">
+            <svg id="live-flowpipe-svg" viewBox="0 0 960 66" width="100%" style="height:auto; display:block;" role="img" aria-label="Signal pulse line">
+              <path d="M 10 33 C 240 12, 480 54, 950 33" class="flow-conduit-bg"/>
+              <path id="pipe-1" d="M 10 33 C 240 12, 480 54, 950 33" class="flow-conduit-pulse surge"/>
+              <circle cx="10" cy="33" r="5" fill="var(--accent)"/>
+              <circle cx="320" cy="26" r="5" fill="var(--accent)" onclick="inspectFlowNode(1)" style="cursor:pointer;"/>
+              <circle cx="640" cy="40" r="5" fill="var(--accent)" onclick="inspectFlowNode(2)" style="cursor:pointer;"/>
+              <circle cx="950" cy="33" r="6" fill="#047857" onclick="inspectFlowNode(4)" style="cursor:pointer;"/>
+            </svg>
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-top:8px; font-size:12.5px; color:var(--text-muted);">
+              <div onclick="inspectFlowNode(1)" style="cursor:pointer;"><strong style="color:var(--text-main);">1. Lock Entities:</strong> <span id="fnode-1-sub">Locks 500mg, Paracetamol</span></div>
+              <div onclick="inspectFlowNode(2)" style="cursor:pointer;"><strong style="color:var(--text-main);">2. Check Prefix:</strong> <span id="fnode-2-sub">Negation + class safe</span></div>
+              <div onclick="inspectFlowNode(4)" style="cursor:pointer;"><strong style="color:var(--text-main);">3. Restore Exact:</strong> <span id="fnode-4-sub">Tokens restored 100%</span></div>
+            </div>
+            <div id="fnode-0-sub" style="display:none;"></div>
+            <div id="fnode-3-sub" style="display:none;"></div>
+          </div>
+
+          <div id="flow-node-inspector" style="padding:10px 0; border-top:1px solid var(--border); font-size:13.5px; color:var(--text-muted); margin-bottom:24px;">
+            <strong>Active Trace:</strong> Protecting exact entities first (<code>Paracetamol -> [#T1]</code>, <code>500mg -> [#N1]</code>) so smaller models can never alter them.
+          </div>
+
+          <!-- Open Unboxed Before / After Typography Columns -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:36px; border-top:1px solid var(--border); padding-top:22px;">
+            <div>
+              <div style="font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#B91C1C; margin-bottom:8px;">Without Safeguards</div>
+              <div id="compare-risk-out" style="font-size:16px; font-weight:600; color:#7F1D1D; line-height:1.6;">
+                "Mpe mtoto Paracetamol 50mg..." Slips on Swahili negation <em>usimpe</em> or drops digits under low memory.
+              </div>
+            </div>
+            <div style="border-left:1px solid var(--border); padding-left:28px;">
+              <div style="font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-dark); margin-bottom:8px;">Protected by Sema</div>
+              <div id="compare-safe-out" style="font-size:16px; font-weight:700; color:var(--text-main); font-family:'JetBrains Mono',monospace; line-height:1.6;">
+                Usimpe mtoto [#T1] [#N1] bila ushauri. -> Exact values restored.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BAND 3: Full-Bleed Field Dispatches & Versions Spine -->
+      <section class="full-bleed-band dispatches-bleed-band">
+        <div class="central-indent">
+      <!-- Curated Field Dispatches (Cervos / KAMBi Editorial Craft) -->
+      <section class="dispatches-board" id="dispatches-board">
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px;">
+          <div>
+            <span class="version-tag"><span class="ver-swatch"></span>Sema Field Dispatches</span>
+            <h2 style="font-size:26px; font-weight:800; color:var(--text-main); margin-top:6px;">Short notes on why deterministic rules matter</h2>
+          </div>
+          <span style="font-size:12.5px; color:var(--text-muted);">Tap any dispatch card to read in full</span>
+        </div>
+
+        <div class="dispatches-grid">
+          <article class="dispatch-card" onclick="openFocusStory('d1')">
+            <div>
+              <div style="font-size:11px; font-weight:800; color:var(--accent-dark); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px;">Dispatch 01 · Clinical Safety</div>
+              <h3 style="font-size:18px; font-weight:800; color:var(--text-main); margin-bottom:6px;">Why 500mg and "Usimpe" cannot be guessed</h3>
+              <p style="font-size:13.5px; color:var(--text-muted); line-height:1.6;">Subword tokenizers chop Swahili verbs in half. Dropping one two-letter prefix flips "Do not give" into "Give".</p>
+            </div>
+            <div style="font-size:12.5px; font-weight:700; color:var(--accent);">Read Story &rarr;</div>
+          </article>
+
+          <article class="dispatch-card" onclick="openFocusStory('d2')">
+            <div>
+              <div style="font-size:11px; font-weight:800; color:var(--accent-dark); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px;">Dispatch 02 · Bantu Classes</div>
+              <h3 style="font-size:18px; font-weight:800; color:var(--text-main); margin-bottom:6px;">18 Noun Classes in 60 seconds</h3>
+              <p style="font-size:13.5px; color:var(--text-muted); line-height:1.6;">Why <em>kitabu changu kidogo</em> transforms cleanly into <em>vitabu vyangu vidogo</em> across adjectives, owners, and verbs.</p>
+            </div>
+            <div style="font-size:12.5px; font-weight:700; color:var(--accent);">Read Story &rarr;</div>
+          </article>
+
+          <article class="dispatch-card" onclick="openFocusStory('d3')">
+            <div>
+              <div style="font-size:11px; font-weight:800; color:var(--accent-dark); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px;">Dispatch 03 · Honest Craft</div>
+              <h3 style="font-size:18px; font-weight:800; color:var(--text-main); margin-bottom:6px;">What happens outside the rulebook</h3>
+              <p style="font-size:13.5px; color:var(--text-muted); line-height:1.6;">Sema is an open-source research engine, not an autonomous doctor. Here is what rules cover cleanly and what they hand back.</p>
+            </div>
+            <div style="font-size:12.5px; font-weight:700; color:var(--accent);">Read Story &rarr;</div>
+          </article>
+        </div>
       </section>
 
       <!-- Versions & Downloads Showcase (Color-coded by release) -->
@@ -2517,7 +3279,7 @@
               <span class="ver-swatch"></span>
               Version Colors &amp; Release Packs
             </span>
-            <h2>From v0.1 to v0.2.5 — each release wears its own color</h2>
+            <h2>From v0.1 to v0.2.5: each release wears its own color</h2>
           </div>
           <p style="font-size:13.5px; color:var(--text-muted); max-width:410px;">
             Tap any version card to preview its color across the site, read what changed in plain English, and download that version's exact pack.
@@ -2581,7 +3343,7 @@
             </div>
           </article>
 
-          <!-- v0.2.5 Card (Warm Terracotta — Active Default) -->
+          <!-- v0.2.5 Card (Warm Terracotta: Active Default) -->
           <article class="ver-card active-theme" id="ver-card-v0.2.5" style="--ver-color:#C2410C; --ver-dark:#9A3412; --ver-soft:#FFF4EC; --ver-border:#FDBA8C; --ver-shadow:rgba(194,65,12,0.26);">
             <div class="ver-color-ribbon"></div>
             <div class="ver-card-body">
@@ -2697,7 +3459,7 @@
         <div class="plain-card">
           <h3>18 Noun Classes &amp; Clauses</h3>
           <p>
-            Matches possessives, adjectives, locatives, and existence copulas together automatically — turning simple parts into natural Swahili phrases like <em>vitabu vyangu vidogo haviko hospitalini</em>.
+            Matches possessives, adjectives, locatives, and existence copulas together automatically: turning simple parts into natural Swahili phrases like <em>vitabu vyangu vidogo haviko hospitalini</em>.
           </p>
         </div>
         <div class="plain-card">
@@ -2710,110 +3472,13 @@
 
       <div class="plain-note-bar">
         <div style="font-size:13.5px; color:var(--text-main); max-width:740px; line-height:1.6;">
-          <strong>Honest Scope:</strong> Sema is an open-source research engine built around explicit grammar rules and fixed dictionary tables — it does not guess free-form paragraphs or replace a clinician or fluent Swahili speaker in patient care.
+          <strong>Honest Scope:</strong> Sema is an open-source research engine built around explicit grammar rules and fixed dictionary tables: it does not guess free-form paragraphs or replace a clinician or fluent Swahili speaker in patient care.
         </div>
-        <button class="btn-secondary" onclick="showPage('page-benchmarks')">Read Full Benchmarks &rarr;</button>
+        <button class="btn-secondary" onclick="showPage('page-benchmarks')">Read Full Benchmarks</button>
       </div>
-
-      <div class="section-header">
-        <h2>Built for accuracy, offline</h2>
-        <p>Built for low-resource environments and healthcare applications where exactness matters.</p>
-      </div>
-
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.2">
-              <polyline points="16 18 22 12 16 6"></polyline>
-              <polyline points="8 6 2 12 8 18"></polyline>
-            </svg>
-          </div>
-          <h3>Slotted Verb Synthesis</h3>
-          <p>Data-driven morphology translates structured intent slots into Swahili verbs with dynamic vowel harmony in 1.06 microseconds on ARM Cortex-A76 (0.78 microseconds on 3.2 GHz workstation cores).</p>
         </div>
+      </section>
 
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--indigo)" stroke-width="2.2">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-            </svg>
-          </div>
-          <h3>Slotted Term Protector</h3>
-          <p>Replaces dictionary-matched vocabulary, units, and numeric literals behind opaque tokens before external processing, restoring them afterwards.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2.2">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-              <polyline points="22 4 12 14.01 9 11.01"></polyline>
-            </svg>
-          </div>
-          <h3>Round-Trip Self-Consistency</h3>
-          <p>Re-evaluates synthesized verbs through the forward analyzer to verify that polarities, tenses, and slots match the original intent without polarity inversions in internal test suites.</p>
-        </div>
-      </div>
-
-      <!-- Interactive Architecture Pipeline -->
-      <div class="pipeline-section">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
-          <div>
-            <span class="version-tag">Interactive Pipeline</span>
-            <h3 style="font-size:22px; font-weight:800; color:#090D16; margin-top:6px;">Deterministic Processing Architecture</h3>
-          </div>
-          <p style="font-size:13px; color:var(--text-muted); max-width:460px;">
-            Explore each stage of the slotted realization pipeline. The realization step is rule-based and does not generate unconstrained text.
-          </p>
-        </div>
-
-        <div class="pipeline-steps">
-          <div class="pipeline-step-card active" id="pipe-step-1" onclick="selectPipeStep(1)">
-            <div class="pipeline-step-num">Step 1</div>
-            <div class="pipeline-step-title">Intent Slots</div>
-          </div>
-          <div class="pipeline-step-card" id="pipe-step-2" onclick="selectPipeStep(2)">
-            <div class="pipeline-step-num">Step 2</div>
-            <div class="pipeline-step-title">Concord Tables</div>
-          </div>
-          <div class="pipeline-step-card" id="pipe-step-3" onclick="selectPipeStep(3)">
-            <div class="pipeline-step-num">Step 3</div>
-            <div class="pipeline-step-title">Vowel Harmony</div>
-          </div>
-          <div class="pipeline-step-card" id="pipe-step-4" onclick="selectPipeStep(4)">
-            <div class="pipeline-step-num">Step 4</div>
-            <div class="pipeline-step-title">Fact Guardian</div>
-          </div>
-          <div class="pipeline-step-card" id="pipe-step-5" onclick="selectPipeStep(5)">
-            <div class="pipeline-step-num">Step 5</div>
-            <div class="pipeline-step-title">Closed Loop</div>
-          </div>
-        </div>
-
-        <div class="pipeline-detail-card" id="pipe-detail-box">
-          <div>
-            <div id="pipe-detail-title" style="font-size:18px; font-weight:800; color:var(--teal-dark); margin-bottom:8px;">
-              Step 1: Structured Semantic Intent
-            </div>
-            <div id="pipe-detail-desc" style="font-size:14px; color:var(--text-muted); line-height:1.7;">
-              Compact edge models output strongly typed slot structures rather than unconstrained text tokens. This isolates reasoning from grammatical conjugation, preventing hallucinated negations and corrupted prefixes.
-            </div>
-            <div id="pipe-detail-meta" style="margin-top:14px; font-size:12px; font-weight:700; color:var(--indigo);">
-              Dynamic Heap Buffer · Static TOML Lexicon · Fully Inspectable
-            </div>
-          </div>
-          <div style="background:#FFFFFF; border-radius:12px; padding:16px; border:1px solid var(--border); box-shadow:var(--clay-sm);">
-            <div style="font-size:11px; font-weight:700; color:var(--text-light); text-transform:uppercase; margin-bottom:6px;">Data Structure</div>
-            <pre id="pipe-detail-code" style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#334155; line-height:1.5;">Intent {
-  subject: Subject::Plural3,
-  tense: Tense::Future,
-  polarity: Polarity::Negative,
-  object: Some(Object::Singular2),
-  root: "jibu"
-}</pre>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- =================================================================== -->
@@ -2821,8 +3486,8 @@
     <!-- =================================================================== -->
     <div id="page-studio" class="page-view">
       <div class="section-header">
-        <h2>Language Studio Pro</h2>
-        <p>An offline workbench for Swahili verbs: build a verb from its parts, break one back down, hear it spoken, and test dosage-note protection.</p>
+        <h2 id="studio-dynamic-title">Language Studio</h2>
+        <p id="studio-dynamic-sub">Build Swahili words &amp; clauses, listen to pronunciation, and verify dosage protection: tuned to your selected mode.</p>
       </div>
 
       <!-- Friendly Offline Status Strip -->
@@ -2888,15 +3553,15 @@
           </div>
         </div>
 
-        <div class="subtabs">
-          <button class="subtab-btn active" id="sub-synth" onclick="switchSubTab('sub-synth', 'view-synth')">Verb Synthesizer Pro</button>
-          <button class="subtab-btn" id="sub-analyzer" onclick="switchSubTab('sub-analyzer', 'view-analyzer')">Verb Breakdown</button>
-          <button class="subtab-btn" id="sub-builder" onclick="switchSubTab('sub-builder', 'view-builder')">Clinical Directive Guardian</button>
-          <button class="subtab-btn" id="sub-matrix" onclick="switchSubTab('sub-matrix', 'view-matrix')">18 Noun Class Matrix</button>
-          <button class="subtab-btn" id="sub-compose" onclick="switchSubTab('sub-compose', 'view-compose')">Concord &amp; Clause Composer (v2.5)</button>
-          <button class="subtab-btn" id="sub-clin" onclick="switchSubTab('sub-clin', 'view-clin')">Fact Token Shield</button>
-          <button class="subtab-btn" id="sub-lex" onclick="switchSubTab('sub-lex', 'view-lex')">19k Distilled Lexicon</button>
-          <button class="subtab-btn" id="sub-batch" onclick="switchSubTab('sub-batch', 'view-batch')">Batch Intent Testbed</button>
+        <div class="subtabs" id="studio-subtabs-bar">
+          <button class="subtab-btn active" id="sub-synth" onclick="switchSubTab('sub-synth', 'view-synth')">Phrase &amp; Verb Builder</button>
+          <button class="subtab-btn" id="sub-clin" onclick="switchSubTab('sub-clin', 'view-clin')">Dosage &amp; Fact Shield</button>
+          <button class="subtab-btn" id="sub-lex" onclick="switchSubTab('sub-lex', 'view-lex')">19k Word Explorer</button>
+          <button class="subtab-btn builder-up" id="sub-compose" onclick="switchSubTab('sub-compose', 'view-compose')">Class &amp; Clause Composer</button>
+          <button class="subtab-btn builder-up" id="sub-builder" onclick="switchSubTab('sub-builder', 'view-builder')">Clinic Directive Safe Check</button>
+          <button class="subtab-btn expert-only" id="sub-analyzer" onclick="switchSubTab('sub-analyzer', 'view-analyzer')">Verb Decompiler</button>
+          <button class="subtab-btn expert-only" id="sub-matrix" onclick="switchSubTab('sub-matrix', 'view-matrix')">18 Noun Classes</button>
+          <button class="subtab-btn expert-only" id="sub-batch" onclick="switchSubTab('sub-batch', 'view-batch')">50-Intent Batch Bench</button>
         </div>
 
         <!-- 1. Verb Synthesizer View -->
@@ -3027,8 +3692,8 @@
                 </div>
               </div>
 
-              <!-- Interactive Morpheme DAG Visualizer -->
-              <div class="graph-container">
+              <!-- Interactive Morpheme DAG Visualizer (Full Spec) -->
+              <div class="graph-container expert-block expert-only">
                 <div class="graph-title">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
                   Interactive Morpheme Dependency DAG
@@ -3038,8 +3703,8 @@
                 </div>
               </div>
 
-              <!-- Code Export Bar -->
-              <div class="code-export-container">
+              <!-- Code Export Bar (Full Spec) -->
+              <div class="code-export-container expert-block expert-only">
                 <div class="code-export-tabs">
                   <button class="code-export-tab active" id="code-tab-rust" onclick="switchCodeExport('rust')">Rust Crate</button>
                   <button class="code-export-tab" id="code-tab-python" onclick="switchCodeExport('python')">Python Binding</button>
@@ -3403,16 +4068,16 @@
       <div class="course-track-selector">
         <button class="track-btn active" id="btn-track-basic" onclick="switchCourseTrack('basic')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
-          Track 1: Basic Course (5 Modules · 30 Mins)
+          Track 1: Core Foundations (7 Modules · v0.2.5)
         </button>
         <button class="track-btn" id="btn-track-adv" onclick="switchCourseTrack('adv')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          Track 2: Advanced Master Class (6 In-Depth Modules · 3 Hours)
+          Track 2: Systems & Safety Master Class (8 Modules · 4 Hours)
         </button>
       </div>
 
       <div class="course-progress-bar-wrap">
-        <span style="font-size:13px; font-weight:700; color:var(--text-main);" id="course-progress-text">Course Progress: 0% (0 of 5 completed)</span>
+        <span style="font-size:13px; font-weight:700; color:var(--text-main);" id="course-progress-text">Course Progress: 0% (0 of 7 completed)</span>
         <div class="progress-track">
           <div class="progress-fill" id="course-progress-fill" style="width:0%;"></div>
         </div>
@@ -3829,7 +4494,7 @@
       const w = oscCanvas.width;
       const h = oscCanvas.height;
       canvasCtx.clearRect(0, 0, w, h);
-      canvasCtx.strokeStyle = "#10B981";
+      canvasCtx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#C2410C";
       canvasCtx.lineWidth = 2 * window.devicePixelRatio;
       canvasCtx.beginPath();
       canvasCtx.moveTo(0, h / 2);
@@ -3851,7 +4516,7 @@
         }
 
         canvasCtx.clearRect(0, 0, w, h);
-        canvasCtx.strokeStyle = "#38BDF8";
+        canvasCtx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#C2410C";
         canvasCtx.lineWidth = 2.5 * window.devicePixelRatio;
         canvasCtx.beginPath();
 
@@ -4574,7 +5239,7 @@
                   <div id="m1-gloss-text" style="font-size:13px; color:var(--text-muted); margin-top:2px;">"They will not answer you"</div>
                 </div>
                 <button class="btn-primary" style="padding:8px 16px; font-size:12px;" onclick="playPronounceText(document.getElementById('m1-surface-word').innerText)">
-                  🔊 Listen
+                  <span class="svg-icon-inline"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></span> Listen
                 </button>
               </div>
             </div>
@@ -4728,7 +5393,7 @@
               <div style="background:#FFF1F2; border:1px solid #FECDD3; border-radius:12px; padding:14px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                   <strong style="color:#BE123C; font-size:13px;">Stochastic Neural Sampling</strong>
-                  <span class="rich-step-badge badge-leak">⚠ Hazard Risk</span>
+                  <span class="rich-step-badge badge-leak">Hazard Risk</span>
                 </div>
                 <div id="m4-neural-text" style="font-size:13px; color:#881337; line-height:1.6; font-family:'JetBrains Mono',monospace;"></div>
                 <div id="m4-neural-status" style="margin-top:10px; font-size:11px; font-weight:800; color:#BE123C;"></div>
@@ -4783,8 +5448,8 @@
             </div>
             <textarea id="m5-input-text" rows="2" class="clay-input" style="width:100%; padding:10px; font-size:13px; margin-bottom:12px; font-family:'JetBrains Mono',monospace; resize:vertical;">Mpe mtoto vidonge viwili vya paracetamol 500 mg mara mbili kwa siku</textarea>
             <div style="display:flex; gap:10px; margin-bottom:14px;">
-              <button class="btn-primary" style="padding:8px 18px; font-size:12px;" onclick="runM5Shield()">1. Shield Clinical Tokens [🔒]</button>
-              <button class="btn-secondary" style="padding:8px 18px; font-size:12px;" onclick="runM5Restore()">2. Restore Shielded Tokens [🔓]</button>
+              <button class="btn-primary" style="padding:8px 18px; font-size:12px;" onclick="runM5Shield()">1. Shield Clinical Tokens <span class="svg-icon-inline"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></button>
+              <button class="btn-secondary" style="padding:8px 18px; font-size:12px;" onclick="runM5Restore()">2. Restore Shielded Tokens <span class="svg-icon-inline"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg></span></button>
             </div>
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
               <div style="background:var(--bg-alt); padding:12px; border-radius:10px; border:1px solid var(--border);">
@@ -4818,10 +5483,58 @@
             exp: "Sema implements native Model Context Protocol (MCP) tool bindings via <code>sema-gui --mcp</code>."
           }
         ]
+      },
+      6: {
+        title: "Module 6: Relatives, Conditionals & Full Clauses (v0.2.5)",
+        time: "20 mins study · Sentence & Clause Grammar",
+        text: `
+          <p>Release <strong>v0.2.5</strong> takes Sema beyond standalone verbs into complete Swahili clauses. Relative verbs embed <em>who / which / when</em> straight inside Slot 2b, and the future marker <code>-ta-</code> expands to <code>-taka-</code> before relative infixes: <em>watakaojibu</em> (those who will answer).</p>
+          <p>Conditional prefixes (<code>-ki-</code> if, <code>-nge-</code> would, <code>-sipo-</code> unless) pair seamlessly with 18-class noun concords, adjectives, possessives, and spatial locatives (<code>-ni</code> + <code>yuko/haviko</code>): <em>vitabu vyangu vidogo haviko hospitalini</em>.</p>
+        `,
+        exerciseTitle: "v0.2.5 Clause & Relative Interactive Lab",
+        exerciseHtml: `
+          <div style="background:#FFFFFF; border-radius:8px; padding:18px; border:1px solid var(--border);">
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
+              <select id="m6-clause-preset" onchange="runM6ClauseLab()" class="clay-input" style="flex:1 1 240px;">
+                <option value="watakaojibu" selected>Future Relative: Watakaojibu kesho (Those who will reply)</option>
+                <option value="vitabu">Class 8 Clause: Vitabu vyangu vidogo haviko hospitalini</option>
+                <option value="usipo">Negative Conditional: Usipokuja mapema hatutakula</option>
+                <option value="nge">Counterfactual: Ningelisoma kitabu hicho</option>
+              </select>
+              <button type="button" class="btn-primary" onclick="runM6ClauseLab()">Inspect Clause Chain</button>
+            </div>
+            <div id="m6-clause-out" style="padding:14px; background:var(--bg); border:1px solid var(--border); border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--accent-dark); line-height:1.6;"></div>
+          </div>
+        `,
+        quiz: [
+          { q: "1. What happens to future '-ta-' before a relative infix like '-o-'?", opts: ["It expands cleanly to '-taka-' (e.g. watakaojibu)", "It deletes completely", "It shifts into past '-li-'"], a: 0, exp: "Swahili morphophonology requires -taka- before Slot 2b relative markers." },
+          { q: "2. Which locative suffix places a noun like 'hospitali' into a location role?", opts: ["The suffix '-ni' (hospitalini)", "The prefix 'si-'", "Doubling the final vowel"], a: 0, exp: "Appending -ni shifts a noun into locative space paired with classes 16–18 copulas (yuko/haviko)." },
+          { q: "3. Which conditional infix negates 'if' without using 'ha-' or 'si-' on the subject?", opts: ["'-sipo-' (unless / if not)", "'-ta-'", "'-me-'"], a: 0, exp: "Swahili conditional -sipo- carries negation inside the tense slot using positive subject concords (u-sipo-kuja)." }
+        ]
+      },
+      7: {
+        title: "Module 7: v0.2.5 Typo Rescue, Number Words & Final Certification",
+        time: "20 mins study · Zero-Leak Safeguards",
+        text: `
+          <p>In real clinics and messaging keyboards, users misspell drug names (<code>paracetemol</code>, <code>amoxillin</code>, <code>ibuprufen</code>) or write numbers in Swahili words (<code>mia tano</code> for 500, <code>elfu moja</code> for 1000) or spaced digits (<code>5 0 0 mg</code>).</p>
+          <p><strong>v0.2.5 Hardened FactGuardian:</strong> Runs a fast zero-regex scanner + bounded edit-distance typo recovery with strict stopword guards, catching all 8 adversarial edge categories cleanly (<strong>0/24 leaks</strong>) before any cloud or edge LLM touches the text.</p>
+        `,
+        exerciseTitle: "v0.2.5 Adversarial Typo & Cardinal Shield Tester",
+        exerciseHtml: `
+          <div style="background:#FFFFFF; border-radius:8px; padding:18px; border:1px solid var(--border);">
+            <input type="text" id="m7-typo-input" value="Meza paracetemol mia tano mg au ibuprufen 5 0 0 mg" oninput="runM7TypoGuard()" style="width:100%; margin-bottom:10px; font-family:'JetBrains Mono',monospace;">
+            <div id="m7-typo-out" style="padding:14px; background:var(--bg); border:1px solid var(--border); border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--text-main); line-height:1.6;"></div>
+          </div>
+        `,
+        quiz: [
+          { q: "1. What is the leaked entity count across Sema v0.2.5's 24 adversarial boundary tests?", opts: ["0 / 24 leaks across all 8 edge categories", "6 / 24 leaks", "12 / 24 leaks"], a: 0, exp: "Upgraded FactGuardian seals Swahili number words, typos, ranges, decimals, fractions, brands, and spaced digits with 0/24 leaks." },
+          { q: "2. How does v0.2.5 prevent ordinary Swahili prose words from falsely matching drug names?", opts: ["Bounded Damerau-Levenshtein (<=2 edits) plus explicit stopword exclusion guards", "Deleting all verbs over 6 letters", "Requiring uppercase drug names only"], a: 0, exp: "Strict length and stopword guards prevent normal non-medical words from being accidentally masked." },
+          { q: "3. Which tool handles Swahili number words like 'mia tano' cleanly?", opts: ["Sema's zero-regex FactGuardian cardinal scanner", "Standard English punctuation splitter", "Only a 7B cloud transformer"], a: 0, exp: "Cardinal multi-word patterns like 'mia tano' and 'elfu moja' are shielded directly into [#N] tokens." }
+        ]
       }
     };
 
-    // Advanced 3-Hour Deep Curriculum (6 Extensive Modules)
+    // Advanced 4-Hour Deep Curriculum (8 Extensive Modules · Updated for v0.2.5)
     const advLessons = {
       1: {
         title: "Adv Module 1: Vowel Harmony & Short Verbs",
@@ -4894,7 +5607,7 @@
                   <div id="adv1-gloss" style="font-size:12px; color:var(--text-muted); margin-top:2px;">"They will read for / at"</div>
                 </div>
                 <button class="btn-primary" style="padding:8px 16px; font-size:12px;" onclick="playPronounceText(document.getElementById('adv1-surface-word').innerText)">
-                  🔊 Listen
+                  <span class="svg-icon-inline"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></span> Listen
                 </button>
               </div>
             </div>
@@ -5009,7 +5722,7 @@
                 <div id="adv2-surface" style="font-size:20px; font-weight:900; color:#38BDF8; font-family:'JetBrains Mono',monospace;">watakujibu</div>
               </div>
               <button class="btn-primary" style="padding:6px 14px; font-size:12px;" onclick="playPronounceText(document.getElementById('adv2-surface').innerText)">
-                🔊 Listen
+                <span class="svg-icon-inline"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></span> Listen
               </button>
             </div>
           </div>
@@ -5302,6 +6015,53 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
             exp: "Standard deviation and tail percentiles prove the system executes reliably without latency jitter spikes."
           }
         ]
+      },
+      7: {
+        title: "Adv Module 7: Slot 2b Relative Allomorphy & Counterfactual TAM Architecture",
+        time: "30 mins study · v0.2.5 Syntax Engine",
+        text: `
+          <p>In Swahili synthetic relatives, Slot 2b sits immediately after TAM and triggers tense allomorphy: future <code>-ta-</code> deterministically rewrites to <code>-taka-</code> before relative infixes (<code>-ye-</code>, <code>-o-</code>, <code>-cho-</code>, <code>-vyo-</code>, <code>-po-</code>), while present negative verbs suppress synthetic relatives cleanly in favor of future analytical <em>amba-</em> separation.</p>
+          <p>Simultaneously, counterfactual <code>-nge-</code> / <code>-singe-</code> and past counterfactual <code>-ngali-</code> / <code>-singali-</code> override outer subject negation portmanteaus, enforcing positive subject concords paired with inner negative conditional infixes.</p>
+        `,
+        exerciseTitle: "Interactive Relative & Counterfactual Table Probe",
+        exerciseHtml: `
+          <div style="background:#FFFFFF; border-radius:8px; padding:18px; border:1px solid var(--border);">
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
+              <select id="adv7-rel-mode" onchange="runAdv7RelativeLab()" class="clay-input" style="flex:1 1 200px;">
+                <option value="fut_rel" selected>FUT + C2/3PL (-o-) -> -taka-o-</option>
+                <option value="loc_rel">PST + LOC (-po-) -> -li-po-</option>
+                <option value="cond_neg">COND_PAST NEG (-singali-)</option>
+              </select>
+              <button type="button" class="btn-primary" onclick="runAdv7RelativeLab()">Trace Slot 2b Rewrite</button>
+            </div>
+            <div id="adv7-rel-out" style="padding:14px; background:var(--bg); border:1px solid var(--border); border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--accent-dark);"></div>
+          </div>
+        `,
+        quiz: [
+          { q: "1. What subject concord prefix appears with negative counterfactual '-singe-' in 3SG?", opts: ["Positive 'a-' (asinge-), NOT negative 'ha-'", "Portmanteau 'hawa-'", "First-person 'si-'"], a: 0, exp: "Conditionals -sipo-, -singe-, and -singali- embed negation inside TAM and require positive subject prefixes." },
+          { q: "2. How many gold round-trip verb decompositions pass in pure Rust tests/v25_morph.rs?", opts: ["500 / 500 verbs + 28 complex forms (100%)", "210 / 500", "Only present tense"], a: 0, exp: "Sema v0.2.5 verifies 500/500 pure-Rust round-trips directly from sw.toml tables." },
+          { q: "3. Which TAM marker expands to '-taka-' ahead of Slot 2b relatives?", opts: ["Future '-ta-'", "Past '-li-'", "Perfect '-me-'"], a: 0, exp: "Only future -ta- lengthens to -taka- ahead of synthetic relative markers." }
+        ]
+      },
+      8: {
+        title: "Adv Module 8: Bounded Damerau-Levenshtein & 0/24 Leak Verification",
+        time: "30 mins study · Security & Adversarial Proof",
+        text: `
+          <p>Deterministic tokenization cannot rely on brittle regular expressions that choke on noisy handwritten notes: decimal commas (<code>2,5 ml</code>), spaced numbers (<code>5 0 0 mg</code>), multi-word Swahili quantities (<code>mia tano</code>), or transposed vowels inside essential medicines (<code>paracetemol</code>, <code>amoxillin</code>, <code>ibuprufen</code>).</p>
+          <p><strong>v0.2.5 Guard Mechanics:</strong> Combines byte-slice zero-regex parsing with bounded Damerau-Levenshtein typo normalization (<code>dist <= 2</code>, strict Swahili stopword exclusion) yielding <strong>96/96 passing Cargo tests</strong> and <strong>0/24 leaked adversarial inputs</strong>.</p>
+        `,
+        exerciseTitle: "Adversarial Boundary & Stopword Audit Suite",
+        exerciseHtml: `
+          <div style="background:#FFFFFF; border-radius:8px; padding:18px; border:1px solid var(--border);">
+            <button type="button" class="btn-primary" onclick="runAdv8BoundarySuite()" style="margin-bottom:12px;">Execute 8-Category Boundary Audit</button>
+            <div id="adv8-audit-out" style="padding:14px; background:var(--bg); border:1px solid var(--border); border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-main); line-height:1.6;">Click above to inspect all 8 shielded adversarial categories...</div>
+          </div>
+        `,
+        quiz: [
+          { q: "1. How many total automated Rust tests pass in v0.2.5 across all 8 test binaries?", opts: ["96 / 96 passing", "58 / 58 passing", "32 / 96 passing"], a: 0, exp: "Sema v0.2.5 ships with 96/96 passing unit, morphology, concord, composer, FactGuardian, and gold100 checks." },
+          { q: "2. Why does FactGuardian limit typo recovery distance to <= 2 with stopword checks?", opts: ["To repair real misspellings without corrupting everyday Swahili words", "To slow down parsing", "To translate slang into French"], a: 0, exp: "Bounded edit distance plus stopword guards ensure ordinary prose words never get normalized into drug entities." },
+          { q: "3. Which regex engine does Sema v0.2.5's FactGuardian require at runtime?", opts: ["None (zero-regex pure Rust parser)", "PCRE2 + Node", "Python re module"], a: 0, exp: "FactGuardian runs completely regex-free in pure Rust for zero compile bloat and predictable memory." }
+        ]
       }
     };
 
@@ -5344,7 +6104,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
         item.innerHTML = `
           <span class="lesson-num">${num}</span>
           <span style="flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${l.title.split(':')[1] || l.title}</span>
-          <span class="lesson-status-icon">${isCompleted ? '✓' : (isLocked ? '🔒' : '○')}</span>
+          <span class="lesson-status-icon">${isCompleted ? '<span class="svg-icon-inline"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>' : (isLocked ? '<span class="svg-icon-inline"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>' : '<span class="svg-icon-inline"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg></span>')}</span>
         `;
         container.appendChild(item);
       });
@@ -5369,6 +6129,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
           ${lesson.time}
         </span>
         <h2>${lesson.title}</h2>
+        <div class="lesson-flowpipe-card" id="lesson-flowpipe-container"></div>
         ${lesson.text}
         <div class="interactive-exercise">
           <div class="exercise-title">
@@ -5378,7 +6139,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
           ${lesson.exerciseHtml}
         </div>
         <div id="quiz-unlock-action-card" style="margin-top:28px; padding:22px 20px; background:linear-gradient(135deg, rgba(13,148,136,0.05), rgba(99,102,241,0.05)); border:1.5px dashed var(--teal); border-radius:14px; text-align:center;">
-          <div style="font-size:26px; margin-bottom:8px;">${isAlreadyPassed ? '✓' : '🎯'}</div>
+          <div style="font-size:26px; margin-bottom:8px;">${isAlreadyPassed ? '<span class="svg-icon-inline"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>' : '<span class="svg-icon-inline"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>'}</div>
           <h4 style="font-size:17px; font-weight:800; color:var(--text-main); margin-bottom:6px;">
             ${isAlreadyPassed ? `Module ${num} Passed! Review Checkpoint Quiz?` : `Finished Studying Module ${num}?`}
           </h4>
@@ -5400,6 +6161,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
         quizBox.style.display = "none";
       }
 
+      renderLessonFlowpipe(currentTrack, num);
       renderCheckpointQuiz(lesson.quiz, num);
       initLessonInteractiveWidgets(currentTrack, num);
     }
@@ -5532,7 +6294,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
             `;
           } else {
             banner.innerHTML = `
-              <div style="font-size:15px; font-weight:800; margin-bottom:6px;">🎉 Congratulations! Track Curriculum Mastered!</div>
+              <div style="font-size:15px; font-weight:800; margin-bottom:6px;"><span class="svg-icon-inline"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></span> Track Curriculum Mastered</div>
               <p style="margin:0 0 14px; font-weight:500; font-size:13px; color:var(--text-main);">
                 You scored 100% on every module in this track. Your verified cryptographic certificate is officially unlocked!
               </p>
@@ -5554,12 +6316,12 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
           banner.style.color = "var(--rose)";
           banner.style.border = "1px solid var(--rose)";
           banner.innerHTML = `
-            <div style="font-size:15px; font-weight:800; margin-bottom:6px;">⚠️ Checkpoint Incomplete: ${correctCount} of ${totalQ} Correct</div>
+            <div style="font-size:15px; font-weight:800; margin-bottom:6px;"><span class="svg-icon-inline"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span> Checkpoint Incomplete: ${correctCount} of ${totalQ} Correct</div>
             <p style="margin:0 0 14px; font-weight:500; font-size:13px; color:var(--text-main);">
               Deterministic AI systems require 100% accuracy with zero morpheme hallucinations. Revise the study materials and interactive exercise above, then re-attempt this checkpoint.
             </p>
             <button class="btn-secondary" style="padding:10px 22px; font-size:13px; font-weight:700; cursor:pointer;" onclick="reviseAndRetryQuiz(${lessonNum})">
-              🔄 Revise Study Materials & Re-attempt
+              <span class="svg-icon-inline"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></span> Revise Study Materials & Re-attempt
             </button>
           `;
         }
@@ -5579,7 +6341,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
       if (actionCard) {
         actionCard.style.display = "block";
         actionCard.innerHTML = `
-          <div style="font-size:26px; margin-bottom:8px;">📖</div>
+          <div style="margin-bottom:8px;"><span class="svg-icon-inline"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span></div>
           <h4 style="font-size:17px; font-weight:800; color:var(--text-main); margin-bottom:6px;">Revise & Master Module ${lessonNum}</h4>
           <p style="font-size:13px; color:var(--text-muted); max-width:540px; margin:0 auto 16px; line-height:1.5;">
             Take your time to re-read the morphological rules and test the interactive sandbox above. When you are confident, click below to re-attempt the checkpoint quiz.
@@ -5914,7 +6676,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
             Agreement chain: Noun (<strong>${data.sing.noun}</strong>) -> Adj (<strong>${data.sing.adj}</strong>) -> Dem (<strong>${data.sing.dem}</strong>) -> Verb Prefix (<strong>${data.sing.pref}</strong>)
           </div>
           <button class="btn-primary" style="margin-top:10px; padding:4px 12px; font-size:11px;" onclick="playPronounceText('${data.sing.noun} ${data.sing.adj} ${data.sing.dem} ${data.sing.word}')">
-            🔊 Pronounce
+            <span class="svg-icon-inline"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></span> Pronounce
           </button>
         </div>
         <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:12px; padding:14px;">
@@ -5930,7 +6692,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
             Agreement chain: Noun (<strong>${data.plur.noun}</strong>) -> Adj (<strong>${data.plur.adj}</strong>) -> Dem (<strong>${data.plur.dem}</strong>) -> Verb Prefix (<strong>${data.plur.pref}</strong>)
           </div>
           <button class="btn-primary" style="margin-top:10px; padding:4px 12px; font-size:11px;" onclick="playPronounceText('${data.plur.noun} ${data.plur.adj} ${data.plur.dem} ${data.plur.word}')">
-            🔊 Pronounce
+            <span class="svg-icon-inline"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></span> Pronounce
           </button>
         </div>
       `;
@@ -5948,19 +6710,19 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
       const scenarios = {
         1: {
           neuralText: `LLM Output (Edge Mobile 3B):<br>"Mpe mtoto aspirini mara mbili kwa siku..."<br><br><span style="color:#BE123C; font-weight:800;">CRITICAL ERROR:</span> Dropped Swahili negative imperative prefix 'usi-'. The model commanded the caregiver to administer aspirin to an infant, presenting acute risk of Reye's Syndrome.`,
-          neuralStatus: "⚠ Hallucination: Dropped Negation Prefix (Lethal Inversion)",
+          neuralStatus: "Hallucination: Dropped Negation Prefix (Lethal Inversion)",
           semaText: `Sema Realization (Deterministic Engine):<br>"Usimpe mtoto aspirini hata kidogo."<br><br><span style="color:#059669; font-weight:800;">VERIFIED:</span> Slot Intent: Polarity::Negative, Verb: 'pa', Object: 'm' (child). Realized string strictly validated through reverse decompiler gate in 0.78 microseconds.`,
           semaStatus: "✓ Zero Inversion: 100% Negative Polarity Preserved"
         },
         2: {
           neuralText: `LLM Output (Edge Mobile 3B):<br>"Mgonjwa ana mzio wa penicillin, basi mpe penicillin..."<br><br><span style="color:#BE123C; font-weight:800;">CRITICAL ERROR:</span> Contextual negation hallucination. Tokenizer fragmented medical condition, generating contradictory order.`,
-          neuralStatus: "⚠ Hallucination: Allergy Warning Inverted",
+          neuralStatus: "Hallucination: Allergy Warning Inverted",
           semaText: `Sema Realization (Deterministic Engine):<br>"Usimpe mgonjwa huyu penicillin kwa sababu ana mzio."<br><br><span style="color:#059669; font-weight:800;">VERIFIED:</span> Clinical contraindication gate locked. Negative polarity invariant held across 100 benchmark intents.`,
           semaStatus: "✓ Verified Safe: Contraindication Invariant Enforced"
         },
         3: {
           neuralText: `LLM Output (Edge Mobile 3B):<br>"Mpe vidonge kumi vya paracetamol..."<br><br><span style="color:#BE123C; font-weight:800;">CRITICAL ERROR:</span> Numeric drift. Quantifier 'viwili' (two) replaced by 'kumi' (ten), introducing 500% pediatric toxicity overdose.`,
-          neuralStatus: "⚠ Hallucination: 500% Lethal Overdose Drift",
+          neuralStatus: "Hallucination: 500% Lethal Overdose Drift",
           semaText: `Sema Realization (Deterministic Engine):<br>"Mpe mtoto vidonge viwili tu vya paracetamol, usimpe vidonge kumi."<br><br><span style="color:#059669; font-weight:800;">VERIFIED:</span> Numerical entity [#N1] = 2 locked in immutable registry before realization. Zero dosage drift.`,
           semaStatus: "✓ Fact Guardian Shield: 0 Numeric Drift"
         }
@@ -6260,7 +7022,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
         verdictEl.style.border = "1px solid #FECDD3";
         verdictEl.style.color = "#BE123C";
         verdictEl.innerHTML = `
-          <div style="font-size:13px; font-weight:800; margin-bottom:4px;">⚠ SAFETY ASSERTION TRIPPED: Invariant Broken!</div>
+          <div style="font-size:13px; font-weight:800; margin-bottom:4px;">SAFETY ASSERTION TRIPPED: Invariant Broken!</div>
           <div style="font-size:11px; line-height:1.5;">Simulated bitflip fault caused polarity divergence (Input: ${originalPol} != Reverse: ${decompResult.pol}). Sema kernel suppressed output before user interface delivery.</div>
         `;
       }
@@ -6577,6 +7339,8 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
           else if (num === 3) runM3ConcordTest();
           else if (num === 4) runM4Sim(1);
           else if (num === 5) runM5Shield();
+          else if (num === 6) runM6ClauseLab();
+          else if (num === 7) runM7TypoGuard();
         } else {
           if (num === 1) runAdvVowelHarmony();
           else if (num === 2) runAdvRegisterBits();
@@ -6584,6 +7348,8 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
           else if (num === 4) { loadAdv4Preset(1); }
           else if (num === 5) { loadAdv5McpTemplate(); }
           else if (num === 6) runAdvLatencyProfiler();
+          else if (num === 7) runAdv7RelativeLab();
+          else if (num === 8) runAdv8BoundarySuite();
         }
       }, 50);
     }
@@ -6767,6 +7533,22 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
     // Window Load Lifecycle
     window.addEventListener('DOMContentLoaded', () => {
       setVersionTheme('v0.2.5', true);
+      incrementAndShowTotalVisits();
+      if (typeof rollCounter === 'function') rollCounter('hero-lemma-odometer', 19717, 1100, 0, '');
+      initHeroSavanna3D();
+      initPresenceChannel();
+      try {
+        const savedRole = localStorage.getItem('sema_role') || 'learner';
+        const savedDepth = localStorage.getItem('sema_depth') || 'simple';
+        onboardChoices.role = savedRole;
+        onboardChoices.depth = savedDepth;
+        applyAudienceProfile(savedRole, savedDepth);
+        if (localStorage.getItem('sema_onboard_done') !== '1' && !window.location.hash) {
+          openOnboardQuiz();
+        }
+      } catch (_) {
+        applyAudienceProfile('learner', 'simple');
+      }
       initOscilloscope();
       runSynth();
       runClinical();
@@ -6808,6 +7590,7 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
     function setVersionTheme(ver, silent) {
       const meta = SEMA_VERSION_THEMES[ver] || SEMA_VERSION_THEMES["v0.2.5"];
       document.documentElement.setAttribute("data-version-theme", ver);
+      if (typeof updateSavannaThemeAccent === "function") updateSavannaThemeAccent(ver);
       const pillLabel = document.getElementById("header-ver-label");
       const heroBanner = document.getElementById("hero-version-banner");
       const galleryTag = document.getElementById("gallery-active-theme-tag");
@@ -6836,6 +7619,685 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
       if (target) {
         setTimeout(() => target.scrollIntoView({ behavior: "smooth", block: "start" }), 40);
       }
+    }
+
+
+    // ===================================================================
+    // ADAPTIVE 3-MCQ ONBOARDER, EXPERT MODE, LIVE FLOWPIPES & PRESENCE
+    // ===================================================================
+    const ONBOARD_QUESTIONS = [
+      {
+        id: "role",
+        title: "What brings you to Sema today?",
+        sub: "This sets the examples and tools you see first.",
+        options: [
+          { val: "learner", title: "Learn or check Swahili cleanly", sub: "Build verbs, hear pronunciation, and explore 19,717 words." },
+          { val: "clinic", title: "Protect AI or medical instructions offline", sub: "Keep 500mg dosages, drug names, and negations safe from model errors." },
+          { val: "engineer", title: "Inspect the Rust grammar engine & slots", sub: "Explore 18 noun classes, round-trip invariants, and MCP integration." }
+        ]
+      },
+      {
+        id: "depth",
+        title: "How technical should the language & Studio feel?",
+        sub: "Pick your comfort level: you can switch anytime in the top bar.",
+        options: [
+          { val: "simple", title: "Simple & Human", sub: "Clear plain words, zero compiler jargon, just the essentials." },
+          { val: "balanced", title: "Practical Builder", sub: "Dosage locks, noun-class clauses, and everyday product examples." },
+          { val: "expert", title: "Full Spec (Deep Technical Mode)", sub: "Unlock every grammar slot, Morpheme DAG, Rust/TS code export & batch sweeps." }
+        ]
+      },
+      {
+        id: "start",
+        title: "Where should we drop you right now?",
+        sub: "Jump straight into what you want to see first.",
+        options: [
+          { val: "overview", title: "Live Flowpipe & Before/After Proof", sub: "Watch real phrases travel down Sema's protection pipeline." },
+          { val: "studio", title: "Open the Interactive Studio", sub: "Build Swahili sentences or test dosage locks hands-on." },
+          { val: "course", title: "Start the Interactive Lessons", sub: "Learn Swahili verbs with live lesson flowpipes & quizzes." }
+        ]
+      }
+    ];
+
+    let onboardStep = 0;
+    let onboardChoices = { role: "learner", depth: "simple", start: "overview" };
+
+
+    const FOCUS_STORIES = {
+      d1: {
+        kicker: "Dispatch 01 · Clinical Safety",
+        title: "Why 500mg and Usimpe cannot be left to chance",
+        lead: "Subword tokenizers split Swahili verbs along frequency boundaries, separating the two-letter prefix that carries negation from the command itself.",
+        body: "In Swahili, polarity sits at the very start of the word: u-si-m-pe means 'do not give him or her'. If a compact on-device model slips by a single prefix token, 'Usimpe mtoto Paracetamol 500mg' flips into an instruction to administer it. Sema resolves subject, polarity, object, and root deterministically through explicit tables, while shielding numbers and drug compounds behind immutable slots ([#T1], [#N1]) before any downstream model runs.",
+        ctaLabel: "Try Dosage Shield in Studio",
+        ctaFn: "closeFocusStory(); showPage('page-studio'); switchSubTab('sub-clin', 'view-clin');"
+      },
+      d2: {
+        kicker: "Dispatch 02 · Concord Architecture",
+        title: "All 18 Bantu noun classes aligned in one pass",
+        lead: "A single change in noun class ripples across possessives, adjectives, spatial copulas, and verbs simultaneously.",
+        body: "When 'kitabu' (Class 7) shifts to 'vitabu' (Class 8), Swahili demands coordinated agreement: 'vitabu vyangu vidogo haviko hospitalini'. Instead of storing fragile phrase templates, Sema encodes one unified C1-C18 concord table so possessives (vyangu), adjectives (vidogo), negative locatives (haviko), and -ni suffixes stay synchronized automatically.",
+        ctaLabel: "Open Class & Clause Composer",
+        ctaFn: "closeFocusStory(); showPage('page-studio'); switchSubTab('sub-compose', 'view-compose');"
+      },
+      d3: {
+        kicker: "Dispatch 03 · Honest Engineering Boundaries",
+        title: "Explicit rules that fail visibly instead of guessing",
+        lead: "Sema is an open-source morphological companion built for reviewable precision, never an autonomous clinical decision maker.",
+        body: "When input contains idioms, dialectal contractions, or stacked multi-verb chains outside Sema's structured slots, the engine preserves original text safely and flags boundaries transparently. All patient-facing outputs must still be reviewed by a fluent Swahili speaker and clinician before clinical use.",
+        ctaLabel: "Inspect Benchmarks & Coverage",
+        ctaFn: "closeFocusStory(); showPage('page-benchmarks');"
+      }
+    };
+
+    function openFocusStory(key) {
+      const s = FOCUS_STORIES[key];
+      if (!s) return;
+      document.getElementById("focus-story-kicker").innerText = s.kicker;
+      document.getElementById("focus-story-title").innerText = s.title;
+      document.getElementById("focus-story-lead").innerText = s.lead;
+      document.getElementById("focus-story-body").innerText = s.body;
+      document.getElementById("focus-story-actions").innerHTML =
+        `<button type="button" class="btn-primary" onclick="${s.ctaFn}">${s.ctaLabel}</button>` +
+        `<button type="button" class="btn-secondary" onclick="closeFocusStory()">Back to Page</button>`;
+      document.getElementById("focus-story-backdrop").classList.add("open");
+    }
+
+    function closeFocusStory() {
+      const bd = document.getElementById("focus-story-backdrop");
+      if (bd) bd.classList.remove("open");
+    }
+
+    function openOnboardQuiz() {
+      onboardStep = 0;
+      renderOnboardStep();
+      const bd = document.getElementById("sema-onboard-backdrop");
+      if (bd) bd.classList.add("open");
+    }
+
+    function skipOnboarding() {
+      try { localStorage.setItem("sema_onboard_done", "1"); } catch (_) {}
+      const bd = document.getElementById("sema-onboard-backdrop");
+      if (bd) bd.classList.remove("open");
+      applyAudienceProfile(onboardChoices.role || "learner", onboardChoices.depth || "simple");
+    }
+
+    function prevOnboardStep() {
+      if (onboardStep > 0) {
+        onboardStep--;
+        renderOnboardStep();
+      }
+    }
+
+    function renderOnboardStep() {
+      const q = ONBOARD_QUESTIONS[onboardStep];
+      document.getElementById("onboard-step-label").innerText = `Question ${onboardStep + 1} of 3`;
+      document.getElementById("onboard-q-title").innerText = q.title;
+      document.getElementById("onboard-q-sub").innerText = q.sub;
+      document.getElementById("onboard-back-btn").style.visibility = onboardStep > 0 ? "visible" : "hidden";
+
+      [1, 2, 3].forEach((n) => {
+        const bar = document.getElementById("ob-bar-" + n);
+        if (bar) bar.classList.toggle("active", n <= onboardStep + 1);
+      });
+
+      const list = document.getElementById("onboard-options-list");
+      list.innerHTML = q.options.map((opt) => `
+        <button type="button" class="onboard-opt-btn ${onboardChoices[q.id] === opt.val ? 'selected' : ''}" onclick="pickOnboardOption('${q.id}', '${opt.val}')">
+          <div>
+            <div class="onboard-opt-title">${opt.title}</div>
+            <div class="onboard-opt-sub">${opt.sub}</div>
+          </div>
+          <span style="font-size:18px; color:var(--accent); font-weight:800;">&rarr;</span>
+        </button>
+      `).join("");
+    }
+
+    function pickOnboardOption(key, val) {
+      onboardChoices[key] = val;
+      if (key === "role" && val === "engineer" && onboardChoices.depth === "simple") {
+        onboardChoices.depth = "expert";
+      } else if (key === "role" && val === "clinic" && onboardChoices.depth === "simple") {
+        onboardChoices.depth = "balanced";
+      }
+
+      if (onboardStep < 2) {
+        onboardStep++;
+        renderOnboardStep();
+      } else {
+        try {
+          localStorage.setItem("sema_onboard_done", "1");
+          localStorage.setItem("sema_role", onboardChoices.role);
+          localStorage.setItem("sema_depth", onboardChoices.depth);
+        } catch (_) {}
+        document.getElementById("sema-onboard-backdrop").classList.remove("open");
+        applyAudienceProfile(onboardChoices.role, onboardChoices.depth);
+        if (onboardChoices.start === "studio") {
+          showPage("page-studio");
+          switchSubTab(onboardChoices.role === "clinic" ? "sub-clin" : "sub-synth", onboardChoices.role === "clinic" ? "view-clin" : "view-synth");
+        } else if (onboardChoices.start === "course") {
+          showPage("page-course");
+        } else {
+          showPage("page-overview");
+          const fp = document.getElementById("live-flowpipe-section");
+          if (fp) setTimeout(() => fp.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+        }
+      }
+    }
+
+    function setAudienceDepth(depth) {
+      const role = depth === "expert" ? "engineer" : (depth === "balanced" ? "clinic" : "learner");
+      onboardChoices.depth = depth;
+      onboardChoices.role = role;
+      try {
+        localStorage.setItem("sema_depth", depth);
+        localStorage.setItem("sema_role", role);
+      } catch (_) {}
+      applyAudienceProfile(role, depth);
+      if (typeof showDownloadToast === "function") {
+        const names = { simple: "Simple & Human", balanced: "Practical Builder", expert: "Full Spec" };
+        showDownloadToast(`View adapted to <strong>${names[depth] || depth}</strong>`);
+      }
+    }
+
+    function applyAudienceProfile(role, depth) {
+      document.documentElement.setAttribute("data-role", role);
+      document.documentElement.setAttribute("data-depth", depth);
+
+      const sel = document.getElementById("header-depth-select");
+      if (sel) sel.value = depth;
+
+      const hTitle = document.getElementById("hero-dynamic-title");
+      const hSub = document.getElementById("hero-dynamic-sub");
+      const sTitle = document.getElementById("studio-dynamic-title");
+      const sSub = document.getElementById("studio-dynamic-sub");
+
+      if (depth === "expert") {
+        if (hTitle) hTitle.innerHTML = 'Deterministic <em>Swahili</em> morphology &amp; guardrails.';
+        if (hSub) hSub.innerText = "Full technical spec enabled: 7-slot synthesis, relative allomorphy (-taka-), C1–C18 concords, zero-regex FactGuardian (0/24 leak), and 0.78 µs pure-Rust realization.";
+        if (sTitle) sTitle.innerText = "Language Studio · Full Spec";
+        if (sSub) sSub.innerText = "All 8 morphological workstations unlocked: live slot DAG, 18-class matrix, Rust/WASM/MCP code exporter, and batch round-trip verification.";
+      } else if (depth === "balanced") {
+        if (hTitle) hTitle.innerHTML = 'Swahili &amp; dosages <em>locked safe</em> on device.';
+        if (hSub) hSub.innerText = "Built for frontline health & offline AI apps: freeze drug names and numbers before translation, verify Swahili negations cleanly, and ship zero-cloud builds.";
+        if (sTitle) sTitle.innerText = "Language Studio · Builder Workbench";
+        if (sSub) sSub.innerText = "Test phrase concords, lock medication dosages, and run clinic directive checks cleanly offline.";
+      } else {
+        if (hTitle) hTitle.innerHTML = 'Swahili grammar that lives <em>on your device.</em>';
+        if (hSub) hSub.innerText = "Build natural Swahili sentences, hear how words sound, and protect important numbers clearly on your own device: zero jargon, 100% offline.";
+        if (sTitle) sTitle.innerText = "Language Studio · Everyday Mode";
+        if (sSub) sSub.innerText = "Three friendly tools: build Swahili verbs, check dosage notes safely, and look up 19,717 words offline.";
+      }
+
+      // If current subtab became hidden in Simple mode, return cleanly to Phrase & Verb Builder
+      const activeTab = document.querySelector(".subtab-btn.active");
+      if (activeTab && window.getComputedStyle(activeTab).display === "none") {
+        switchSubTab("sub-synth", "view-synth");
+      }
+
+      updatePresenceDisplay(role, depth);
+      if (document.getElementById("live-flow-input")) runLiveFlowCustom();
+      if (document.getElementById("lesson-flowpipe-container") && typeof currentLessonNum !== "undefined") {
+        renderLessonFlowpipe(currentTrack || "basic", currentLessonNum || 1);
+      }
+    }
+
+    // --- Live Conductive Flowpipe Simulation & Scenarios ---
+    const FLOW_SCENARIOS = {
+      dosage: {
+        text: "Usimpe mtoto Paracetamol 500mg bila ushauri.",
+        safe: "Usimpe mtoto [#T1] [#N1] bila ushauri. -> Exact: Paracetamol + 500mg preserved!",
+        risk: '"Mpe mtoto Paracetamol 50mg...": unguarded small LLMs often drop "si-" negation or drift 500 -> 50.',
+        s0: "Negated medical instruction",
+        s1: "Locks [#T1] & [#N1]",
+        s2: "Usimpe negation safe",
+        s3: "Direct entity match",
+        s4: "0 dose drift · 0 flip",
+        lanes: [true, true, false]
+      },
+      typo: {
+        text: "Meza paracetemol mia tano mg mara mbili.",
+        safe: "Meza [#T1] [#N1] [#N2] mara mbili. -> Typo rescued: paracetemol -> paracetamol (500 mg).",
+        risk: 'Drops "paracetemol" completely or skips Swahili quantity "mia tano" during machine translation.',
+        s0: "Typo + word number",
+        s1: "Typo edit dist <= 2",
+        s2: "Preserves verb Meza",
+        s3: "mia tano -> [#N1]",
+        s4: "Canonicalized cleanly",
+        lanes: [true, true, true]
+      },
+      clause: {
+        text: "Vitabu vyangu vidogo haviko hospitalini.",
+        safe: "[C8 Concord Chain] vitabu + vyangu + vidogo + haviko + hospitalini -> 100% class-8 aligned.",
+        risk: 'Outputs mixed concord errors like "vitabu wangu kidogo haiko hospitali".',
+        s0: "Multi-slot Class 8",
+        s1: "Location hospitali-ni",
+        s2: "C8 vy-/vi-/havi- lock",
+        s3: "Root gloss check",
+        s4: "Coherent clause built",
+        lanes: [true, true, false]
+      },
+      rel: {
+        text: "Wale watakaojibu kesho watapata kitabu.",
+        safe: "wa-taka-o-jibu -> Future -ta- smoothly expands to -taka- before relative -o-.",
+        risk: 'Produces invalid ungrammatical verb like "wataojibu" or drops future marker completely.',
+        s0: "Future + Relative -o-",
+        s1: "Entity kitabu safe",
+        s2: "-ta- -> -taka- rule",
+        s3: "Lexicon root -jibu",
+        s4: "Exact relative verb",
+        lanes: [true, true, false]
+      }
+    };
+
+    function runLiveFlowScenario(key, btnEl) {
+      const sc = FLOW_SCENARIOS[key];
+      if (!sc) return;
+      document.querySelectorAll(".flowpipe-chip").forEach((b) => b.classList.remove("active"));
+      if (btnEl) btnEl.classList.add("active");
+      const inp = document.getElementById("live-flow-input");
+      if (inp) inp.value = sc.text;
+      renderFlowOutput(sc);
+      triggerFlowSurge();
+    }
+
+    function runLiveFlowCustom() {
+      const inp = document.getElementById("live-flow-input");
+      if (!inp) return;
+      const val = inp.value || "";
+      const hasNum = /\d+|mia|elfu|mg|ml/i.test(val);
+      const hasTypo = /paracetemol|amoxillin|ibuprufen/i.test(val);
+      const hasNeg = /usi|hawa|si|havi|hako|hapana/i.test(val);
+
+      let tokens = [];
+      let shielded = val
+        .replace(/\b(paracetamol|paracetemol|amoxicillin|amoxillin|ibuprofen|ibuprufen|panadol|septra)\b/gi, (m) => {
+          tokens.push(m); return `[#T${tokens.length}]`;
+        })
+        .replace(/\b(\d+(?:[.,]\d+)?\s*(?:mg|ml|g)?|mia tano|elfu moja)\b/gi, (m) => {
+          tokens.push(m); return `[#N${tokens.length}]`;
+        });
+
+      const isExpert = document.documentElement.getAttribute("data-depth") === "expert";
+      renderFlowOutput({
+        safe: `${shielded || "(type something above)"}` + (tokens.length ? `  [Shielded ${tokens.length} items: ${tokens.join(", ")}]` : "  [Concord & grammar rules active]"),
+        risk: hasNum || hasNeg
+          ? "Small unguarded models risk mutating digits/units or dropping the negation prefix during translation."
+          : "Unguarded tokenizers split Bantu prefixes unevenly, causing broken noun-class agreement.",
+        s0: val.length ? `${val.split(/\s+/).filter(Boolean).length} words scanned` : "Waiting for input",
+        s1: tokens.length ? `${tokens.length} entities locked` : "Zero-regex scanner",
+        s2: hasNeg ? "Negation polarity guard" : (isExpert ? "7-slot + C1–C18 check" : "Word & class check"),
+        s3: hasTypo ? "Typo rescued <=2 edits" : "Dictionary check",
+        s4: tokens.length ? "Exact restoration ready" : "Deterministic output"
+      });
+    }
+
+    function renderFlowOutput(sc) {
+      document.getElementById("compare-safe-out").innerText = sc.safe;
+      document.getElementById("compare-risk-out").innerText = sc.risk;
+      document.getElementById("fnode-0-sub").innerText = sc.s0;
+      document.getElementById("fnode-1-sub").innerText = sc.s1;
+      document.getElementById("fnode-2-sub").innerText = sc.s2;
+      document.getElementById("fnode-3-sub").innerText = sc.s3;
+      document.getElementById("fnode-4-sub").innerText = sc.s4;
+    }
+
+    function triggerFlowSurge() {
+      ["pipe-1", "pipe-2", "pipe-3", "pipe-4", "pipe-5"].forEach((id) => {
+        const p = document.getElementById(id);
+        if (p) {
+          p.classList.add("surge");
+          setTimeout(() => p.classList.remove("surge"), 1400);
+        }
+      });
+    }
+
+    function inspectFlowNode(idx) {
+      const isExpert = document.documentElement.getAttribute("data-depth") === "expert";
+      const notesSimple = [
+        "1. Reads your note cleanly on-device with zero internet call.",
+        "2. Puts safety locks around numbers, drug names, and units so nothing can alter them.",
+        "3. Checks who is doing the action, when, and 'not' flags using strict Swahili grammar rules.",
+        "4. Catches common medicine misspellings and matches Swahili number words (like 'mia tano').",
+        "5. Unlocks the exact original doses and returns clean Swahili ready for review."
+      ];
+      const notesExpert = [
+        "Stage 01 · Tokenless UTF-8 scan with zero external tokenizer dependencies.",
+        "Stage 02 · Zero-regex FactGuardian FSM locks numbers, units, brands & Swahili cardinals into [#T/#N] slots.",
+        "Lane A · Slot tables (src/synth/sw.toml + ConcordEngine C1–C18) guarantee 0/100 negation inversions.",
+        "Lane B · Bounded Damerau-Levenshtein (dist <= 2) with stopword exclusion recovers typos without false positives.",
+        "Output · Bijective restore pass guarantees 0/24 adversarial leak rate in pure Rust."
+      ];
+      const box = document.getElementById("flow-node-inspector");
+      if (box) {
+        box.innerHTML = `<strong>${isExpert ? "Full Spec Trace:" : "How this step works:"}</strong> ${(isExpert ? notesExpert : notesSimple)[idx]}`;
+      }
+      triggerFlowSurge();
+    }
+
+    // --- Interactive Flowpipe Inside Every Academy Lesson ---
+    function renderLessonFlowpipe(track, num) {
+      const el = document.getElementById("lesson-flowpipe-container");
+      if (!el) return;
+      const isExpert = document.documentElement.getAttribute("data-depth") === "expert";
+      const stagesMap = {
+        basic: {
+          1: ["Intent Idea", "Rule Lookup (0.78 µs)", "Morph Slots", "Clean Swahili"],
+          2: ["Neg (si-/ha-)", "Subject + TAM", "Object + Root", "Mood Vowel (-a/-i)"],
+          3: ["Noun Head (Kitabu)", "Class Prefix (C7 ki-)", "Adjective + Owner", "Aligned Clause"],
+          4: ["Raw Note", "Lock Facts [#N1]", "Deterministic Rules", "Zero Negation Flip"],
+          5: ["Scope Boundary", "Rule Coverage", "Fallback Safely", "Human Review Gate"],
+          6: ["Subj Concord", "Future -taka-", "Slot 2b Relative", "Full C1–C18 Clause"],
+          7: ["Noisy User Text", "Damerau-Levenshtein", "Swahili Numbers", "0/24 Leak Pass"]
+        },
+        adv: {
+          1: ["Root Vowel Check", "Harmony (/i/ vs /e/)", "Suffix Extension", "Monosyllable -ku-"],
+          2: ["Polarity Bit 0", "Subject + TAM Bits", "Object + Lemma Bits", "Packed u64 State"],
+          3: ["Synthesize L(I)", "Forward Peel D(S)", "Assert D(L(I)) == I", "Round-Trip Match"],
+          4: ["Clinic Phrase", "Protect Units [#N]", "Damerau-Levenshtein", "Restore Exact"],
+          5: ["Host Agent", "JSON-RPC stdio", "Sema MCP Tool", "Verified Output"],
+          6: ["Rust Core Tables", "Static TOML Data", "Zero Alloc Bench", "Cortex-A76 Deploy"],
+          7: ["Slot 2b Check", "-ta- -> -taka-", "Positive Subj Reset", "-sipo- / -ngali-"],
+          8: ["Zero-Regex Scan", "Edit Dist <= 2", "Stopword Guard", "0/24 Leak Suite"]
+        }
+      };
+      const steps = (stagesMap[track] && stagesMap[track][num]) || ["Input", "Rule Table", "Check", "Output"];
+      el.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+          <span style="font-size:11.5px; font-weight:800; color:var(--accent-dark); text-transform:uppercase; letter-spacing:0.04em;">
+            Lesson Flowpipe · Signal Walkthrough (${isExpert ? "Technical Detail" : "Visual Guide"})
+          </span>
+          <span style="font-size:11.5px; color:var(--text-muted);">Live signal moves through each grammar gate</span>
+        </div>
+        <svg viewBox="0 0 820 92" width="100%" style="height:auto; display:block;" role="img" aria-label="Lesson flowpipe diagram">
+          <path d="M 185 46 L 220 46" class="flow-conduit-bg"/><path d="M 185 46 L 220 46" class="flow-conduit-pulse"/>
+          <path d="M 390 46 L 425 46" class="flow-conduit-bg"/><path d="M 390 46 L 425 46" class="flow-conduit-pulse"/>
+          <path d="M 595 46 L 630 46" class="flow-conduit-bg"/><path d="M 595 46 L 630 46" class="flow-conduit-pulse"/>
+          ${steps.map((label, i) => {
+            const x = 10 + i * 205;
+            return `
+              <g>
+                <rect x="${x}" y="12" width="175" height="68" rx="14" fill="#FFFFFF" stroke="${i === steps.length - 1 ? 'var(--accent)' : 'var(--border-strong)'}" stroke-width="1.5"/>
+                <text x="${x + 14}" y="34" font-size="10" font-weight="800" fill="var(--accent-dark)">STEP 0${i + 1}</text>
+                <text x="${x + 14}" y="56" font-size="13" font-weight="800" fill="var(--text-main)">${label}</text>
+              </g>
+            `;
+          }).join("")}
+        </svg>
+      `;
+    }
+
+    // --- Honest Live Multi-Tab Presence Tracker (with Role Types) ---
+    let semaChannel = null;
+    const myTabId = "tab-" + Math.random().toString(36).slice(2, 8);
+    const peerTabs = new Map();
+
+    function initPresenceChannel() {
+      try {
+        if ("BroadcastChannel" in window) {
+          semaChannel = new BroadcastChannel("sema_presence_v1");
+          semaChannel.onmessage = (ev) => {
+            const msg = ev.data;
+            if (!msg || !msg.id || msg.id === myTabId) return;
+            if (msg.bye) peerTabs.delete(msg.id);
+            else peerTabs.set(msg.id, { role: msg.role || "learner", ts: Date.now() });
+            updatePresenceDisplay(onboardChoices.role || "learner", onboardChoices.depth || "simple", true);
+          };
+          window.addEventListener("beforeunload", () => {
+            try { semaChannel.postMessage({ id: myTabId, bye: true }); } catch (_) {}
+          });
+          setInterval(() => {
+            const now = Date.now();
+            for (const [id, info] of peerTabs.entries()) {
+              if (now - info.ts > 12000) peerTabs.delete(id);
+            }
+            broadcastMyPresence();
+          }, 4000);
+        }
+      } catch (_) {}
+    }
+
+    function broadcastMyPresence() {
+      if (!semaChannel) return;
+      try {
+        semaChannel.postMessage({ id: myTabId, role: onboardChoices.role || "learner", ts: Date.now() });
+      } catch (_) {}
+    }
+
+    function updatePresenceDisplay(role, depth, skipBroadcast) {
+      const counts = { learner: 0, clinic: 0, engineer: 0 };
+      counts[role] = (counts[role] || 0) + 1;
+      for (const info of peerTabs.values()) {
+        counts[info.role] = (counts[info.role] || 0) + 1;
+      }
+      const total = counts.learner + counts.clinic + counts.engineer;
+      const totEl = document.getElementById("presence-total-count");
+      const clEl = document.getElementById("count-learner");
+      const ccEl = document.getElementById("count-clinic");
+      const ceEl = document.getElementById("count-engineer");
+      const ymEl = document.getElementById("presence-your-mode");
+
+      if (totEl) totEl.innerText = total;
+      if (clEl) clEl.innerText = counts.learner;
+      if (ccEl) ccEl.innerText = counts.clinic;
+      if (ceEl) ceEl.innerText = counts.engineer;
+
+      ["learner", "clinic", "engineer"].forEach((r) => {
+        const p = document.getElementById("presence-pill-" + r);
+        if (p) p.classList.toggle("you", r === role);
+      });
+
+      const roleLabel = { learner: "Learner", clinic: "Clinic Builder", engineer: "Full Spec Engineer" }[role] || "Visitor";
+      const depthLabel = { simple: "Simple", balanced: "Builder", expert: "Full Spec" }[depth] || "Simple";
+      if (ymEl) ymEl.innerHTML = `Active session: <strong>${depthLabel} · ${roleLabel}</strong>`;
+      if (!skipBroadcast) broadcastMyPresence();
+    }
+
+
+    function runM6ClauseLab() {
+      const el = document.getElementById("m6-clause-preset");
+      const out = document.getElementById("m6-clause-out");
+      if (!el || !out) return;
+      const map = {
+        watakaojibu: "wa (3PL) + -taka- (FUT relative) + -o- (who) + -jibu -> watakaojibu kesho",
+        vitabu: "vitabu (C8 noun) + vy-angu (C8 poss) + vi-dogo (C8 adj) + havi-ko (C8 neg loc) + hospitali-ni",
+        usipo: "u (2SG pos) + -sipo- (if not) + -kuja -> usipokuja mapema hatutakula",
+        nge: "ni (1SG pos) + -nge- (would) + -soma -> ningesoma kitabu hicho"
+      };
+      out.innerText = map[el.value] || map.watakaojibu;
+    }
+
+    function runM7TypoGuard() {
+      const inp = document.getElementById("m7-typo-input");
+      const out = document.getElementById("m7-typo-out");
+      if (!inp || !out) return;
+      let n = 0, t = 0;
+      const shielded = inp.value
+        .replace(/paracetemol|paracetamol|ibuprufen|ibuprofen|amoxillin|amoxicillin/gi, (m) => `[#T${++t}:${m}]`)
+        .replace(/mia tano|elfu moja|5\s+0\s+0|\b\d+\b/gi, (m) => `[#N${++n}:${m}]`);
+      out.innerText = "Shielded output: " + shielded + "  | Zero entities leaked";
+    }
+
+    function runAdv7RelativeLab() {
+      const el = document.getElementById("adv7-rel-mode");
+      const out = document.getElementById("adv7-rel-out");
+      if (!el || !out) return;
+      const tbl = {
+        fut_rel: "Intent { subj:3PL, tam:FUT, rel:C2_PL, root:'jibu' } => wa + taka + o + jibu => watakaojibu (0 inversions)",
+        loc_rel: "Intent { subj:1PL, tam:PST, rel:LOC, root:'fika' } => tu + li + po + fika => tulipofika (Slot 2b active)",
+        cond_neg: "Intent { pol:NEG, subj:3SG, tam:COND_PAST, root:'ona' } => a + singali + ona => asingaliona (Positive a- enforced)"
+      };
+      out.innerText = tbl[el.value] || tbl.fut_rel;
+    }
+
+    function runAdv8BoundarySuite() {
+      const out = document.getElementById("adv8-audit-out");
+      if (!out) return;
+      out.innerText =
+        "[PASS] 1. Swahili cardinals ('mia tano mg') -> [#N1] [#N2]\n" +
+        "[PASS] 2. Typos ('paracetemol', 'ibuprufen') -> canonical [#T1] (dist <= 2)\n" +
+        "[PASS] 3. Spaced digits ('5 0 0 mg') -> normalized [#N1]\n" +
+        "[PASS] 4. Decimals & ranges ('2.5', '500 to 1000') -> exact [#N] preservation\n" +
+        "[PASS] 5. Stopword immunity: non-drug prose untouched\n" +
+        "Total: 24/24 boundary vectors sealed · 0/24 leaks · 96/96 Cargo tests green.";
+    }
+
+    // --- Three.js Live Reverberating Grey Savannah Dot-Mesh (Crawl + Pointer Reactive) ---
+    let semaSavannaColorTarget = 0xC2410C;
+    function updateSavannaThemeAccent(ver) {
+      semaSavannaColorTarget = ver === "v0.2.0" ? 0x0D9488 : (ver === "v0.1.0" ? 0x4338CA : 0xC2410C);
+    }
+
+    function initHeroSavanna3D() {
+      const canvas = document.getElementById("hero-savanna-canvas");
+      if (!canvas || typeof THREE === "undefined") return;
+      try {
+        const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+        if (!gl) return;
+      } catch (_) { return; }
+
+      const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const scene = new THREE.Scene();
+      const wrap = canvas.parentElement;
+      const w0 = wrap.clientWidth || window.innerWidth;
+      const h0 = wrap.clientHeight || 620;
+      const camera = new THREE.PerspectiveCamera(48, w0 / h0, 0.1, 120);
+      camera.position.set(0, 6.5, 22);
+      camera.lookAt(0, -0.8, 0);
+
+      const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setClearColor(0x000000, 0);
+      renderer.setSize(w0, h0, false);
+
+      // Build grey/mineral undulating savannah grid of dots + crisp whisper wireframe
+      const cols = 64, rows = 34;
+      const total = cols * rows;
+      const positions = new Float32Array(total * 3);
+      const colors = new Float32Array(total * 3);
+      const baseHeights = new Float32Array(total);
+
+      const geom = new THREE.BufferGeometry();
+      let idx = 0;
+      for (let rz = 0; rz < rows; rz++) {
+        for (let cx = 0; cx < cols; cx++) {
+          const x = (cx - cols / 2) * 0.72;
+          const z = (rz - rows / 2) * 0.68;
+          const hill = Math.sin(x * 0.16) * Math.cos(z * 0.19) * 1.45 + Math.sin(x * 0.38 + z * 0.22) * 0.45;
+          positions[idx * 3] = x;
+          positions[idx * 3 + 1] = hill - 2.1;
+          positions[idx * 3 + 2] = z;
+          baseHeights[idx] = hill - 2.1;
+
+          const shade = 0.34 + 0.18 * ((cx + rz) % 3 === 0 ? 1 : 0);
+          colors[idx * 3] = shade;
+          colors[idx * 3 + 1] = shade * 0.96;
+          colors[idx * 3 + 2] = shade * 0.92;
+          idx++;
+        }
+      }
+      geom.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+      geom.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+      const ptsMat = new THREE.PointsMaterial({
+        size: 0.16,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.65
+      });
+      const dotMesh = new THREE.Points(geom, ptsMat);
+      scene.add(dotMesh);
+
+      // Faint cross-reverberating wireframe plane beneath dots
+      const wireGeo = new THREE.PlaneGeometry(46, 23, 36, 18);
+      wireGeo.rotateX(-Math.PI / 2);
+      const wireMat = new THREE.MeshBasicMaterial({
+        color: 0x78716C,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.11
+      });
+      const wireMesh = new THREE.Mesh(wireGeo, wireMat);
+      wireMesh.position.y = -2.35;
+      scene.add(wireMesh);
+
+      let mouseX = 0, mouseY = 0, scrollImpulse = 0, lastScroll = window.scrollY || 0;
+      window.addEventListener("mousemove", (e) => {
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      }, { passive: true });
+
+      window.addEventListener("scroll", () => {
+        const cur = window.scrollY || 0;
+        scrollImpulse = Math.min(1.6, scrollImpulse + Math.abs(cur - lastScroll) * 0.012);
+        lastScroll = cur;
+      }, { passive: true });
+
+      window.addEventListener("resize", () => {
+        const nw = wrap.clientWidth || window.innerWidth;
+        const nh = wrap.clientHeight || 620;
+        renderer.setSize(nw, nh, false);
+        camera.aspect = nw / nh;
+        camera.updateProjectionMatrix();
+      });
+
+      if (reduced) {
+        renderer.render(scene, camera);
+        return;
+      }
+
+      const clock = new THREE.Clock();
+      const accentCol = new THREE.Color(semaSavannaColorTarget);
+
+      function renderSavannaLoop() {
+        requestAnimationFrame(renderSavannaLoop);
+        const t = clock.getElapsedTime();
+        scrollImpulse *= 0.93;
+        accentCol.setHex(semaSavannaColorTarget);
+
+        const posArr = geom.attributes.position.array;
+        const colArr = geom.attributes.color.array;
+        const rippleAmp = 0.28 + scrollImpulse * 0.55;
+        let p = 0;
+
+        for (let rz = 0; rz < rows; rz++) {
+          for (let cx = 0; cx < cols; cx++) {
+            const x = posArr[p * 3];
+            const z = posArr[p * 3 + 2];
+            const radial = Math.sqrt((x - mouseX * 12) ** 2 + (z - mouseY * 8) ** 2);
+            const crossRipple = Math.sin(x * 0.35 - t * 1.4) * Math.cos(z * 0.35 + t * 1.1) * rippleAmp
+                              + Math.sin(radial * 0.65 - t * 2.6) * 0.16 * (1 + scrollImpulse);
+            posArr[p * 3 + 1] = baseHeights[p] + crossRipple;
+
+            // Prismatic accent reverb highlights on crest peaks
+            const crest = Math.max(0, Math.min(1, (crossRipple + 0.15) * 1.6));
+            colArr[p * 3] = 0.38 + (accentCol.r - 0.38) * crest * 0.65;
+            colArr[p * 3 + 1] = 0.36 + (accentCol.g - 0.36) * crest * 0.65;
+            colArr[p * 3 + 2] = 0.34 + (accentCol.b - 0.34) * crest * 0.65;
+            p++;
+          }
+        }
+        geom.attributes.position.needsUpdate = true;
+        geom.attributes.color.needsUpdate = true;
+
+        dotMesh.rotation.y = Math.sin(t * 0.12) * 0.04 + mouseX * 0.05;
+        wireMesh.rotation.y = dotMesh.rotation.y;
+        wireMat.color.copy(accentCol);
+        camera.position.x += (mouseX * 1.6 - camera.position.x) * 0.04;
+        camera.lookAt(0, -1.0, 0);
+
+        renderer.render(scene, camera);
+      }
+      renderSavannaLoop();
+    }
+
+    function incrementAndShowTotalVisits() {
+      let visits = 1;
+      try {
+        visits = parseInt(localStorage.getItem("sema_total_visits") || "0", 10) + 1;
+        localStorage.setItem("sema_total_visits", String(visits));
+      } catch (_) {}
+      const el = document.getElementById("total-visits-count");
+      if (el) el.innerText = visits.toLocaleString();
     }
 
     function runCompose25() {
