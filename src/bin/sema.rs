@@ -1,8 +1,12 @@
-//! Sema CLI - Official Command-Line Interface (CLI) for the Sema Engine.
+//! Sema CLI - Official Command-Line Interface (CLI) for the Sema Engine (v0.2.5).
 //!
 //! Subcommands:
-//!   sema synth --subj 3PL --tense FUT --root jibu --obj ku --neg
+//!   sema synth --subj 3PL --tense FUT --root jibu --obj ku --neg [--rel C1] [--deriv passive]
+//!   sema validate --subj 1SG --tense PRES --root soma
+//!   sema concord --kind copula|loc_cop|have|assoc|poss|dem|adj|num|loc ...
+//!   sema compose "{t:child} {poss:@child|1SG} {loc_cop:@child|ko} {loc:@hospital}"
 //!   sema morph <word>
+//!   sema roundtrip <word>
 //!   sema anchor <word>
 //!   sema terms <sentence>
 //!   sema gui [--port 4242]
@@ -10,11 +14,15 @@
 //!   sema health
 //!   sema bench
 
-use sema::backpass;
+use sema::compose::Composer;
+use sema::concord::ConcordEngine;
+use sema::guardian::FactGuardian;
 use sema::lexicon::Lexicon;
 use sema::linearizer;
-use sema::terms::TermDict;
+use sema::morph::Decomposer;
+use sema::synth::{Engine as SynthEngine, Intent as SynthIntent};
 use serde_json::json;
+use std::path::Path;
 use std::process::Command;
 
 fn print_help() {
@@ -24,41 +32,43 @@ fn print_help() {
  \___ \ / _ \ '_ ` _ \ / _` | 
   ___) |  __/ | | | | | (_| | 
  |____/ \___|_| |_| |_|\__,_| 
- Offline Swahili Language Studio & Deterministic Engine (v0.2.0)
+ Offline Swahili Language Studio & Deterministic Engine (v{})
  Nama Research Lab · https://github.com/Nama-ResearchLab/Sema
 
 USAGE:
   sema <COMMAND> [OPTIONS]
 
 COMMANDS:
-  gui, studio     Launch the interactive claymorphic web studio (default: port 4242)
+  gui, studio     Launch the interactive web studio (default: port 4242)
   mcp             Run as a Model Context Protocol (MCP) server over stdio
-  synth           Synthesize an exact Swahili verb from structured slot intents
-  morph           Decompose any Swahili verb into structured morpheme slots
+  synth           Synthesize an exact Swahili verb (with relatives, conditionals, derivations)
+  validate        Strictly validate intent slots against sw.toml
+  concord         Synthesize 18-class non-verbal concords (copula, loc_cop, have, assoc, poss, dem, adj, num, loc)
+  compose         Compile a deterministic Swahili clause template
+  morph           Decompose a Swahili verb or concord word into slots + round-trip check
+  roundtrip       Verify exact parse -> re-synthesis round-trip invariant
   anchor          Resolve a surface word to dictionary lemma, POS, and English gloss
-  terms           Protect clinical medication names and dosages behind opaque IDs
-  health          Check local lexicon health, lemma count, and benchmark latency
+  terms           Protect clinical drugs, Swahili numbers, ranges, and decimals behind opaque IDs
+  health          Check engine tables, lexicon lemmas, and invariant status
   bench           Execute in-memory realization performance benchmark
   version         Print version information
   help            Print this help menu
 
 EXAMPLES:
-  # Launch the graphical studio:
-  sema gui
+  # Synthesize with relative clause + future -taka- allomorph:
+  sema synth --subj 3PL --tense FUT --rel C2 --root jibu
+  # Output: watakaojibu
 
-  # Synthesize a Swahili verb from intent:
-  sema synth --subj 3PL --tense FUT --root jibu --obj ku --neg
-  # Output: hawatakujibu
+  # Noun-class adjective & locative concord:
+  sema concord --kind adj --class KI --stem dogo
+  sema compose "{{t:child}} {{poss:@child|1SG}} {{loc_cop:@child|ko}} {{loc:@hospital}}"
 
-  # Deconstruct a Swahili surface word:
-  sema morph hawatakujibu
+  # Decompose and verify exact round-trip:
+  sema roundtrip waliowaua
 
-  # Shield clinical dosages:
-  sema terms "Mpe mtoto vidonge viwili vya paracetamol 500 mg mara mbili kwa siku"
-
-  # Run as Model Context Protocol (MCP) tool provider for local agent environments:
-  sema mcp
-"#);
+  # Shield clinical dosages, Swahili number words, and misspelled drugs:
+  sema terms "Meza paracetemol mia tano mg kila asubuhi"
+"#, sema::VERSION);
 }
 
 fn main() {
@@ -77,7 +87,11 @@ fn main() {
         "gui" | "studio" => run_gui(&args[2..]),
         "mcp" => run_mcp(),
         "synth" => run_synth(&args[2..]),
+        "validate" => run_validate(&args[2..]),
+        "concord" => run_concord(&args[2..]),
+        "compose" => run_compose(&args[2..]),
         "morph" => run_morph(&args[2..]),
+        "roundtrip" => run_roundtrip(&args[2..]),
         "anchor" => run_anchor(&args[2..]),
         "terms" => run_terms(&args[2..]),
         "health" => run_health(&args[2..]),
@@ -148,8 +162,7 @@ fn run_mcp() {
     }
 }
 
-fn run_synth(args: &[String]) {
-    let engine = backpass::engine();
+fn parse_synth_intent(args: &[String]) -> SynthIntent {
     let root = flag(args, "--root")
         .or_else(|| args.iter().find(|a| !a.starts_with('-')).cloned())
         .unwrap_or_else(|| "jibu".to_string());
@@ -170,38 +183,166 @@ fn run_synth(args: &[String]) {
                 other => other.to_string(),
             }
         });
+    let rel = flag(args, "--rel").or_else(|| flag(args, "-r"));
     let obj = flag(args, "--obj").or_else(|| flag(args, "-o"));
     let neg = has(args, "--neg") || has(args, "-n");
+    let is_imp = has(args, "--imperative");
+    let is_pl = has(args, "--plural");
+    let mood = flag(args, "--mood").unwrap_or_else(|| {
+        if is_imp && is_pl {
+            "eni".to_string()
+        } else {
+            "a".to_string()
+        }
+    });
+    let derivations = flag(args, "--deriv")
+        .map(|d| d.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
+        .unwrap_or_default();
 
-    let mut intent = backpass::intent_from_parts(
-        &engine,
-        subj.as_deref(),
-        tense.as_deref(),
-        neg,
-        obj.as_deref(),
-        &root,
-    );
+    SynthIntent {
+        subject: if is_imp { None } else { subj },
+        tense: if is_imp { None } else { tense },
+        negation: neg,
+        relative: rel,
+        object: obj,
+        root,
+        derivations,
+        mood,
+        particles: Vec::new(),
+    }
+}
 
-    if let Some(d) = flag(args, "--deriv") {
-        intent.derivations = d.split(',').map(|s| s.trim().to_string()).collect();
+fn run_synth(args: &[String]) {
+    let engine = SynthEngine::swahili();
+    let intent = parse_synth_intent(args);
+    if has(args, "--strict") {
+        if let Err(errors) = engine.validate(&intent) {
+            eprintln!("Validation error: {}", serde_json::to_string(&errors).unwrap());
+            std::process::exit(2);
+        }
     }
 
     let out = engine.synthesize(&intent);
-    let realized = out.surface;
     if has(args, "--json") {
-        let out = json!({
-            "surface": realized,
-            "root": root,
-            "subject": subj,
-            "tense": tense,
-            "object": obj,
-            "negative": neg,
+        let j = json!({
+            "surface": out.surface,
+            "slots": out.slots,
+            "subject_class": out.subject_class,
+            "object_class": out.object_class,
             "verified": true,
-            "latency_us": 0.78
         });
-        println!("{}", serde_json::to_string_pretty(&out).unwrap());
+        println!("{}", serde_json::to_string_pretty(&j).unwrap());
     } else {
-        println!("{}", realized);
+        println!("{}", out.surface);
+    }
+}
+
+fn run_validate(args: &[String]) {
+    let engine = SynthEngine::swahili();
+    let intent = parse_synth_intent(args);
+    match engine.validate(&intent) {
+        Ok(()) => println!("{}", json!({ "valid": true, "errors": [] })),
+        Err(errors) => {
+            println!("{}", json!({ "valid": false, "errors": errors }));
+            std::process::exit(2);
+        }
+    }
+}
+
+fn run_concord(args: &[String]) {
+    let concord = ConcordEngine::swahili();
+    let kind = flag(args, "--kind").unwrap_or_else(|| "copula".to_string());
+    let neg = has(args, "--neg") || has(args, "-n");
+    let res: Result<String, String> = match kind.as_str() {
+        "copula" => Ok(concord.copula(neg)),
+        "emph_copula" => Ok(concord.emphatic_copula(neg)),
+        "loc_cop" => {
+            let subj = flag(args, "--subj").unwrap_or_else(|| "C1".to_string());
+            let loc = flag(args, "--loc").unwrap_or_else(|| "ko".to_string());
+            concord.locative_copula(&subj, &loc, neg)
+        }
+        "have" => {
+            let subj = flag(args, "--subj").unwrap_or_else(|| "C1".to_string());
+            concord.have(&subj, neg)
+        }
+        "assoc" => concord.associative(&flag(args, "--class").unwrap_or_else(|| "KI".to_string())),
+        "poss" => {
+            let cls = flag(args, "--class").unwrap_or_else(|| "C1".to_string());
+            let owner = flag(args, "--owner").unwrap_or_else(|| "1SG".to_string());
+            concord.possessive(&cls, &owner)
+        }
+        "dem" => {
+            let cls = flag(args, "--class").unwrap_or_else(|| "KI".to_string());
+            let dist = flag(args, "--dist").unwrap_or_else(|| "prox".to_string());
+            concord.demonstrative(&cls, &dist)
+        }
+        "adj" => {
+            let cls = flag(args, "--class").unwrap_or_else(|| "KI".to_string());
+            let stem = flag(args, "--stem").unwrap_or_else(|| "dogo".to_string());
+            concord.adjective(&cls, &stem)
+        }
+        "num" => {
+            let cls = flag(args, "--class").unwrap_or_else(|| "KI".to_string());
+            let n: u32 = flag(args, "--n").and_then(|s| s.parse().ok()).unwrap_or(1);
+            concord.numeral(&cls, n)
+        }
+        "loc" => Ok(concord.locative_noun(&flag(args, "--noun").unwrap_or_else(|| "hospitali".to_string()))),
+        other => Err(format!("unknown concord kind: {other}")),
+    };
+    match res {
+        Ok(surface) => {
+            if has(args, "--json") {
+                println!("{}", serde_json::to_string_pretty(&json!({ "kind": kind, "surface": surface })).unwrap());
+            } else {
+                println!("{surface}");
+            }
+        }
+        Err(e) => {
+            eprintln!("error: {e}");
+            std::process::exit(2);
+        }
+    }
+}
+
+fn run_compose(args: &[String]) {
+    let tpl = flag(args, "--template")
+        .or_else(|| args.iter().find(|a| !a.starts_with('-')).cloned())
+        .unwrap_or_else(|| "{t:child} {poss:@child|1SG} {loc_cop:@child|ko} {loc:@hospital}".to_string());
+    let composer = Composer::swahili();
+    match composer.render(&tpl) {
+        Ok(out) => {
+            if has(args, "--json") {
+                println!("{}", serde_json::to_string_pretty(&out).unwrap());
+            } else {
+                println!("{}", out.surface);
+            }
+        }
+        Err(e) => {
+            eprintln!("compose error: {e}");
+            std::process::exit(2);
+        }
+    }
+}
+
+fn load_v25_decomposer() -> Decomposer {
+    let mut dec = Decomposer::swahili();
+    let p = Path::new("data/swahili.distilled.jsonl");
+    if p.is_file() {
+        let _ = dec.load_distilled_lexicon(p);
+    }
+    dec
+}
+
+fn run_roundtrip(args: &[String]) {
+    let word = flag(args, "--word")
+        .or_else(|| args.iter().find(|a| !a.starts_with('-')).cloned())
+        .unwrap_or_else(|| "waliowaua".to_string());
+    let dec = load_v25_decomposer();
+    let rep = dec.verify_roundtrip(&word);
+    if has(args, "--json") {
+        println!("{}", serde_json::to_string_pretty(&rep).unwrap());
+    } else {
+        println!("input={} ok={} output={:?}", rep.input, rep.ok, rep.output);
     }
 }
 
@@ -209,6 +350,18 @@ fn run_morph(args: &[String]) {
     let word = flag(args, "--word")
         .or_else(|| args.iter().find(|a| !a.starts_with('-')).cloned())
         .unwrap_or_else(|| "hawatakujibu".to_string());
+
+    let dec_v25 = load_v25_decomposer();
+    if let Some(d) = dec_v25.decompose(&word) {
+        if has(args, "--json") {
+            println!("{}", serde_json::to_string_pretty(&d).unwrap());
+        } else {
+            println!("Surface Word: {} ({:?})", d.word, d.kind);
+            println!("  Slots:      {:?}", d.slots);
+            println!("  Roundtrip:  {:?} (exact={})", d.surface_roundtrip, d.roundtrip_exact);
+        }
+        return;
+    }
 
     let decomp = linearizer::decompose_verb(&word);
     if has(args, "--json") {
@@ -279,53 +432,49 @@ fn run_anchor(args: &[String]) {
 fn run_terms(args: &[String]) {
     let text = flag(args, "--text")
         .or_else(|| args.iter().find(|a| !a.starts_with('-')).cloned())
-        .unwrap_or_else(|| "Give two tablets of paracetamol 500 mg twice daily".to_string());
+        .unwrap_or_else(|| "Give paracetemol mia tano mg to the child daily".to_string());
 
-    let dict = TermDict::from_tsv(include_str!("../../data/terms.clinical.tsv"));
-    let shielded = dict.protect(&text);
+    let guardian = FactGuardian::default_clinical();
+    let shielded = guardian.protect(&text);
     if has(args, "--json") {
-        let slots_val: Vec<serde_json::Value> = shielded
-            .slots
-            .iter()
-            .map(|s| {
-                json!({
-                    "id": s.id,
-                    "en": s.en,
-                    "sw": s.sw,
-                    "class": s.class
-                })
-            })
-            .collect();
-        println!("{}", serde_json::to_string_pretty(&json!({
-            "original": text,
-            "shielded": shielded.text,
-            "tokens": slots_val
-        })).unwrap());
+        println!("{}", serde_json::to_string_pretty(&shielded).unwrap());
     } else {
         println!("Original: {}", text);
         println!("Shielded: {}", shielded.text);
+        println!("Slots:    {}", shielded.slots.len());
     }
 }
 
 fn run_health(args: &[String]) {
     let data = flag(args, "--data").unwrap_or_else(|| "data/swahili.distilled.jsonl".to_string());
     println!("Checking Sema health...");
+    let m = sema::Morphology::swahili();
+    println!("  [OK] Engine:     Sema v{} (zero rules in code)", sema::VERSION);
+    println!("  [OK] Morphology: {} tenses, {} relatives, {} derivation rules", m.tenses.len(), m.relatives.len(), m.derivation_variants.len());
     match Lexicon::load(&data) {
         Ok(lex) => {
-            println!("  [✓] Engine:   Sema v{}", sema::VERSION);
-            println!("  [✓] Lexicon:  {} lemmas loaded from '{}'", lex.len(), data);
-            println!("  [✓] Status:   100% Deterministic Realizer Active");
+            println!("  [OK] Lexicon:    {} lemmas loaded from '{}'", lex.len(), data);
         }
         Err(e) => {
-            println!("  [!] Lexicon warning: {e} (bundled dictionary fallback operational)");
+            println!("  [!]  Lexicon warning: {e}");
         }
     }
 }
 
 fn run_bench(_args: &[String]) {
     println!("Running microarchitectural benchmark (100,000 realizations)...");
-    let engine = backpass::engine();
-    let intent = backpass::intent_from_parts(&engine, Some("3PL"), Some("FUT"), true, Some("ku"), "jibu");
+    let engine = SynthEngine::swahili();
+    let intent = SynthIntent {
+        subject: Some("3PL".into()),
+        tense: Some("FUT".into()),
+        negation: true,
+        relative: None,
+        object: Some("ku".into()),
+        root: "jibu".into(),
+        derivations: vec![],
+        mood: "a".into(),
+        particles: vec![],
+    };
 
     let start = std::time::Instant::now();
     let count = 100_000;
@@ -339,7 +488,6 @@ fn run_bench(_args: &[String]) {
 
     println!("  Total iterations: {}", count);
     println!("  Total time:       {:.2} ms", elapsed.as_secs_f64() * 1000.0);
-    println!("  Mean latency:     {:.2} µs / word ({:.0} ns)", us, nanos);
+    println!("  Mean latency:     {:.2} us / word ({:.0} ns)", us, nanos);
     println!("  Throughput:       {} ops / second", ops_per_sec);
-    println!("  Polarity test:    self-consistency check consistent (100 gold intents)");
 }

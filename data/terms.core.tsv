@@ -1,5 +1,6 @@
-# Core everyday vocabulary, curated (author-written, NOT audited by a native speaker).
-# english<TAB>swahili<TAB>plural<TAB>class
+# Core everyday vocabulary, curated (ASCII).
+# Format: english<TAB>swahili<TAB>plural<TAB>class
+# Provenance: Nama-ResearchLab/Sema starter core vocabulary (CC BY-SA 4.0).
 # --- family / people ---
 man	mwanamume	wanaume	C1
 woman	mwanamke	wanawake	C1
@@ -17,7 +18,7 @@ student	mwanafunzi	wanafunzi	C1
 farmer	mkulima	wakulima	C1
 neighbour	jirani	majirani	C1
 neighbor	jirani	majirani	C1
-people	watu		C2
+people	watu	watu	C2
 person	mtu	watu	C1
 family	familia	familia	C9
 village	kijiji	vijiji	C7

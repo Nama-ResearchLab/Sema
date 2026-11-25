@@ -1,9 +1,10 @@
-# Sema term dictionary (drop-in). TAB separated:
-# english<TAB>swahili<TAB>swahili plural (optional)<TAB>noun class (optional, C1..C18)
-# Phrases are allowed as English keys; the longest match wins.
-# Author-written starter set, NOT audited by a native speaker. Replace/extend freely.
+# Sema clinical term dictionary (drop-in, ASCII).
+# Format: english<TAB>swahili<TAB>swahili plural (optional)<TAB>noun class (optional, C1..C18)<TAB>kind (optional)
+# Phrases are allowed as keys; longest match wins.
+# Provenance: starter clinical set from Nama-ResearchLab/Sema (CC BY-SA 4.0) + v2.5 drug/brand expansion.
 # --- people ---
 child	mtoto	watoto	C1
+children	watoto	watoto	C2
 baby	mtoto mchanga	watoto wachanga	C1
 patient	mgonjwa	wagonjwa	C1
 doctor	daktari	madaktari	C1
@@ -54,6 +55,8 @@ medicine	dawa	dawa	C9
 tablet	kidonge	vidonge	C7
 injection	sindano	sindano	C9
 vaccine	chanjo	chanjo	C9
+suspension	dawa ya maji	dawa za maji	C9
+syrup	dawa ya maji	dawa za maji	C9
 oral rehydration solution	maji ya chumvi na sukari
 sample	sampuli	sampuli	C9
 water	maji	maji	C6
@@ -68,6 +71,8 @@ before meals	kabla ya kula
 one tablet	kidonge kimoja
 two tablets	vidonge viwili
 return to the clinic	rudi kliniki
+daily	kwa siku
+orally	kwa mdomo
 # --- time ---
 today	leo
 tomorrow	kesho
@@ -77,12 +82,44 @@ night	usiku
 day	siku	siku	C9
 week	wiki	wiki	C9
 month	mwezi	miezi	C3
-# --- additions for the 100-pair bench ---
 one week	wiki moja
 three days	siku tatu
 five days	siku tano
 seven days	siku saba
 urine sample	sampuli ya mkojo
-aspirin	aspirini
-paracetamol	parasetamoli
-children	watoto	watoto	C2
+# --- generic clinical drugs ---
+aspirin	aspirini	aspirini	C9	drug
+paracetamol	paracetamol	paracetamol	C9	drug
+amoxicillin	amoxicillin	amoxicillin	C9	drug
+ibuprofen	ibuprofen	ibuprofen	C9	drug
+metformin	metformin	metformin	C9	drug
+insulin	insulini	insulini	C9	drug
+metronidazole	metronidazole	metronidazole	C9	drug
+cotrimoxazole	cotrimoxazole	cotrimoxazole	C9	drug
+artemether	artemether	artemether	C9	drug
+lumefantrine	lumefantrine	lumefantrine	C9	drug
+albendazole	albendazole	albendazole	C9	drug
+ciprofloxacin	ciprofloxacin	ciprofloxacin	C9	drug
+doxycycline	doxycycline	doxycycline	C9	drug
+omeprazole	omeprazole	omeprazole	C9	drug
+salbutamol	salbutamol	salbutamol	C9	drug
+azithromycin	azithromycin	azithromycin	C9	drug
+ceftriaxone	ceftriaxone	ceftriaxone	C9	drug
+gentamicin	gentamicin	gentamicin	C9	drug
+chloroquine	klorokwini	klorokwini	C9	drug
+quinine	kwinini	kwinini	C9	drug
+zinc	zinki	zinki	C9	drug
+folic acid	asidi ya foliki	asidi ya foliki	C9	drug
+# --- common East African / clinical brand names ---
+panadol	Panadol	Panadol	C9	brand
+septra	Septra	Septra	C9	brand
+septrin	Septrin	Septrin	C9	brand
+augmentin	Augmentin	Augmentin	C9	brand
+coartem	Coartem	Coartem	C9	brand
+flagyl	Flagyl	Flagyl	C9	brand
+brufen	Brufen	Brufen	C9	brand
+amoxil	Amoxil	Amoxil	C9	brand
+calpol	Calpol	Calpol	C9	brand
+hedex	Hedex	Hedex	C9	brand
+piriton	Piriton	Piriton	C9	brand
+ventolin	Ventolin	Ventolin	C9	brand

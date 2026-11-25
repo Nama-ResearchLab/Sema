@@ -18,11 +18,17 @@
 //!
 //! Every command ends with `--json` (default) and writes one JSON document.
 
+use sema::compose::Composer;
+use sema::concord::ConcordEngine;
+use sema::guardian::{FactGuardian, ProtectedText, RestoreMode};
 use sema::lexicon::{Lexicon, Skeleton, segment_words};
 use sema::linearizer;
+use sema::morph::Decomposer;
 use sema::racer::{RaceResult, Racer};
 use sema::rolodex::{Intent, Rolodex};
+use sema::synth::{Engine as SynthEngine, Intent as SynthIntent};
 use serde_json::{Map, Value, json};
+use std::path::Path;
 use std::time::Instant;
 
 fn main() {
@@ -46,6 +52,13 @@ fn run(args: &[String]) -> Result<Value, String> {
         "health" => health(args),
         "anchor" => anchor(args),
         "morph" => morph(args),
+        "morph25" => morph25_cmd(args),
+        "roundtrip" => roundtrip_cmd(args),
+        "validate" => validate_cmd(args),
+        "concord" => concord_cmd(args),
+        "compose" => compose_cmd(args),
+        "protect" => protect_cmd(args),
+        "restore" => restore_cmd(args),
         "linearize" => linearize(args),
         "rolodex" => rolodex(args),
         "synth" => synth(args),
@@ -229,35 +242,119 @@ fn rolodex(args: &[String]) -> Result<Value, String> {
     }))
 }
 
-fn synth(args: &[String]) -> Result<Value, String> {
-    let e = sema::backpass::engine();
+fn synth_intent_from_args(args: &[String]) -> Result<SynthIntent, String> {
     let root = flag(args, "--root").ok_or("missing --root")?;
-    let mut intent = sema::backpass::intent_from_parts(
-        &e,
-        flag(args, "--subj").as_deref(),
-        flag(args, "--tense").as_deref(),
-        has(args, "--neg"),
-        flag(args, "--obj").as_deref(),
-        &root,
-    );
-    intent.derivations = flag(args, "--deriv")
-        .map(|s| {
-            s.split(',')
-                .map(|t| t.trim().to_string())
-                .filter(|t| !t.is_empty())
-                .collect()
-        })
+    let derivations: Vec<String> = flag(args, "--deriv")
+        .map(|s| s.split(',').map(|t| t.trim().to_string()).filter(|t| !t.is_empty()).collect())
         .unwrap_or_default();
-    if let Some(mood) = flag(args, "--mood") {
-        intent.mood = mood;
+    let is_imp = has(args, "--imperative");
+    let is_pl = has(args, "--plural");
+    let mood = flag(args, "--mood").unwrap_or_else(|| {
+        if is_imp && is_pl { "eni".to_string() } else { "a".to_string() }
+    });
+    Ok(SynthIntent {
+        subject: if is_imp { None } else { flag(args, "--subj") },
+        tense: if is_imp { None } else { flag(args, "--tense") },
+        negation: has(args, "--neg"),
+        relative: flag(args, "--rel"),
+        object: flag(args, "--obj"),
+        root,
+        derivations,
+        mood,
+        particles: Vec::new(),
+    })
+}
+
+fn synth(args: &[String]) -> Result<Value, String> {
+    let e = SynthEngine::swahili();
+    let intent = synth_intent_from_args(args)?;
+    if has(args, "--strict") {
+        if let Err(errors) = e.validate(&intent) {
+            return Ok(json!({ "ok": false, "errors": errors }));
+        }
     }
     let out = e.synthesize(&intent);
     Ok(json!({
+        "ok": true,
         "surface": out.surface,
         "slots": out.slots,
         "subject_class": out.subject_class,
         "object_class": out.object_class,
     }))
+}
+
+fn validate_cmd(args: &[String]) -> Result<Value, String> {
+    let e = SynthEngine::swahili();
+    let intent = synth_intent_from_args(args)?;
+    match e.validate(&intent) {
+        Ok(()) => Ok(json!({ "valid": true, "errors": [] })),
+        Err(errors) => Ok(json!({ "valid": false, "errors": errors })),
+    }
+}
+
+fn morph25_cmd(args: &[String]) -> Result<Value, String> {
+    let word = flag(args, "--word").ok_or("missing --word")?;
+    let mut dec = Decomposer::swahili();
+    let p = Path::new("data/swahili.distilled.jsonl");
+    if p.is_file() {
+        let _ = dec.load_distilled_lexicon(p);
+    }
+    match dec.decompose(&word) {
+        Some(d) => Ok(json!({ "resolved": true, "decomposition": d })),
+        None => Ok(json!({ "resolved": false, "word": word })),
+    }
+}
+
+fn roundtrip_cmd(args: &[String]) -> Result<Value, String> {
+    let word = flag(args, "--word").ok_or("missing --word")?;
+    let mut dec = Decomposer::swahili();
+    let p = Path::new("data/swahili.distilled.jsonl");
+    if p.is_file() {
+        let _ = dec.load_distilled_lexicon(p);
+    }
+    serde_json::to_value(dec.verify_roundtrip(&word)).map_err(|e| e.to_string())
+}
+
+fn concord_cmd(args: &[String]) -> Result<Value, String> {
+    let concord = ConcordEngine::swahili();
+    let kind = flag(args, "--kind").ok_or("missing --kind")?;
+    let neg = has(args, "--neg");
+    let surface = match kind.as_str() {
+        "copula" => concord.copula(neg),
+        "emph_copula" => concord.emphatic_copula(neg),
+        "loc_cop" => concord.locative_copula(&flag(args, "--subj").ok_or("missing --subj")?, &flag(args, "--loc").unwrap_or_else(|| "ko".into()), neg)?,
+        "have" => concord.have(&flag(args, "--subj").ok_or("missing --subj")?, neg)?,
+        "assoc" => concord.associative(&flag(args, "--class").ok_or("missing --class")?)?,
+        "poss" => concord.possessive(&flag(args, "--class").ok_or("missing --class")?, &flag(args, "--owner").ok_or("missing --owner")?)?,
+        "dem" => concord.demonstrative(&flag(args, "--class").ok_or("missing --class")?, &flag(args, "--dist").unwrap_or_else(|| "prox".into()))?,
+        "adj" => concord.adjective(&flag(args, "--class").ok_or("missing --class")?, &flag(args, "--stem").ok_or("missing --stem")?)?,
+        "num" => {
+            let n: u32 = flag(args, "--n").ok_or("missing --n")?.parse().map_err(|_| "invalid --n")?;
+            concord.numeral(&flag(args, "--class").ok_or("missing --class")?, n)?
+        }
+        "loc" => concord.locative_noun(&flag(args, "--noun").ok_or("missing --noun")?),
+        other => return Err(format!("unknown concord --kind '{other}'")),
+    };
+    Ok(json!({ "kind": kind, "surface": surface }))
+}
+
+fn compose_cmd(args: &[String]) -> Result<Value, String> {
+    let tpl = flag(args, "--template").ok_or("missing --template")?;
+    let out = Composer::swahili().render(&tpl)?;
+    serde_json::to_value(out).map_err(|e| e.to_string())
+}
+
+fn protect_cmd(args: &[String]) -> Result<Value, String> {
+    let text = flag(args, "--text").ok_or("missing --text")?;
+    serde_json::to_value(FactGuardian::default_clinical().protect(&text)).map_err(|e| e.to_string())
+}
+
+fn restore_cmd(args: &[String]) -> Result<Value, String> {
+    let text = flag(args, "--text").ok_or("missing --text")?;
+    let p_json = flag(args, "--protected-json").ok_or("missing --protected-json")?;
+    let p: ProtectedText = serde_json::from_str(&p_json).map_err(|e| format!("bad --protected-json: {e}"))?;
+    let mode = if has(args, "--bilingual") { RestoreMode::Bilingual } else { RestoreMode::Swahili };
+    serde_json::to_value(FactGuardian::default_clinical().restore(&text, &p, mode)).map_err(|e| e.to_string())
 }
 
 /// terms: protect English text with IDs, optionally restore a model output,

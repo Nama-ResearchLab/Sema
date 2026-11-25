@@ -1,8 +1,8 @@
 [package]
 name = "sema"
-version = "0.2.0"
+version = "0.2.5"
 edition = "2024"
-description = "Sema - offline semantic anchoring for low-resource languages. Distilled Wiktionary lexicons + morphology-aware word resolution and slot synthesis. No cloud, no model."
+description = "Sema (v0.2.5) - Offline deterministic Swahili morphology, 18-class concord, decomposition, clause synthesis, and clinical fact shielding. No cloud, no model."
 license = "MIT"
 repository = "https://github.com/Nama-ResearchLab/Sema"
 keywords = ["swahili", "nlp", "lexicon", "morphology", "low-resource"]

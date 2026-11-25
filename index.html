@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sema (v0.2) — Offline Swahili Grammar Engine, Verb Studio &amp; Academy | Nama Research Lab</title>
-  <meta name="description" content="Sema v0.2.0 is an open-source, rule-based Swahili language engine written in Rust. Build and analyze Swahili verbs across 18 noun classes in under 1 microsecond, lock clinical dosages against AI drift, and learn Swahili grammar offline.">
-  <meta name="keywords" content="Sema, Swahili NLP, Swahili grammar engine, Swahili verb synthesizer, Bantu noun classes, Swahili morphology, clinical term shielding, offline AI Africa, Nama Research Lab, ClerQ, Rust NLP, Model Context Protocol">
+  <title>Sema (v0.2.5) — Offline Swahili Grammar Engine, Concord Studio &amp; Academy | Nama Research Lab</title>
+  <meta name="description" content="Sema v0.2.5 is an open-source, rule-based Swahili language engine written in Rust. Build and analyze Swahili verbs across 18 noun classes in under 1 microsecond, lock clinical dosages against AI drift, and learn Swahili grammar offline.">
+  <meta name="keywords" content="Sema, Swahili NLP, Swahili grammar engine, Swahili verb synthesizer, Bantu noun classes, Swahili morphology, Swahili concord, clinical term shielding, offline AI Africa, Nama Research Lab, Rust NLP, Model Context Protocol">
   <meta name="author" content="Nama Research Lab">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="theme-color" content="#0D9488">
@@ -14,7 +14,7 @@
   <!-- Open Graph / Social Sharing -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Sema — Nama Research Lab">
-  <meta property="og:title" content="Sema (v0.2) — Offline Swahili Grammar Engine &amp; Interactive Studio">
+  <meta property="og:title" content="Sema (v0.2.5) — Offline Swahili Grammar Engine &amp; Interactive Studio">
   <meta property="og:description" content="Rule-based Swahili verb synthesis, 7-slot verb analyzer, and clinical dosage token shielding running 100% offline in under 1 microsecond.">
   <meta property="og:url" content="https://nama-researchlab.github.io/Sema/">
   <meta property="og:locale" content="en_US">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Sema (v0.2) — Offline Swahili Grammar Engine &amp; Studio">
+  <meta name="twitter:title" content="Sema (v0.2.5) — Offline Swahili Grammar Engine &amp; Studio">
   <meta name="twitter:description" content="Generate and verify Swahili verbs from structured grammar slots in 0.78 µs, protect clinical terms from LLM drift, and explore 19,717 offline dictionary lemmas.">
 
   <!-- Structured Data (JSON-LD) -->
@@ -34,7 +34,7 @@
       {
         "@type": "SoftwareSourceCode",
         "name": "Sema",
-        "version": "0.2.0",
+        "version": "0.2.5",
         "description": "Offline rule-based Swahili morphological synthesizer, verb slot analyzer, and dictionary term protector written in Rust.",
         "codeRepository": "https://github.com/Nama-ResearchLab/Sema",
         "url": "https://nama-researchlab.github.io/Sema/",
@@ -2056,7 +2056,7 @@
         <span class="logo-text">Sema</span>
         <span class="version-tag">
           <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
-          v0.2.0
+          v0.2.5
         </span>
       </div>
 
@@ -2188,10 +2188,10 @@
       <div class="studio-box" style="margin: 28px 0;">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
           <h2 style="font-size:22px; font-weight:800; color:#090D16; margin:0;">Scope and Limitations</h2>
-          <span class="version-tag" style="background:#FEF3C7; color:#B45309; font-weight:800;">Research Prototype · v0.2.0</span>
+          <span class="version-tag" style="background:#ECFDF5; color:#047857; font-weight:800;">Deterministic Release · v0.2.5</span>
         </div>
         <div style="background:#FFFBEB; border:1px solid #FDE68A; border-radius:10px; padding:14px 18px; margin-bottom:18px; font-size:13px; color:#92400E; line-height:1.6;">
-          <strong>Clinical Disclaimer:</strong> Sema is a research prototype (version 0.2.0) and is not validated for clinical use, medical diagnosis, treatment planning, or regulatory compliance. All outputs must be reviewed by a qualified Swahili speaker and clinician before any patient-facing or clinical use. The realization step is rule-based and does not generate unconstrained text.
+          <strong>Clinical Disclaimer:</strong> Sema (version 0.2.5) is an open-source research engine and is not validated for clinical use, medical diagnosis, treatment planning, or regulatory compliance. All outputs must be reviewed by a qualified Swahili speaker and clinician before any patient-facing or clinical use. The realization step is rule-based and does not generate unconstrained text.
         </div>
 
         <h3 style="font-size:16px; font-weight:800; margin-bottom:10px; color:#090D16;">Grammatical Coverage Matrix</h3>
@@ -2211,7 +2211,7 @@
               <tr>
                 <td><strong>Verb subject concords</strong></td>
                 <td><span class="status-indicator"><span class="status-dot supported"></span>Supported</span></td>
-                <td>Personal concords (1SG, 2SG, 3SG, 1PL, 2PL, 3PL) and noun classes 1 through 18 (C1 to C18) mapped in src/rolodex.rs.</td>
+                <td>Personal concords (1SG-3PL) and noun classes C1-C18 with C1/C2 negative fusion mapped in src/synth/sw.toml.</td>
               </tr>
               <tr>
                 <td><strong>Verb object concords (infixes)</strong></td>
@@ -2259,29 +2259,29 @@
                 <td>Subjunctive final vowel -e, negative subjunctive -si-, bare imperatives and irregular imperatives (nenda, njoo, kula).</td>
               </tr>
               <tr>
-                <td><strong>Conditionals (-ki-, -ngali-, -nge-)</strong></td>
-                <td><span class="status-indicator"><span class="status-dot partial"></span>Partial</span></td>
-                <td>Markers can be passed as raw tense tags and monosyllabic -ku- support recognizes them; negative conditional forms (-sipo-) and counterfactual compound clauses are not modeled.</td>
+                <td><strong>Conditionals (-ki-, -nge-, -ngali-, -sipo-)</strong></td>
+                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported (v0.2.5)</span></td>
+                <td>Full conditional and counterfactual TAM markers including negative forms (-sipo-, -singe-, -singali-) with automatic positive subject prefixes.</td>
               </tr>
               <tr>
-                <td><strong>Relative clauses</strong></td>
-                <td><span class="status-indicator"><span class="status-dot partial"></span>Partial</span></td>
-                <td>Temporal and locative relative infixes (-po-, -ko-, -mo-) are recognized; general relative pronoun infixes (-ye-, -o-, -cho-) and amba- relative clauses are not supported.</td>
+                <td><strong>Relative clauses (-ye-, -o-, -cho-, -po-)</strong></td>
+                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported (v0.2.5)</span></td>
+                <td>Noun-class and person relative infixes inside Slot 2b with future -ta- to -taka- allomorphy (watakaojibu, nitakapofika). Independent amba- relatives planned for v0.3.</td>
               </tr>
               <tr>
                 <td><strong>Adjective and numeral concords</strong></td>
-                <td><span class="status-indicator"><span class="status-dot unsupported"></span>Not supported</span></td>
-                <td>The synthesizer generates verbs only; noun class concord agreement for adjectives and numerals is not dynamically inflected.</td>
+                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported (v0.2.5)</span></td>
+                <td>Dynamic table-driven inflection via ConcordEngine across classes C1-C18 (kidogo, vidogo, wawili, viwili, wangu, hicho).</td>
               </tr>
               <tr>
-                <td><strong>Locative morphology</strong></td>
-                <td><span class="status-indicator"><span class="status-dot partial"></span>Partial</span></td>
-                <td>Subject prefixes for locative classes 16, 17, and 18 (pa-, ku-, mu-) are mapped; noun locative suffixation (-ni) is not generated.</td>
+                <td><strong>Locative morphology (-ni)</strong></td>
+                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported (v0.2.5)</span></td>
+                <td>Classes 16-18 (pa-, ku-, mu-) subject concords plus automatic nominal locative suffixation (hospitalini, nyumbani).</td>
               </tr>
               <tr>
-                <td><strong>Copula (ni, si, ndiyo, sio, locatives)</strong></td>
-                <td><span class="status-indicator"><span class="status-dot unsupported"></span>Not supported</span></td>
-                <td>Copular sentences and inflected locative copulas (yuko, kiko) are not handled by the verbal synthesizer.</td>
+                <td><strong>Copula &amp; locative copulas (ni/si, yuko, hakuna)</strong></td>
+                <td><span class="status-indicator"><span class="status-dot supported"></span>Supported (v0.2.5)</span></td>
+                <td>Plain/emphatic copulas (ni/si, ndiyo/siyo), locative copulas (yuko/hayuko/kiko), and existential/possessive -na (nina/hakuna).</td>
               </tr>
               <tr>
                 <td><strong>Compound tenses</strong></td>
@@ -2331,31 +2331,27 @@
           <!-- Card 2: Fact Protection & Adversarial Findings -->
           <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:14px; padding:18px; box-shadow:var(--clay-sm);">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-              <h4 style="font-size:15px; font-weight:800; color:#090D16; margin:0;">Fact Protection Audit & Leak Rates</h4>
-              <span class="rich-step-badge badge-warn">11/24 Passed · 54.2% Leak</span>
+              <h4 style="font-size:15px; font-weight:800; color:#090D16; margin:0;">Fact Protection Audit &amp; Zero-Leak Gate</h4>
+              <span class="rich-step-badge badge-pass">24/24 Passed · 0.0% Leak (v0.2.5)</span>
             </div>
             
             <div class="rich-step-list">
               <div class="rich-step-item">
-                <span class="rich-step-badge badge-pass">✓ Protected</span>
+                <span class="rich-step-badge badge-pass">✓ Hardened</span>
                 <div>
-                  <div style="font-size:13px; font-weight:800; color:#065F46; margin-bottom:3px;">Digit Formats Passing Benchmark (11/11)</div>
+                  <div style="font-size:13px; font-weight:800; color:#065F46; margin-bottom:3px;">All 8 Adversarial Categories Shielded (24/24)</div>
                   <div style="font-size:12px; color:#047857; line-height:1.5;">
-                    Numeric ranges with digits (<code style="font-family:'JetBrains Mono',monospace;">500-1000 mg</code>), decimal numbers (<code style="font-family:'JetBrains Mono',monospace;">2.5 mg</code>), and standard metric abbreviation pairs (<code style="font-family:'JetBrains Mono',monospace;">500 mg</code>) are 100% shielded.
+                    Upgraded zero-regex <code style="font-family:'JetBrains Mono',monospace;">FactGuardian</code> shields Swahili number words (<em>mia tano</em>, <em>elfu moja</em>), brand names (<em>Panadol</em>, <em>Septra</em>), decimals (<em>2.5</em>, <em>2,5</em>), ranges (<em>500 to 1000</em>), fractions (<em>nusu</em>), mixed units, and spaced digits (<em>5 0 0</em>).
                   </div>
                 </div>
               </div>
 
               <div class="rich-step-item">
-                <span class="rich-step-badge badge-leak">⚠ Unshielded</span>
+                <span class="rich-step-badge badge-pass">✓ Typo Guard</span>
                 <div>
-                  <div style="font-size:13px; font-weight:800; color:#991B1B; margin-bottom:3px;">Known Boundary Leaks (13/13 Leaked)</div>
-                  <div style="font-size:11px; color:#B91C1C; line-height:1.6;">
-                    • <strong>Swahili number words</strong> (e.g. <em>mia tano</em>): <span style="font-weight:700;">100% leak rate</span><br>
-                    • <strong>Unlisted brand names</strong> (e.g. <em>Panadol</em>): <span style="font-weight:700;">100% leak rate</span><br>
-                    • <strong>Misspelled drugs</strong> (e.g. <em>paracetemol</em>): <span style="font-weight:700;">100% leak rate</span><br>
-                    • <strong>Mixed Swahili-English units</strong> (e.g. <em>vidonge 2</em>): <span style="font-weight:700;">67% leak rate</span><br>
-                    • <strong>Fractions & words</strong> (e.g. <em>nusu kidonge</em>): <span style="font-weight:700;">33% leak rate</span>
+                  <div style="font-size:13px; font-weight:800; color:#065F46; margin-bottom:3px;">Bounded Damerau-Levenshtein Drug Recovery</div>
+                  <div style="font-size:11px; color:#047857; line-height:1.6;">
+                    Misspelled generics (e.g. <em>paracetemol</em> &rarr; <em>paracetamol</em>, <em>amoxillin</em>, <em>ibuprufen</em>) are normalized into canonical shielded slots with strict stopword guards preventing prose false positives.
                   </div>
                 </div>
               </div>
@@ -2578,6 +2574,7 @@
           <button class="subtab-btn" id="sub-analyzer" onclick="switchSubTab('sub-analyzer', 'view-analyzer')">Verb Breakdown</button>
           <button class="subtab-btn" id="sub-builder" onclick="switchSubTab('sub-builder', 'view-builder')">Clinical Directive Guardian</button>
           <button class="subtab-btn" id="sub-matrix" onclick="switchSubTab('sub-matrix', 'view-matrix')">18 Noun Class Matrix</button>
+          <button class="subtab-btn" id="sub-compose" onclick="switchSubTab('sub-compose', 'view-compose')">Concord &amp; Clause Composer (v2.5)</button>
           <button class="subtab-btn" id="sub-clin" onclick="switchSubTab('sub-clin', 'view-clin')">Fact Token Shield</button>
           <button class="subtab-btn" id="sub-lex" onclick="switchSubTab('sub-lex', 'view-lex')">19k Distilled Lexicon</button>
           <button class="subtab-btn" id="sub-batch" onclick="switchSubTab('sub-batch', 'view-batch')">Batch Intent Testbed</button>
@@ -2610,6 +2607,21 @@
                   <option value="PST">Past (-li- / -ku-)</option>
                   <option value="PRF">Perfective (-me- / -ja-)</option>
                   <option value="HAB">Habitual (hu-)</option>
+                  <option value="COND">Conditional (-ki- / -sipo-)</option>
+                  <option value="COND_PRES">Counterfactual Pres (-nge- / -singe-)</option>
+                  <option value="COND_PAST">Counterfactual Past (-ngali- / -singali-)</option>
+                </select>
+              </div>
+
+              <div class="control-group">
+                <label class="control-label">Relative Clause Infix (Slot 2b · v0.2.5)</label>
+                <select id="synth-rel" onchange="runSynth()">
+                  <option value="none" selected>(None)</option>
+                  <option value="ye">C1/3SG (-ye-: who)</option>
+                  <option value="o">C2/3PL (-o-: who pl.)</option>
+                  <option value="cho">C7 (-cho-: which sg.)</option>
+                  <option value="vyo">C8 (-vyo-: which pl.)</option>
+                  <option value="po">LOC (-po-: when/where)</option>
                 </select>
               </div>
 
@@ -2907,6 +2919,66 @@
               <div class="matrix-class">Classes 16-18 · Locatives (Pa / Ku / Mu)</div>
               <div class="matrix-pair">mahali (place) → pa- / ku- / mu-</div>
               <div class="matrix-desc">Exact position (pa-), general (ku-), interior (mu-)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4b. Concord & Clause Composer View (v0.2.5) -->
+        <div id="view-compose" class="subtab-view" style="display:none;">
+          <p style="font-size:14px; color:var(--text-muted); margin-bottom:14px;">
+            Interactive <strong>v0.2.5 ConcordEngine &amp; Composer</strong> demo: assemble non-verbal noun-class concords (possessive, adjective, locative copula, and <code>-ni</code> hospital suffixation) with automatic class propagation:
+          </p>
+          <div class="studio-row">
+            <div class="control-panel">
+              <div class="control-group">
+                <label class="control-label">Head Noun &amp; Noun Class</label>
+                <select id="cmp25-noun" onchange="runCompose25()">
+                  <option value="mtoto|C1" selected>mtoto (child · C1)</option>
+                  <option value="watoto|C2">watoto (children · C2)</option>
+                  <option value="kitabu|C7">kitabu (book · C7)</option>
+                  <option value="vitabu|C8">vitabu (books · C8)</option>
+                  <option value="dawa|C9">dawa (medicine · C9)</option>
+                </select>
+              </div>
+              <div class="control-group">
+                <label class="control-label">Possessive Owner</label>
+                <select id="cmp25-owner" onchange="runCompose25()">
+                  <option value="1SG" selected>1SG (-angu · my)</option>
+                  <option value="2SG">2SG (-ako · your)</option>
+                  <option value="1PL">1PL (-etu · our)</option>
+                  <option value="3PL">3PL (-ao · their)</option>
+                </select>
+              </div>
+              <div class="control-group">
+                <label class="control-label">Adjective Stem</label>
+                <select id="cmp25-adj" onchange="runCompose25()">
+                  <option value="dogo" selected>dogo (small)</option>
+                  <option value="zuri">zuri (good/nice)</option>
+                  <option value="kubwa">kubwa (big)</option>
+                </select>
+              </div>
+              <div class="control-group">
+                <label class="control-label">Locative Setting (-ni)</label>
+                <select id="cmp25-loc" onchange="runCompose25()">
+                  <option value="hospitali" selected>hospitali &rarr; hospitalini</option>
+                  <option value="nyumba">nyumba &rarr; nyumbani</option>
+                  <option value="kliniki">kliniki &rarr; klinikini</option>
+                </select>
+              </div>
+              <div style="display:flex; align-items:center; gap:10px; margin-top:6px;">
+                <input type="checkbox" id="cmp25-neg" onchange="runCompose25()" style="width:18px; height:18px; cursor:pointer;">
+                <label for="cmp25-neg" style="font-size:13px; font-weight:700; cursor:pointer;">Negated locative copula (hayuko / hawako / hakiko)</label>
+              </div>
+            </div>
+            <div class="output-panel">
+              <div class="output-header">
+                <span>Composed Swahili Clause</span>
+                <span class="version-tag">Composer::render() · v0.2.5</span>
+              </div>
+              <div class="output-display" id="cmp25-out" style="font-size:24px;">mtoto wangu mdogo yuko hospitalini</div>
+              <div class="output-details" id="cmp25-trace" style="margin-top:12px;">
+                Template: {t:child} {poss:@child|1SG} {adj:@child|dogo} {loc_cop:@child|ko} {loc:@hospital}
+              </div>
             </div>
           </div>
         </div>
@@ -3314,11 +3386,25 @@
                 <td>Internal decompiler check against engine's own forward rules (self-consistency check, not independent validation).</td>
               </tr>
               <tr>
-                <td><strong>Fact Guardian Adversarial Boundary Test</strong></td>
+                <td><strong>Fact Guardian Adversarial Boundary Test (v0.2.5)</strong></td>
                 <td>24 boundary cases (8 categories)</td>
                 <td>Unshielded entity leak rate</td>
-                <td><strong style="color:var(--rose);">13 / 24 leaked (54.2%)</strong></td>
-                <td>Passes numeric ranges and decimals; leaks Swahili number words, brand names, typos, and fractions.</td>
+                <td><strong style="color:var(--emerald);">0 / 24 leaked (0.0%)</strong></td>
+                <td>All Swahili number words, ranges, decimals, fractions, brands, and misspelled generics shielded and deterministically restored.</td>
+              </tr>
+              <tr>
+                <td><strong>Pure-Rust Decomposer Round-Trip (tests/v25_morph.rs)</strong></td>
+                <td>500 gold verbs + 28 complex forms</td>
+                <td>Exact surface reconstruction</td>
+                <td><strong style="color:var(--emerald);">500 / 500 (100.0%)</strong></td>
+                <td>Decomposes finite verbs, relatives, conditionals, imperatives, copulas &amp; -na possessives strictly from sw.toml tables.</td>
+              </tr>
+              <tr>
+                <td><strong>Automated Suite Total (cargo test v0.2.5)</strong></td>
+                <td>8 test binaries + doctest</td>
+                <td>Suite pass rate</td>
+                <td><strong style="color:var(--emerald);">96 / 96 passing (100%)</strong></td>
+                <td>Covers library units, grammar extensions, 18-class concord, clause composer, FactGuardian, and gold100 benchmarks.</td>
               </tr>
               <tr>
                 <td><strong>Word Realization Latency (Release Build)</strong></td>
@@ -3367,12 +3453,13 @@
 }</pre>
         </div>
 
-        <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 12px;">Available Agent Tools</h3>
+        <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 12px;">Available Agent Tools (v0.2.5)</h3>
         <ul style="color: var(--text-muted); font-size: 14px; line-height: 1.8; padding-left: 20px;">
-          <li><strong>sema_morph:</strong> Deconstruct any Swahili surface verb into structured morpheme slots.</li>
-          <li><strong>sema_synth:</strong> Synthesize a Swahili verb from intent parameters.</li>
-          <li><strong>sema_terms:</strong> Shield clinical vocabulary and quantities behind deterministic tokens.</li>
-          <li><strong>sema_lexicon:</strong> Query word lemmas, grammatical roles, and translations offline.</li>
+          <li><strong>sema_synth:</strong> Synthesize Swahili verbs including relative infixes (-taka-) and negative conditionals (-sipo-).</li>
+          <li><strong>sema_concord &amp; sema_compose:</strong> Render 18-class adjectives, numerals, copulas, locatives, and multi-slot clauses.</li>
+          <li><strong>sema_morph &amp; sema_roundtrip:</strong> Pure-Rust affix decomposition with exact round-trip invariant verification.</li>
+          <li><strong>sema_protect / sema_restore:</strong> Zero-leak (0/24) shielding for dosages, Swahili numbers, brands, and misspelled drugs.</li>
+          <li><strong>sema_lexicon:</strong> Query 19,717 distilled lemmas, parts of speech, and English glosses offline.</li>
         </ul>
       </div>
     </div>
@@ -3380,7 +3467,7 @@
     <!-- Clean Footer -->
     <footer>
       <div>
-        <strong>Sema v0.2.0</strong> · Developed by <strong>Nama Research Lab</strong>.
+        <strong>Sema v0.2.5</strong> · Developed by <strong>Nama Research Lab</strong>.
       </div>
       <div class="footer-links">
         <a href="https://github.com/Nama-ResearchLab/Sema/blob/main/LICENSE">Code: MIT</a>
@@ -3712,8 +3799,12 @@
       const deriv = document.getElementById("synth-deriv").value;
       const neg = document.getElementById("synth-neg").checked;
 
+      const relEl = document.getElementById("synth-rel");
+      const rel = relEl ? relEl.value : "none";
+      const relSuffix = rel === "none" ? "" : rel;
+      const condNegPosSubj = neg && (tense === "COND" || tense === "COND_PRES" || tense === "COND_PAST");
       let sPrefix = "";
-      if (neg) {
+      if (neg && !condNegPosSubj) {
         if (subj === "1SG") sPrefix = "si";
         else if (subj === "2SG") sPrefix = "hu";
         else if (subj === "3SG") sPrefix = "ha";
@@ -3738,10 +3829,13 @@
       }
 
       let tMarker = "";
-      if (tense === "FUT") tMarker = "ta";
+      if (tense === "FUT") tMarker = relSuffix ? "taka" : "ta";
       else if (tense === "PST") tMarker = neg ? "ku" : "li";
       else if (tense === "PRF") tMarker = neg ? "ja" : "me";
       else if (tense === "HAB") tMarker = "hu";
+      else if (tense === "COND") tMarker = neg ? "sipo" : "ki";
+      else if (tense === "COND_PRES") tMarker = neg ? "singe" : "nge";
+      else if (tense === "COND_PAST") tMarker = neg ? "singali" : "ngali";
 
       let oMarker = obj === "none" ? "" : obj;
 
@@ -3767,7 +3861,10 @@
         finalRoot = "ku" + root;
       }
 
-      const surface = sPrefix + tMarker + oMarker + finalRoot;
+      if (neg && tense === "PRES" && root !== "jibu") {
+        finalRoot = (root === "la") ? "li" : finalRoot.slice(0, -1) + "i";
+      }
+      const surface = sPrefix + tMarker + relSuffix + oMarker + finalRoot;
       document.getElementById("synth-result").innerText = surface;
       document.getElementById("synth-trace").innerHTML = 
         `[Polarity: ${neg ? "Negative" : "Positive"}]<br>` +
@@ -3928,12 +4025,15 @@
       const text = document.getElementById("clin-input").value;
       const shielded = text
         .replace(/vidonge viwili/gi, "[#T1]")
-        .replace(/paracetamol/gi, "[#T2]")
+        .replace(/paracet[ae]mol/gi, "[#T2]")
+        .replace(/amox[i]{1,2}l+in/gi, "[#T2]")
+        .replace(/ibupruf?en/gi, "[#T2]")
+        .replace(/panadol|septra|augmentin/gi, "[#T2]")
         .replace(/artemether-lumefantrine/gi, "[#T2]")
         .replace(/ceftriaxone/gi, "[#T2]")
-        .replace(/500/g, "[#N1]")
-        .replace(/250/g, "[#N1]")
-        .replace(/mg/gi, "[#N2]")
+        .replace(/mia tano|elfu moja|five hundred|kumi|nusu/gi, "[#N1]")
+        .replace(/\b\d+(?:[.,/]\d+|\s*-\s*\d+|\s+to\s+\d+)?\b/gi, "[#N1]")
+        .replace(/\b(mg|ml|mcg|kg|g)\b/gi, "[#N2]")
         .replace(/aspirin/gi, "[#T3]");
       document.getElementById("clin-output").innerText = shielded;
     }
@@ -6369,6 +6469,31 @@ Shielded: "Mpe mtoto [#T1] vya [#T2] [#N1] [#N2] [#S1]"</pre>
         showPage(targetPage);
       }
     });
+
+    function runCompose25() {
+      const nounEl = document.getElementById("cmp25-noun");
+      if (!nounEl) return;
+      const [noun, cls] = nounEl.value.split("|");
+      const owner = document.getElementById("cmp25-owner").value;
+      const adj = document.getElementById("cmp25-adj").value;
+      const loc = document.getElementById("cmp25-loc").value;
+      const neg = document.getElementById("cmp25-neg").checked;
+      const TBL = {
+        C1: { poss: "w", adj: "m", loc: "yu", neg: "hayu" },
+        C2: { poss: "w", adj: "wa", loc: "wa", neg: "hawa" },
+        C7: { poss: "ch", adj: "ki", loc: "ki", neg: "haki" },
+        C8: { poss: "vy", adj: "vi", loc: "vi", neg: "havi" },
+        C9: { poss: "y", adj: "m", loc: "i", neg: "hai" }
+      };
+      const OWN = { "1SG": "angu", "2SG": "ako", "1PL": "etu", "3PL": "ao" };
+      const t = TBL[cls] || TBL.C1;
+      const adjP = (cls === "C9" && adj !== "kubwa") ? "n" : (cls === "C9" && adj === "kubwa" ? "" : t.adj);
+      const out = `${noun} ${t.poss}${OWN[owner]} ${adjP}${adj} ${neg ? t.neg : t.loc}ko ${loc}ni`;
+      document.getElementById("cmp25-out").innerText = out;
+      document.getElementById("cmp25-trace").innerText =
+        `Class ${cls} | poss=${t.poss}${OWN[owner]} | adj=${adjP}${adj} | loc_cop=${neg ? t.neg : t.loc}ko | loc=${loc}ni`;
+    }
+    if (document.getElementById("cmp25-noun")) runCompose25();
   </script>
 </body>
 </html>

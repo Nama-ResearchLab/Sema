@@ -1,4 +1,4 @@
-use sema::terms::TermDict;
+use sema::guardian::FactGuardian;
 
 struct TestCase {
     category: &'static str,
@@ -10,8 +10,7 @@ struct TestCase {
 fn test_adversarial_fact_guardian() {
     let clinical_tsv = include_str!("../data/terms.clinical.tsv");
     let core_tsv = include_str!("../data/terms.core.tsv");
-    let general_tsv = include_str!("../data/terms.general.tsv");
-    let dict = TermDict::layered_curated(&[clinical_tsv, core_tsv, general_tsv]);
+    let guardian = FactGuardian::layered(&[clinical_tsv, core_tsv]);
 
     let cases = vec![
         // 1. Swahili number words
@@ -65,12 +64,24 @@ fn test_adversarial_fact_guardian() {
         let entry = cat_stats.entry(tc.category).or_insert((0, 0));
         entry.0 += 1; // total in cat
 
-        let p = dict.protect(tc.input);
-        // Check if any of the target clinical terms leaked unshielded into p.text
+        let p = guardian.protect(tc.input);
+        let mut unshielded = String::new();
+        let mut rest = p.text.as_str();
+        while let Some(a) = rest.find("[#") {
+            unshielded.push_str(&rest[..a]);
+            let after = &rest[a + 2..];
+            if let Some(b) = after.find(']') {
+                rest = &after[b + 1..];
+            } else {
+                unshielded.push_str(&rest[a..]);
+                rest = "";
+            }
+        }
+        unshielded.push_str(rest);
+        let unshielded_low = unshielded.to_lowercase();
         let mut leaked = false;
         for &t in tc.target_terms {
-            // If the target term still appears verbatim in p.text (and is not an ID like [#T..] or [#N..])
-            if p.text.to_lowercase().contains(&t.to_lowercase()) {
+            if unshielded_low.contains(&t.to_lowercase()) {
                 leaked = true;
                 break;
             }
@@ -92,4 +103,5 @@ fn test_adversarial_fact_guardian() {
         println!("  {:<30} Passed: {}/{} | Leaked: {}/{} ({:.1}%)", cat, pass, tot, leak, tot, leak_pct);
     }
     println!("Overall Leak Rate: {}/{} ({:.1}%)", leaked_cases, total_cases, (leaked_cases as f64 / total_cases as f64) * 100.0);
+    assert_eq!(leaked_cases, 0, "Expected 0/24 leaks in Sema v0.2.5 FactGuardian");
 }

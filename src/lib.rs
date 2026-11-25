@@ -28,18 +28,30 @@
 
 pub mod affix;
 pub mod backpass;
+pub mod compose;
+pub mod concord;
+pub mod guardian;
 pub mod lexicon;
 pub mod linearizer;
+pub mod morph;
 pub mod racer;
 pub mod render;
 pub mod rolodex;
+pub mod synth;
 pub mod terms;
 
+pub use compose::{ComposedOutput, Composer};
+pub use concord::ConcordEngine;
+pub use guardian::{
+    FactGuardian, GuardianSlot, ProtectedText, RestoreMode, RestoredText, TermEntry, TermSource,
+};
 pub use lexicon::{LexEntry, Lexicon, Skeleton};
 pub use linearizer::{Linearized, MorphDecomp, Token};
+pub use morph::{Decomposer, Decomposition, MorphKind, RoundtripReport};
 pub use racer::{RaceResult, Racer};
 pub use render::{RenderIndex, render_bilingual, render_simple};
 pub use rolodex::{Intent, Rolodex, Synthesized};
+pub use synth::{Engine as SynthEngine, Intent as SynthIntent, Morphology, SynthesisResult, ValidationError};
 
 /// Crate version.
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");

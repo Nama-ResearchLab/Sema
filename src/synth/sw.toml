@@ -1,0 +1,775 @@
+# =============================================================================
+# Sema, Swahili morphology data (the ONLY place Swahili facts live).
+#
+# The synthesis engine in src/synth/ and concord engine in src/concord/ are
+# deliberately written with ZERO hardcoded Swahili. Every prefix, tense
+# marker, relative infix, imperative rule, short-stem, phonological glide,
+# derivational allomorph, and noun-class concord below is loaded at runtime.
+# To retarget or enrich the language you edit THIS file and nothing in Rust.
+#
+# Slot template for a finite verb:
+#   [NEG] [SUBJ] [TENSE] [REL] [OBJ] [ROOT] [DERIV] [MOOD]
+# =============================================================================
+
+lang = "sw"
+
+# ---------------------------------------------------------------------------
+# Subject concords (canonical tag -> prefix), positive polarity.
+#
+# Standard Swahili subject concords are: 1SG ni, 2SG u, 3SG a, 1PL tu,
+# 2PL m, 3PL wa; class concords LI 5, YA 6, PA 16, KI 7, JI/ZI/I 9/10.
+#
+# JI = "ji" is preserved here as a NON-STANDARD entry: in standard
+# Swahili, `ji-` is a NOUN PREFIX (class-5 marker on the noun itself
+# for monosyllabic stems like `jiwe` "stone"), NOT a subject concord.
+# The class-5 subject concord is `li-` (see [noun_classes.subjects]).
+# JI stays in the table so a future dialect extension or formal register
+# that uses `ji-` as a subject concord can opt in without code changes;
+# the engine already accepts it. The engine reports subject_class = None
+# for JI because no [noun_classes.subjects] entry exists -- intentional,
+# since standard Swahili doesn't have this concord. See REC-2 in .xyz.
+# ---------------------------------------------------------------------------
+[subjects]
+1SG   = "ni"
+2SG   = "u"
+3SG   = "a"
+1PL   = "tu"
+2PL   = "m"
+3PL   = "wa"
+LI    = "li"
+YA    = "ya"
+PA    = "pa"
+KI    = "ki"
+JI    = "ji"
+ZI    = "zi"
+I     = "i"
+# Explicit class tags (bare "I" collides with the English pronoun upstream).
+C1    = "a"
+C2    = "wa"
+C3    = "u"
+C4    = "i"
+C5    = "li"
+C6    = "ya"
+C7    = "ki"
+C8    = "vi"
+C9    = "i"
+C10   = "zi"
+C11   = "u"
+C14   = "u"
+C15   = "ku"
+C16   = "pa"
+C17   = "ku"
+C18   = "mu"
+
+# ---------------------------------------------------------------------------
+# Negative subject concords (surface prefix -> canonical tag).
+# In Swahili these are fused forms, not "negation + subject" concatenated.
+# ---------------------------------------------------------------------------
+[subjects_neg]
+si   = "1SG"
+hu   = "2SG"
+ha   = "3SG"
+hatu = "1PL"
+ham  = "2PL"
+hawa = "3PL"
+
+# Additional tag -> negative surface overrides for class tags sharing a fused
+# negative prefix (e.g. C1 class concord a- fuses with ha- into ha-, not haa-).
+[subjects_neg_by_tag]
+C1 = "ha"
+C2 = "hawa"
+
+# ---------------------------------------------------------------------------
+# Standalone negation marker. Used only as a fallback when no fused negative
+# subject concord exists for the requested person/class.
+# ---------------------------------------------------------------------------
+[negation]
+lead = "ha"
+
+# ---------------------------------------------------------------------------
+# Tense / aspect / mood markers (tag -> marker).
+# ---------------------------------------------------------------------------
+[tenses]
+PRES          = "na"
+PAST          = "li"
+FUT           = "ta"
+PERF          = "me"
+CONSEC        = "ka"
+HAB           = "hu"
+NOTYET        = "ja"
+INF           = "ku"
+WHEN          = "po"
+LOC           = "ko"
+INT           = "mo"
+COND          = "ki"
+COND_PRES     = "nge"
+COND_PAST     = "ngali"
+COND_NEG      = "sipo"
+COND_PRES_NEG = "singe"
+COND_PAST_NEG = "singali"
+BARE          = ""
+
+# ---------------------------------------------------------------------------
+# Negative tense markers. Note how negation changes the TAM slot itself:
+#   past      li -> ku      (sikufanya)
+#   present   na -> (none)  + final -a -> -i     (sisomi)
+#   future    ta -> ta      (hawatasoma)
+#   perfect   me -> ja      (sijamwona ; "not yet")
+#   cond      ki -> sipo    (nisiposoma)
+#   cond_pres nge -> singe  (nisingesoma)
+#   cond_past ngali -> singali (nisingalisoma)
+# ---------------------------------------------------------------------------
+[tense_neg]
+PAST          = "ku"
+PRES          = ""
+FUT           = "ta"
+PERF          = "ja"
+COND          = "sipo"
+COND_PRES     = "singe"
+COND_PAST     = "singali"
+COND_NEG      = "sipo"
+COND_PRES_NEG = "singe"
+COND_PAST_NEG = "singali"
+
+# ---------------------------------------------------------------------------
+# Tense behavior controls (data-driven slot omissions & polarity overrides).
+#   subjectless: tenses that omit Slot 1 subject concord (e.g. hu-, ku-)
+#   positive_subject_when_neg: negated tenses that keep the positive subject
+#                              prefix and express negation in Slot 2 (-sipo-)
+# ---------------------------------------------------------------------------
+[tense_behavior]
+subjectless               = ["HAB", "INF"]
+positive_subject_when_neg = ["COND", "COND_PRES", "COND_PAST", "COND_NEG", "COND_PRES_NEG", "COND_PAST_NEG"]
+
+# ---------------------------------------------------------------------------
+# Relative infixes (tag or infix -> surface marker) placed in Slot 2b,
+# right after the TAM marker and before the object infix.
+# Supports canonical person/class tags (C1..C18, 1SG..3PL) and raw markers
+# (ye, o, yo, lo, cho, vyo, zo, po, ko, mo).
+# ---------------------------------------------------------------------------
+[relatives]
+1SG = "ye"
+2SG = "ye"
+3SG = "ye"
+C1  = "ye"
+1PL = "o"
+2PL = "o"
+3PL = "o"
+C2  = "o"
+C3  = "o"
+C4  = "yo"
+C5  = "lo"
+C6  = "yo"
+C7  = "cho"
+C8  = "vyo"
+C9  = "yo"
+C10 = "zo"
+C11 = "o"
+C14 = "o"
+C15 = "ko"
+C16 = "po"
+C17 = "ko"
+C18 = "mo"
+# Direct marker identities
+ye  = "ye"
+o   = "o"
+yo  = "yo"
+lo  = "lo"
+cho = "cho"
+vyo = "vyo"
+zo  = "zo"
+po  = "po"
+ko  = "ko"
+mo  = "mo"
+
+# Future tense expands -ta- -> -taka- before a relative infix (watakaojibu).
+[relative_rules]
+future_marker     = "ta"
+future_rel_marker = "taka"
+
+# ---------------------------------------------------------------------------
+# Object infixes (surface infix -> gloss). These sit right before the root.
+# ---------------------------------------------------------------------------
+[objects]
+m    = "him/her (m class)"
+ni   = "me (1SG object)"
+ku   = "you sg (2SG object)"
+tu   = "us (1PL object)"
+wa   = "them (3PL wa / 2PL)"
+ji   = "self (reflexive)"
+ki   = "it (ki class)"
+vi   = "them (vi class)"
+yi   = "them (ya class)"
+ya   = "them (ya class C6)"
+zi   = "them (zi class)"
+li   = "it (li class)"
+u    = "it (u class C3/C11/C14)"
+i    = "it (i class C4/C9)"
+pa   = "there (pa class C16)"
+mu   = "in there (mu class C18)"
+yu   = "him/her (3SG)"
+
+# ---------------------------------------------------------------------------
+# Noun-class concord metadata. Reports WHICH noun class a subject/object
+# concord agrees with. Person tags (1SG, 3PL, ...) and person infixes (ni, ku,
+# wa, yu, tu, ji) are deliberately absent: they agree with persons/reflexive,
+# not noun classes, so the engine reports None for them. Tags with no entry
+# (e.g. JI subject) also report None. Extend by adding rows; no code changes.
+# ---------------------------------------------------------------------------
+[noun_classes.subjects]
+LI  = "5 (ji/ma)"
+YA  = "6 (ya)"
+PA  = "16 (pa, locative)"
+KI  = "7 (ki/vi)"
+ZI  = "10 (zi)"
+I   = "9 (i/n)"
+C3  = "3 (u/mi)"
+C4  = "4 (i/mi)"
+C5  = "5 (ji/ma)"
+C6  = "6 (ya)"
+C7  = "7 (ki/vi)"
+C8  = "8 (vi)"
+C9  = "9 (i/n)"
+C10 = "10 (zi)"
+C11 = "11 (u)"
+C14 = "14 (u)"
+C15 = "15 (ku, infinitive)"
+C16 = "16 (pa, locative)"
+C17 = "17 (ku, locative)"
+C18 = "18 (mu, locative)"
+
+[noun_classes.objects]
+m  = "1 (m/wa)"
+ki = "7 (ki/vi)"
+vi = "8 (vi)"
+yi = "6 (ya)"
+ya = "6 (ya)"
+zi = "10 (zi)"
+li = "5 (ji/ma)"
+u  = "3 (u/mi)"
+i  = "9 (i/n)"
+pa = "16 (pa, locative)"
+mu = "18 (mu, locative)"
+
+# ---------------------------------------------------------------------------
+# Final-vowel (mood) selection rules. The FIRST matching rule wins.
+#   step = "mood"        : used when intent.mood == `mood`
+#   step = "present_neg" : present-negative on a regular -a stem shifts to
+#                          `use_vowel` (e.g. -a -> -i, sisomi)
+# ---------------------------------------------------------------------------
+[[final_vowel]]
+step      = "mood"
+mood      = "e"
+use_vowel = "e"
+
+[[final_vowel]]
+step      = "mood"
+mood      = "o"
+use_vowel = "o"
+
+[[final_vowel]]
+step      = "mood"
+mood      = "i"
+use_vowel = "i"
+
+[[final_vowel]]
+step       = "present_neg"
+tense      = ["PRES", "NA", "BARE", ""]
+use_vowel  = "i"
+
+[defaults]
+final_vowel = "a"
+
+# ---------------------------------------------------------------------------
+# Negative subjunctive: when negation AND (mood == e OR tense == SUBJ), build
+#   SUBJ + <infix> + ROOT + <mood vowel>
+# e.g. u-si-jali  ->  usijali  ("don't worry")
+#      tu-si-som-e -> tusisome ("let us not read")
+# ---------------------------------------------------------------------------
+[negative_subjunctive]
+infix = "si"
+mood  = "e"
+tense = "SUBJ"
+
+# ---------------------------------------------------------------------------
+# Imperatives (bare singular, plural -eni, object-bearing bare commands, and
+# irregular imperatives).
+# ---------------------------------------------------------------------------
+[imperatives]
+plural_mood  = "eni"
+plural_suffix = "ni"
+plural_vowel = "e"
+object_vowel = "e"
+
+[imperatives.irregular_sg]
+enda = "nenda"
+ja   = "njoo"
+la   = "kula"
+nywa = "kunywa"
+fa   = "kufa"
+pa   = "pa"
+
+[imperatives.irregular_pl]
+enda = "nendeni"
+ja   = "njooni"
+la   = "kuleni"
+nywa = "kunyweni"
+fa   = "kufeni"
+
+# ---------------------------------------------------------------------------
+# Short/monosyllabic stems take an intrusive support morpheme after the TAM
+# marker in finite forms when no object infix fills the pre-root slot.
+#   a-na-la       -> anakula        (he is eating)
+#   ni-me-ku-la   -> nimekula       (I have eaten)
+#   a-li-ni-pa    -> alinipa        (skip_when_object = true)
+# ---------------------------------------------------------------------------
+[short_stems]
+stems               = ["la", "ja", "nywa", "wa", "pa", "fa", "cha"]
+morpheme            = "ku"
+ku_after_tenses     = ["PRES", "PAST", "FUT", "PERF", "COND_PRES", "COND_PAST", "COND_PRES_NEG", "COND_PAST_NEG"]
+ku_after_tenses_neg = ["FUT", "COND_PRES", "COND_PAST", "COND_PRES_NEG", "COND_PAST_NEG"]
+skip_negative       = true
+skip_when_object    = true
+
+# ---------------------------------------------------------------------------
+# Vowel-glide allomorphs at morpheme boundaries.
+#   object infix "m" + u-initial root -> "mu"   (kumuua, alimuuliza)
+#   object infix "m" + other vowel-initial root -> "mw" (sijamwona, alimwandikia)
+# ---------------------------------------------------------------------------
+[vowel_glide]
+m_vowel    = "mw"
+m_before_u = "mu"
+
+# ---------------------------------------------------------------------------
+# Borrowed / irregular stems: roots whose citation ends in one of these
+# vowels are FIXED and never undergo the productive final-vowel shift.
+#   jibu, subiri, samehe ... (Arabic loanverbs already end in -e/-i/-u)
+# ---------------------------------------------------------------------------
+[borrowed]
+fixed_final_vowels = ["e", "i", "u"]
+
+# ---------------------------------------------------------------------------
+# Verbal derivational (valence-changing) extensions. Inserted between the root
+# and the final vowel:
+#   passive     -w-   :  piga "hit"    -> pig-WA    "be hit"
+#   applicative -i-   :  andika "write"-> andik-IA  "write to/for"
+#   causative   -ish- :  fanya "do"    -> fany-ISHA "make do"
+#   reciprocal  -an-  :  ona "see"     -> on-ANA    "see each other"
+#   stative     -ik-  :  vunja "break" -> vunj-IKA  "be broken"
+# ---------------------------------------------------------------------------
+[derivations]
+passive     = "w"
+applicative = "i"
+causative   = "ish"
+reciprocal  = "an"
+stative     = "ik"
+
+# ---------------------------------------------------------------------------
+# Derivational allomorph variants (phonologically conditioned).
+# Evaluated in order for the first derivation slot; first match wins.
+# ---------------------------------------------------------------------------
+[[derivation_variants]]
+derivation = "passive"
+stem_exact = "pa"
+suffix     = "ewa"
+
+[[derivation_variants]]
+derivation = "passive"
+stem_exact = "nywa"
+suffix     = "ewa"
+
+[[derivation_variants]]
+derivation       = "passive"
+borrowed_only    = true
+ends_with        = "e"
+keep_final_vowel = true
+suffix           = "w"
+
+[[derivation_variants]]
+derivation       = "passive"
+borrowed_only    = true
+ends_with        = "i"
+keep_final_vowel = true
+suffix           = "w"
+
+[[derivation_variants]]
+derivation    = "passive"
+borrowed_only = true
+ends_with     = "u"
+suffix        = "iw"
+
+[[derivation_variants]]
+derivation     = "passive"
+vowel_cluster  = true
+trigger_vowels = "eo"
+suffix         = "lew"
+
+[[derivation_variants]]
+derivation     = "passive"
+vowel_cluster  = true
+trigger_vowels = "au"
+suffix         = "liw"
+
+[[derivation_variants]]
+derivation     = "applicative"
+vowel_cluster  = true
+trigger_vowels = "eo"
+suffix         = "le"
+
+[[derivation_variants]]
+derivation     = "applicative"
+vowel_cluster  = true
+trigger_vowels = "au"
+suffix         = "li"
+
+[[derivation_variants]]
+derivation     = "stative"
+vowel_cluster  = true
+trigger_vowels = "eo"
+suffix         = "lek"
+
+[[derivation_variants]]
+derivation     = "stative"
+vowel_cluster  = true
+trigger_vowels = "au"
+suffix         = "lik"
+
+[[derivation_variants]]
+derivation     = "stative"
+trigger_vowels = "eo"
+suffix         = "ek"
+
+[[derivation_variants]]
+derivation     = "causative"
+trigger_vowels = "eo"
+suffix         = "esh"
+
+[[derivation_variants]]
+derivation     = "applicative"
+trigger_vowels = "eo"
+suffix         = "e"
+
+[[derivation_variants]]
+derivation = "passive"
+short_only = true
+suffix     = "iwa"
+
+# ===========================================================================
+# Non-verbal concord & copula tables (used by src/concord/ and src/compose/)
+# ===========================================================================
+
+[concord.copula]
+pos      = "ni"
+neg      = "si"
+emph_pos = "ndiyo"
+emph_neg = "siyo"
+
+[concord.locative_subjects]
+1SG = "ni"
+2SG = "u"
+3SG = "yu"
+1PL = "tu"
+2PL = "m"
+3PL = "wa"
+C1  = "yu"
+C2  = "wa"
+C3  = "u"
+C4  = "i"
+C5  = "li"
+C6  = "ya"
+C7  = "ki"
+C8  = "vi"
+C9  = "i"
+C10 = "zi"
+C11 = "u"
+C14 = "u"
+C15 = "ku"
+C16 = "pa"
+C17 = "ku"
+C18 = "mu"
+
+[concord.locative_subjects_neg]
+1SG = "si"
+2SG = "hu"
+3SG = "hayu"
+1PL = "hatu"
+2PL = "ham"
+3PL = "hawa"
+C1  = "hayu"
+C2  = "hawa"
+C3  = "hau"
+C4  = "hai"
+C5  = "hali"
+C6  = "haya"
+C7  = "haki"
+C8  = "havi"
+C9  = "hai"
+C10 = "hazi"
+C11 = "hau"
+C14 = "hau"
+C15 = "haku"
+C16 = "hapa"
+C17 = "haku"
+C18 = "hamu"
+
+[concord.locative_suffixes]
+definite    = "po"
+general     = "ko"
+interior    = "mo"
+existential = "na"
+po          = "po"
+ko          = "ko"
+mo          = "mo"
+
+[concord.possessive_verb]
+marker = "na"
+
+[concord.possessive_verb.neg_overrides]
+1SG = "sina"
+2SG = "huna"
+3SG = "hana"
+1PL = "hatuna"
+2PL = "hamna"
+3PL = "hawana"
+C1  = "hana"
+C2  = "hawana"
+C3  = "hauna"
+C4  = "haina"
+C5  = "halina"
+C6  = "hayana"
+C7  = "hakina"
+C8  = "havina"
+C9  = "haina"
+C10 = "hazina"
+C11 = "hauna"
+C14 = "hauna"
+C15 = "hakuna"
+C16 = "hapana"
+C17 = "hakuna"
+C18 = "hamna"
+
+[concord.associative]
+C1  = "wa"
+C2  = "wa"
+C3  = "wa"
+C4  = "ya"
+C5  = "la"
+C6  = "ya"
+C7  = "cha"
+C8  = "vya"
+C9  = "ya"
+C10 = "za"
+C11 = "wa"
+C14 = "wa"
+C15 = "kwa"
+C16 = "pa"
+C17 = "kwa"
+C18 = "mwa"
+
+[concord.possessive_prefix]
+C1  = "w"
+C2  = "w"
+C3  = "w"
+C4  = "y"
+C5  = "l"
+C6  = "y"
+C7  = "ch"
+C8  = "vy"
+C9  = "y"
+C10 = "z"
+C11 = "w"
+C14 = "w"
+C15 = "kw"
+C16 = "p"
+C17 = "kw"
+C18 = "mw"
+
+[concord.possessive_stems]
+1SG = "angu"
+2SG = "ako"
+3SG = "ake"
+1PL = "etu"
+2PL = "enu"
+3PL = "ao"
+
+[concord.demonstrative_prox]
+C1  = "huyu"
+C2  = "hawa"
+C3  = "huu"
+C4  = "hii"
+C5  = "hili"
+C6  = "haya"
+C7  = "hiki"
+C8  = "hivi"
+C9  = "hii"
+C10 = "hizi"
+C11 = "huu"
+C14 = "huu"
+C15 = "huku"
+C16 = "hapa"
+C17 = "huku"
+C18 = "humu"
+
+[concord.demonstrative_dist]
+C1  = "yule"
+C2  = "wale"
+C3  = "ule"
+C4  = "ile"
+C5  = "lile"
+C6  = "yale"
+C7  = "kile"
+C8  = "vile"
+C9  = "ile"
+C10 = "zile"
+C11 = "ule"
+C14 = "ule"
+C15 = "kule"
+C16 = "pale"
+C17 = "kule"
+C18 = "mule"
+
+[concord.demonstrative_ref]
+C1  = "huyo"
+C2  = "hao"
+C3  = "huo"
+C4  = "hiyo"
+C5  = "hilo"
+C6  = "hayo"
+C7  = "hicho"
+C8  = "hivyo"
+C9  = "hiyo"
+C10 = "hizo"
+C11 = "huo"
+C14 = "huo"
+C15 = "huko"
+C16 = "hapo"
+C17 = "huko"
+C18 = "humo"
+
+[concord.adjective_prefix]
+C1  = "m"
+C2  = "wa"
+C3  = "m"
+C4  = "mi"
+C5  = ""
+C6  = "ma"
+C7  = "ki"
+C8  = "vi"
+C9  = "n"
+C10 = "n"
+C11 = "m"
+C14 = "m"
+C15 = "ku"
+C16 = "pa"
+C17 = "ku"
+C18 = "mu"
+
+[concord.adjective_prefix_vowel]
+C1  = "mw"
+C2  = "wa"
+C3  = "mw"
+C4  = "my"
+C5  = "j"
+C6  = "ma"
+C7  = "ch"
+C8  = "vy"
+C9  = "ny"
+C10 = "ny"
+C11 = "mw"
+C14 = "mw"
+C15 = "kw"
+C16 = "pa"
+C17 = "kw"
+C18 = "mw"
+
+[concord.adjective_overrides]
+"C2:ingi"  = "wengi"
+"C2:ema"   = "wema"
+"C2:eupe"  = "weupe"
+"C2:eusi"  = "weusi"
+"C6:ingi"  = "mengi"
+"C6:ema"   = "mema"
+"C6:eupe"  = "meupe"
+"C6:eusi"  = "meusi"
+"C8:ingi"  = "vingi"
+"C9:ingi"  = "nyingi"
+"C10:ingi" = "nyingi"
+"C9:ema"   = "njema"
+"C10:ema"  = "njema"
+"C9:dogo"  = "ndogo"
+"C10:dogo" = "ndogo"
+"C9:zuri"  = "nzuri"
+"C10:zuri" = "nzuri"
+"C9:kubwa" = "kubwa"
+"C10:kubwa"= "kubwa"
+"C9:pya"   = "mpya"
+"C10:pya"  = "mpya"
+"C5:ema"   = "jema"
+"C5:ingi"  = "jingi"
+"C5:kubwa" = "kubwa"
+"C5:dogo"  = "dogo"
+"C5:zuri"  = "zuri"
+
+[concord.numeral_stems]
+1 = "moja"
+2 = "wili"
+3 = "tatu"
+4 = "nne"
+5 = "tano"
+8 = "nane"
+
+[concord.numeral_invariable]
+6   = "sita"
+7   = "saba"
+9   = "tisa"
+10  = "kumi"
+20  = "ishirini"
+30  = "thelathini"
+40  = "arobaini"
+50  = "hamsini"
+60  = "sitini"
+70  = "sabini"
+80  = "themanini"
+90  = "tisini"
+100 = "mia"
+
+[concord.numeral_prefix]
+C1  = "m"
+C2  = "wa"
+C3  = "m"
+C4  = "mi"
+C5  = ""
+C6  = "ma"
+C7  = "ki"
+C8  = "vi"
+C9  = ""
+C10 = ""
+C11 = "m"
+C14 = "m"
+C15 = "ku"
+C16 = "pa"
+C17 = "ku"
+C18 = "m"
+
+[concord.numeral_overrides]
+"C5:1"  = "moja"
+"C9:1"  = "moja"
+"C10:2" = "mbili"
+"C10:4" = "nne"
+
+[concord.locative_noun]
+suffix = "ni"
+
+[morph_guards]
+blocked_verb_roots = [
+  "me", "ke", "ki", "li", "na", "ta", "ka", "ha", "hu", "ku", "mu", "m",
+  "mo", "ko", "po", "yu", "ya", "za", "ngali", "nge", "mko", "mna", "mpo",
+  "mle", "juu", "ama", "ina", "awe", "iwe", "tu"
+]
+never_decompose_standalone = [
+  "me", "ke", "na", "wa", "ya", "za", "la", "kwa", "ki", "li", "ta", "ka",
+  "nge", "ngali", "hu", "ha", "ku", "pa", "mu",
+  "mume", "kiume", "mwanaume", "mwanamke", "habari", "haki",
+  "huyu", "hawa", "hiki", "hivi", "hapa", "hapo",
+  "maji", "meli", "kitu", "meno", "mama", "kaka", "lita", "taa"
+]

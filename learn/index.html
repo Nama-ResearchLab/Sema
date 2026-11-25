@@ -3,52 +3,79 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Learn Sema: course hub</title>
+<title>Learn Sema (v0.2.5): course hub</title>
 <style>
-body{font-family:Georgia,serif;max-width:46em;margin:2em auto;padding:0 1em;line-height:1.6;color:#222}
-h1,h2{font-family:Verdana,sans-serif}
-.lesson{border:1px solid #ccc;border-radius:8px;padding:1em;margin:1em 0}
-.slot{display:inline-block;background:#eef;border:1px solid #99c;border-radius:4px;padding:0 .4em;margin:.1em;font-family:monospace}
-button{font-size:1em;padding:.4em 1em;margin:.3em .2em 0 0;cursor:pointer}
-#assembled{font-size:1.4em;font-weight:bold;min-height:1.6em}
-.ok{color:green}.bad{color:#a00}
+body{font-family:Georgia,serif;max-width:50em;margin:2em auto;padding:0 1em;line-height:1.6;color:#1e293b}
+h1,h2{font-family:Verdana,sans-serif;color:#0f172a}
+.lesson{border:1px solid #cbd5e1;border-radius:10px;padding:1.1em 1.3em;margin:1.2em 0;background:#fff}
+.slot{display:inline-block;background:#eef2ff;border:1px solid #94a3b8;border-radius:4px;padding:0 .45em;margin:.1em;font-family:monospace}
+button{font-size:.95em;padding:.45em 1em;margin:.3em .3em 0 0;cursor:pointer;border-radius:6px;border:1px solid #94a3b8;background:#f8fafc}
+button:hover:not(:disabled){background:#e2e8f0}
+select,input{font-size:.95em;padding:.3em .5em;margin:.2em}
+#assembled,.big-out{font-size:1.35em;font-weight:bold;min-height:1.6em;color:#0f766e}
+.ok{color:#059669;border-color:#059669;background:#ecfdf5}.bad{color:#b91c1c;border-color:#dc2626;background:#fef2f2}
 img.logo{height:48px}
-.t{position:relative;border-bottom:1px dotted #060;cursor:help}
-.t::after{content:attr(data-d);display:none;position:absolute;left:0;bottom:130%;width:16em;white-space:normal;background:#222;color:#fff;padding:.5em .7em;border-radius:6px;font-size:.85em;line-height:1.4;z-index:5}
+.t{position:relative;border-bottom:1px dotted #0f766e;cursor:help}
+.t::after{content:attr(data-d);display:none;position:absolute;left:0;bottom:130%;width:16em;white-space:normal;background:#0f172a;color:#fff;padding:.5em .7em;border-radius:6px;font-size:.85em;line-height:1.4;z-index:5}
 .t:hover::after{display:block}
 @media print{.noprint{display:none}}
 </style>
 </head>
 <body>
 <img class="logo" src="assets/nama-logo.png" alt="Nama Research Lab">
-<h1>Learn Sema</h1>
+<h1>Learn Sema <small style="color:#0d9488;font-size:.55em;">v0.2.5</small></h1>
 <p>A mini-course from first principles: the problem, the
 <span class="t" data-d="Swahili words to English meaning skeletons.">forward anchor</span>,
-the <span class="t" data-d="Structured fields to exact Swahili verbs.">back-pass render</span>,
-the proof, and how to use it. Start with lesson 1
-and go in order. Companion markdown guides live beside this file.
-New words? See the <a href="glossary.html">glossary</a> (hover any term).</p>
+the <span class="t" data-d="Structured fields to exact Swahili verbs, relatives, conditionals & concords.">back-pass render</span>,
+deterministic <span class="t" data-d="Swahili noun classes 1-18 agreement across adjectives, numerals, copulas & locatives.">concord composition</span>,
+the proof (<code>96</code> tests, <code>500/500</code> round-trips, <code>0/24</code> leaks), and practical usage.
+See the <a href="glossary.html">glossary</a> or start at <a href="01-first-principles.md">Lesson 1</a>.</p>
 
 <div class="lesson">
-<h2>Guided build: assemble <i>sikufanya</i> ("I did not do")</h2>
-<p>Press the slots in template order. Each step appends real morphology.</p>
+<h2>1. Guided verb build: assemble <i>watakaojibu</i> ("those who will answer")</h2>
+<p>Notice how adding a relative infix (<code>-o-</code>) shifts future <code>-ta-</code> to <code>-taka-</code> inside Slot 2b:</p>
 <div id="steps"></div>
 <p id="assembled"></p>
 <button class="noprint" onclick="resetBuild()">Reset</button>
 </div>
 
 <div class="lesson">
-<h2>Check yourself (3 questions)</h2>
+<h2>2. Interactive v0.2.5 Clause &amp; Concord Composer</h2>
+<p>Pick noun class, owner, locative marker, and hospital setting to see deterministic agreement:</p>
+<p class="noprint">
+<label>Subject/Noun <select id="cmp-noun" onchange="updateCompose()">
+  <option value="mtoto|C1">mtoto (child, Class 1)</option>
+  <option value="watoto|C2">watoto (children, Class 2)</option>
+  <option value="kitabu|C7">kitabu (book, Class 7)</option>
+  <option value="vitabu|C8">vitabu (books, Class 8)</option>
+</select></label>
+<label>Owner <select id="cmp-owner" onchange="updateCompose()">
+  <option value="1SG">1SG (-angu, my)</option>
+  <option value="1PL">1PL (-etu, our)</option>
+  <option value="3PL">3PL (-ao, their)</option>
+</select></label>
+<label>Adjective <select id="cmp-adj" onchange="updateCompose()">
+  <option value="dogo">dogo (small)</option>
+  <option value="zuri">zuri (good/nice)</option>
+</select></label>
+<label><input type="checkbox" id="cmp-neg" onchange="updateCompose()"> Negated locative copula</label>
+</p>
+<p class="big-out" id="cmp-out"></p>
+<p style="font-size:.9em;color:#475569;" id="cmp-meta"></p>
+</div>
+
+<div class="lesson">
+<h2>3. Check yourself (6 questions)</h2>
 <div id="quiz"></div>
-<p id="score"></p>
+<p id="score" style="font-weight:bold;"></p>
 </div>
 
 <div class="lesson">
 <h2>Next steps</h2>
 <ul>
-<li><a href="verbs.html">Verb explorer</a>: pick slots, see real engine output (147 forms).</li>
+<li><a href="verbs.html">v0.2.5 Verb, Relative, Conditional &amp; Concord Explorer</a></li>
 <li><a href="glossary.html">Glossary</a>: hover definitions for every course term.</li>
-<li><a href="01-first-principles.md">Lesson 1</a> through <a href="05-use-it.md">Lesson 5</a>, plus <a href="refs.md">references</a>.</li>
+<li>Lessons: <a href="01-first-principles.md">1 First Principles</a>, <a href="02-forward-anchor.md">2 Forward Anchor</a>, <a href="03-backpass-render.md">3 Back-Pass Render</a>, <a href="04-proof.md">4 Proof</a>, <a href="05-use-it.md">5 Use It</a>, <a href="06-concord-and-composition.md">6 Concords &amp; Clauses</a>.</li>
 </ul>
 </div>
 
@@ -57,12 +84,12 @@ New words? See the <a href="glossary.html">glossary</a> (hover any term).</p>
   var steps=document.getElementById("steps");
   var out=document.getElementById("assembled");
   var order=[
-    {slot:"NEG+SUBJ", add:"si", note:"fused negative 1SG concord"},
-    {slot:"TENSE", add:"ku", note:"PAST allomorph under negation (li becomes ku)"},
-    {slot:"ROOT", add:"fanya", note:"verb root, to do"},
-    {slot:"MOOD", add:"a", note:"indicative final vowel"}
+    {slot:"SUBJ", add:"wa", note:"3PL subject concord"},
+    {slot:"TENSE+REL_BASE", add:"taka", note:"FUT -ta- becomes -taka- before a relative marker"},
+    {slot:"REL", add:"o", note:"C2 (plural human) relative infix"},
+    {slot:"ROOT", add:"jibu", note:"borrowed verb stem, to answer (final -u stays fixed)"}
   ];
-  var i=0, built="";
+  var built="";
   steps.innerHTML="";
   order.forEach(function(st){
     var b=document.createElement("button");
@@ -73,17 +100,38 @@ New words? See the <a href="glossary.html">glossary</a> (hover any term).</p>
       var row=document.createElement("div");
       row.innerHTML="<span class='slot'>"+st.slot+"</span> "+st.add+" <i>"+st.note+"</i> &rarr; <b>"+built+"</b>";
       steps.appendChild(row);
-      out.textContent="sikufanya".slice(0,built.length)+"...";
-      if(built==="sikufanya")out.textContent="sikufanya (I did not do)";
+      out.textContent=built+(built==="watakaojibu"?"  (watakaojibu = those who will answer)":"...");
     };
     steps.appendChild(b);
   });
 })();
 function resetBuild(){location.reload();}
+
+var CONCORD={
+  C1:{poss:"w",adj:"m",loc:"yu",neg:"hayu"},
+  C2:{poss:"w",adj:"wa",loc:"wa",neg:"hawa"},
+  C7:{poss:"ch",adj:"ki",loc:"ki",neg:"haki"},
+  C8:{poss:"vy",adj:"vi",loc:"vi",neg:"havi"}
+};
+var OWNERS={"1SG":"angu","1PL":"etu","3PL":"ao"};
+function updateCompose(){
+  var parts=document.getElementById("cmp-noun").value.split("|");
+  var noun=parts[0], cls=parts[1], own=document.getElementById("cmp-owner").value,
+      adj=document.getElementById("cmp-adj").value, neg=document.getElementById("cmp-neg").checked;
+  var c=CONCORD[cls];
+  var res=noun+" "+c.poss+OWNERS[own]+" "+c.adj+adj+" "+(neg?c.neg:c.loc)+"ko hospitalini";
+  document.getElementById("cmp-out").textContent=res;
+  document.getElementById("cmp-meta").textContent="Class "+cls+" | possessive: "+c.poss+OWNERS[own]+" | adjective: "+c.adj+adj+" | locative: "+(neg?c.neg:c.loc)+"ko + hospitalini";
+}
+updateCompose();
+
 var quiz=[
   {q:"What does the anchor step produce?",opts:["English prose","Lemma, part of speech, gloss, root","Swahili verbs"],a:1},
-  {q:"Where does Swahili morphology live in the back-pass engine?",opts:["In Rust code","In a TOML data file","In the language model"],a:1},
-  {q:"What happens under negation to past-tense li?",opts:["Stays li","Becomes ku","Disappears"],a:1}
+  {q:"Where does Swahili morphology live in Sema?",opts:["In Rust code","In sw.toml TOML data tables","Inside a neural network"],a:1},
+  {q:"What happens to future -ta- before a relative marker (e.g. -o-)?",opts:["Disappears","Shifts to -taka- (watakaojibu)","Becomes -li-"],a:1},
+  {q:"What subject prefix goes before negative conditional -sipo- ('if I do not')?",opts:["Fused si- (*sisiposoma)","Positive subject prefix ni- (nisiposoma)","No prefix"],a:1},
+  {q:"What locative suffix turns hospitali into 'at the hospital' in ConcordEngine?",opts:["-ni (hospitalini)","-wa (hospitaliwa)","-sha (hospitalisha)"],a:0},
+  {q:"What leak rate does FactGuardian v0.2.5 achieve on all 24 adversarial boundary cases?",opts:["54.2% (13/24 leaked)","12.5% (3/24 leaked)","0.0% (0/24 leaked)"],a:2}
 ];
 (function(){
   var box=document.getElementById("quiz");var score=0,answered=0;
@@ -95,9 +143,8 @@ var quiz=[
         if(b.disabled)return;
         Array.prototype.forEach.call(d.getElementsByTagName("button"),function(x){x.disabled=true;});
         answered++;
-        var ok=(i===item.a);
-        if(ok){score++;b.className="ok";}else{b.className="bad";}
-        document.getElementById("score").textContent="Score: "+score+"/"+quiz.length;
+        if(i===item.a){score++;b.className="ok";}else{b.className="bad";}
+        document.getElementById("score").textContent="Score: "+score+"/"+quiz.length+" ("+answered+" answered)";
       };
       d.appendChild(b);
     });

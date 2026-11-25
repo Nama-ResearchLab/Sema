@@ -8,11 +8,14 @@
 //!   ./target/release/sema-gui --mcp
 
 use sema::backpass::{self, Engine};
+use sema::compose::Composer;
+use sema::concord::ConcordEngine;
+use sema::guardian::{FactGuardian, RestoreMode};
 use sema::lexicon::Lexicon;
-use sema::linearizer;
+use sema::morph::Decomposer;
 use sema::racer::Racer;
 use sema::rolodex::Intent;
-use sema::terms::{Mode, TermDict};
+use sema::synth::{Engine as SynthEngine, Intent as SynthIntent};
 use serde_json::{json, Value};
 use std::collections::HashMap;
 use std::io::{BufRead, BufReader, Read, Write};
@@ -25,7 +28,11 @@ const APP_HTML: &str = include_str!("../gui/app.html");
 struct StudioState {
     lexicon: Lexicon,
     engine: Engine,
-    term_dict: TermDict,
+    v25_engine: SynthEngine,
+    concord: ConcordEngine,
+    composer: Composer,
+    decomposer: Decomposer,
+    guardian: FactGuardian,
 }
 
 fn main() {
@@ -53,8 +60,8 @@ fn main() {
         .unwrap_or("data/swahili.distilled.jsonl");
 
     println!("========================================================================");
-    println!("  Sema Studio (v0.2.0) - Offline Swahili Language Studio");
-    println!("  Claymorphic Graph Relations Studio & Native Double-Pass Pipeline");
+    println!("  Sema Studio (v{}) - Offline Swahili Language Studio", sema::VERSION);
+    println!("  v2.5 Deterministic Engine: Verbs, Relatives, Concord, Composer, Guardian");
     println!("========================================================================");
     print!("  [•] Loading distilled lexicon ({})... ", data_path);
     std::io::stdout().flush().unwrap();
@@ -71,21 +78,24 @@ fn main() {
         }
     };
 
-    // Load term dictionaries
-    let mut term_dict = TermDict::new();
-    for p in ["data/terms.clinical.tsv", "data/terms.core.tsv"] {
-        if let Ok(txt) = std::fs::read_to_string(p) {
-            term_dict.merge(&TermDict::from_tsv(&txt));
-        }
-    }
-    if let Ok(gen_txt) = std::fs::read_to_string("data/terms.general.tsv") {
-        term_dict.merge(&TermDict::from_tsv_auto(&gen_txt));
+    let guardian = FactGuardian::layered(&[
+        include_str!("../../data/terms.clinical.tsv"),
+        include_str!("../../data/terms.core.tsv"),
+    ]);
+    let mut decomposer = Decomposer::swahili();
+    let dp = std::path::Path::new(data_path);
+    if dp.is_file() {
+        let _ = decomposer.load_distilled_lexicon(dp);
     }
 
     let state = Arc::new(StudioState {
         lexicon,
         engine: backpass::engine(),
-        term_dict,
+        v25_engine: SynthEngine::swahili(),
+        concord: ConcordEngine::swahili(),
+        composer: Composer::swahili(),
+        decomposer,
+        guardian,
     });
 
     let addr = format!("127.0.0.1:{}", port);
@@ -177,37 +187,38 @@ fn handle_http_client(mut stream: TcpStream, state: &StudioState) {
             send_response(&mut stream, 200, "text/html; charset=utf-8", APP_HTML.as_bytes());
         }
         ("GET", "/api/health") => {
-            let res = json!({ "status": "ok", "version": "0.2.0", "offline": true });
+            let res = json!({ "status": "ok", "version": sema::VERSION, "offline": true });
             send_json(&mut stream, 200, &res);
         }
         ("POST", "/api/morph") => {
             let payload: Value = serde_json::from_slice(&body).unwrap_or(json!({}));
-            let word = payload["word"].as_str().unwrap_or("hawatakujibu");
-            let m = linearizer::decompose_verb(word);
-            let intent = backpass::intent_from_parts(
-                &state.engine,
-                m.subject.as_deref(),
-                m.tense.as_deref(),
-                m.negation.is_some(),
-                m.object.as_deref(),
-                &m.root,
-            );
-            let out = state.engine.synthesize(&intent);
-            let res = json!({
-                "word": word,
-                "surface": out.surface,
-                "subject": m.subject,
-                "tense": m.tense,
-                "negation": m.negation.is_some(),
-                "object": m.object,
-                "root": m.root,
-                "derivations": intent.derivations,
-                "mood": intent.mood,
-                "subject_class": out.subject_class,
-                "object_class": out.object_class,
-                "slots": out.slots
-            });
-            send_json(&mut stream, 200, &res);
+            let word = payload["word"].as_str().unwrap_or("waliowaua");
+            if let Some(d) = state.decomposer.decompose(word) {
+                let res = serde_json::to_value(d).unwrap_or_else(|_| json!({ "word": word }));
+                send_json(&mut stream, 200, &res);
+            } else {
+                let m = sema::linearizer::decompose_verb(word);
+                let intent = backpass::intent_from_parts(
+                    &state.engine,
+                    m.subject.as_deref(),
+                    m.tense.as_deref(),
+                    m.negation.is_some(),
+                    m.object.as_deref(),
+                    &m.root,
+                );
+                let out = state.engine.synthesize(&intent);
+                let res = json!({
+                    "word": word,
+                    "surface": out.surface,
+                    "subject": m.subject,
+                    "tense": m.tense,
+                    "negation": m.negation.is_some(),
+                    "object": m.object,
+                    "root": m.root,
+                    "slots": out.slots
+                });
+                send_json(&mut stream, 200, &res);
+            }
         }
         ("POST", "/api/anchor") => {
             let payload: Value = serde_json::from_slice(&body).unwrap_or(json!({}));
@@ -229,8 +240,9 @@ fn handle_http_client(mut stream: TcpStream, state: &StudioState) {
             send_json(&mut stream, 200, &res);
         }
         ("POST", "/api/synth") => {
-            let intent: Intent = serde_json::from_slice(&body).unwrap_or_else(|_| Intent::simple("1SG", "PRES", "soma"));
-            let out = state.engine.synthesize(&intent);
+            let intent: SynthIntent = serde_json::from_slice(&body)
+                .unwrap_or_else(|_| SynthIntent::simple("1SG", "PRES", "soma"));
+            let out = state.v25_engine.synthesize(&intent);
             let res = json!({
                 "surface": out.surface,
                 "slots": out.slots,
@@ -239,23 +251,51 @@ fn handle_http_client(mut stream: TcpStream, state: &StudioState) {
             });
             send_json(&mut stream, 200, &res);
         }
+        ("POST", "/api/concord") => {
+            let payload: Value = serde_json::from_slice(&body).unwrap_or(json!({}));
+            let kind = payload["kind"].as_str().unwrap_or("adj");
+            let cls = payload["class"].as_str().unwrap_or("KI");
+            let neg = payload["neg"].as_bool().unwrap_or(false);
+            let surface = match kind {
+                "copula" => Ok(state.concord.copula(neg)),
+                "emph_copula" => Ok(state.concord.emphatic_copula(neg)),
+                "loc_cop" => state.concord.locative_copula(cls, payload["loc"].as_str().unwrap_or("ko"), neg),
+                "have" => state.concord.have(cls, neg),
+                "assoc" => state.concord.associative(cls),
+                "poss" => state.concord.possessive(cls, payload["owner"].as_str().unwrap_or("1SG")),
+                "dem" => state.concord.demonstrative(cls, payload["dist"].as_str().unwrap_or("prox")),
+                "adj" => state.concord.adjective(cls, payload["stem"].as_str().unwrap_or("dogo")),
+                "num" => state.concord.numeral(cls, payload["n"].as_u64().unwrap_or(1) as u32),
+                "loc" => Ok(state.concord.locative_noun(payload["noun"].as_str().unwrap_or("hospitali"))),
+                other => Err(format!("unknown concord kind: {other}")),
+            };
+            match surface {
+                Ok(s) => send_json(&mut stream, 200, &json!({ "ok": true, "kind": kind, "surface": s })),
+                Err(e) => send_json(&mut stream, 200, &json!({ "ok": false, "error": e })),
+            }
+        }
+        ("POST", "/api/compose") => {
+            let payload: Value = serde_json::from_slice(&body).unwrap_or(json!({}));
+            let tpl = payload["template"].as_str().unwrap_or("{t:child} {poss:@child|1SG} {loc_cop:@child|ko} {loc:@hospital}");
+            match state.composer.render(tpl) {
+                Ok(out) => send_json(&mut stream, 200, &json!({ "ok": true, "result": out })),
+                Err(e) => send_json(&mut stream, 200, &json!({ "ok": false, "error": e })),
+            }
+        }
         ("POST", "/api/terms/protect") => {
             let payload: Value = serde_json::from_slice(&body).unwrap_or(json!({}));
             let text = payload["text"].as_str().unwrap_or("");
-            let p = state.term_dict.protect_with(text, false);
-            let slots: Vec<Value> = p.slots.iter().map(|s| {
-                json!({ "id": s.id, "en": s.en, "sw": s.sw, "class": s.class, "kept": s.kept })
-            }).collect();
-            let res = json!({ "protected": p.text, "slots": slots });
+            let p = state.guardian.protect(text);
+            let res = json!({ "protected": p.text, "slots": p.slots });
             send_json(&mut stream, 200, &res);
         }
         ("POST", "/api/terms/restore") => {
             let payload: Value = serde_json::from_slice(&body).unwrap_or(json!({}));
             let model_output = payload["model_output"].as_str().unwrap_or("");
             let protected_text = payload["protected"].as_str().unwrap_or("");
-            let p = state.term_dict.protect_with(protected_text, false);
-            let r = state.term_dict.restore(model_output, &p, Mode::Swahili);
-            let res = json!({ "text": r.text, "missing": r.missing, "unknown": r.unknown });
+            let p = state.guardian.protect(protected_text);
+            let r = state.guardian.restore(model_output, &p, RestoreMode::Swahili);
+            let res = json!({ "text": r.text, "missing": r.missing, "unknown": r.unknown, "integrity_ok": r.integrity_ok });
             send_json(&mut stream, 200, &res);
         }
         ("GET", "/api/lexicon/search") => {
@@ -311,7 +351,7 @@ fn handle_http_client(mut stream: TcpStream, state: &StudioState) {
             let lin = racer.anchor_sentence(prompt);
             let skeleton = lin.to_telegram();
 
-            let p = state.term_dict.protect_with("Give the child two tablets of paracetamol 250 mg twice daily. Do not give aspirin.", false);
+            let p = state.guardian.protect("Give the child two tablets of paracetamol 250 mg twice daily. Do not give aspirin.");
             let reasoning = "The patient exhibits fever and lack of appetite. Hydration and antipyretics (paracetamol 250 mg) are recommended. Aspirin is strictly contraindicated in pediatric fever.";
             let restored = "Mpe mtoto vidonge viwili vya paracetamol 250 mg mara mbili kwa siku. Usimpe aspirin.";
 
@@ -335,7 +375,7 @@ fn handle_http_client(mut stream: TcpStream, state: &StudioState) {
                     "id": id,
                     "result": {
                         "protocolVersion": "2024-11-05",
-                        "serverInfo": { "name": "sema-studio", "version": "0.2.0" },
+                        "serverInfo": { "name": "sema-studio", "version": sema::VERSION },
                         "capabilities": { "tools": {} }
                     }
                 }),
@@ -449,7 +489,7 @@ fn run_mcp_stdio() {
                 "id": id,
                 "result": {
                     "protocolVersion": "2024-11-05",
-                    "serverInfo": { "name": "sema-mcp", "version": "0.2.0" },
+                    "serverInfo": { "name": "sema-mcp", "version": sema::VERSION },
                     "capabilities": { "tools": {} }
                 }
             }),
